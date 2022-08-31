@@ -25,3 +25,7 @@ git status
 git remote add silk-road-admin git@gitee.com:huasanli/silk-road-admin.git
 git remote -v
 
+git add .
+git commit -m "版本更新标注"
+git push silk-road-admin master
+git status

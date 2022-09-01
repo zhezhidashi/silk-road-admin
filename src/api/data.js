@@ -111,12 +111,12 @@ export const getMenu = (params, callback) => {
                             label: '图片管理',
                             icon: 'picture',
                         },
-                        {
-                            path: '/user',
-                            name: 'user',
-                            label: '用户管理',
-                            icon: 'user',
-                        },
+                        // {
+                        //     path: '/user',
+                        //     name: 'user',
+                        //     label: '用户管理',
+                        //     icon: 'user',
+                        // },
                         // {
                         //     path: '/Content',
                         //     name: 'Content',
@@ -155,21 +155,21 @@ export const getMenu = (params, callback) => {
                                     name: 'ActivityDetails',
                                     label: '活动详情',
                                 },
-                                {
-                                    path: '/AddActivity',
-                                    name: 'AddActivity',
-                                    label: '创建活动',
-                                },
-                                {
-                                    path: '/UpdateActivity',
-                                    name: 'UpdateActivity',
-                                    label: '修改活动',
-                                },
-                                {
-                                    path: '/DeleteActivity',
-                                    name: 'DeleteActivity',
-                                    label: '删除活动',
-                                },
+                                // {
+                                //     path: '/AddActivity',
+                                //     name: 'AddActivity',
+                                //     label: '创建活动',
+                                // },
+                                // {
+                                //     path: '/UpdateActivity',
+                                //     name: 'UpdateActivity',
+                                //     label: '修改活动',
+                                // },
+                                // {
+                                //     path: '/DeleteActivity',
+                                //     name: 'DeleteActivity',
+                                //     label: '删除活动',
+                                // },
                             ],
                         },
                         {
@@ -182,21 +182,21 @@ export const getMenu = (params, callback) => {
                                     name: 'ExhibitionDetails',
                                     label: '展览详情',
                                 },
-                                {
-                                    path: '/AddExhibition',
-                                    name: 'AddExhibition',
-                                    label: '创建展览',
-                                },
-                                {
-                                    path: '/UpdateExhibition',
-                                    name: 'UpdateExhibition',
-                                    label: '修改展览',
-                                },
-                                {
-                                    path: '/DeleteExhibition',
-                                    name: 'DeleteExhibition',
-                                    label: '删除展览',
-                                },
+                                // {
+                                //     path: '/AddExhibition',
+                                //     name: 'AddExhibition',
+                                //     label: '创建展览',
+                                // },
+                                // {
+                                //     path: '/UpdateExhibition',
+                                //     name: 'UpdateExhibition',
+                                //     label: '修改展览',
+                                // },
+                                // {
+                                //     path: '/DeleteExhibition',
+                                //     name: 'DeleteExhibition',
+                                //     label: '删除展览',
+                                // },
                             ],
                         },
                         {
@@ -209,21 +209,21 @@ export const getMenu = (params, callback) => {
                                     name: 'AlbumDetails',
                                     label: '相册详情',
                                 },
-                                {
-                                    path: '/AddAlbum',
-                                    name: 'AddAlbum',
-                                    label: '创建相册',
-                                },
-                                {
-                                    path: '/UpdateAlbum',
-                                    name: 'UpdateAlbum',
-                                    label: '修改相册',
-                                },
-                                {
-                                    path: '/DeleteAlbum',
-                                    name: 'DeleteAlbum',
-                                    label: '删除相册',
-                                },
+                                // {
+                                //     path: '/AddAlbum',
+                                //     name: 'AddAlbum',
+                                //     label: '创建相册',
+                                // },
+                                // {
+                                //     path: '/UpdateAlbum',
+                                //     name: 'UpdateAlbum',
+                                //     label: '修改相册',
+                                // },
+                                // {
+                                //     path: '/DeleteAlbum',
+                                //     name: 'DeleteAlbum',
+                                //     label: '删除相册',
+                                // },
                             ],
                         },
                         {
@@ -236,21 +236,21 @@ export const getMenu = (params, callback) => {
                                     name: 'PicDetails',
                                     label: '图片详情',
                                 },
-                                {
-                                    path: '/AddPic',
-                                    name: 'AddPic',
-                                    label: '添加图片',
-                                },
-                                {
-                                    path: '/UpdatePic',
-                                    name: 'UpdatePic',
-                                    label: '修改图片',
-                                },
-                                {
-                                    path: '/DeletePic',
-                                    name: 'DeletePic',
-                                    label: '删除图片',
-                                },
+                                // {
+                                //     path: '/AddPic',
+                                //     name: 'AddPic',
+                                //     label: '添加图片',
+                                // },
+                                // {
+                                //     path: '/UpdatePic',
+                                //     name: 'UpdatePic',
+                                //     label: '修改图片',
+                                // },
+                                // {
+                                //     path: '/DeletePic',
+                                //     name: 'DeletePic',
+                                //     label: '删除图片',
+                                // },
                             ],
                         },
                     ],

@@ -133,6 +133,7 @@ export default {
 				location: "地点",
 				intro: "简介",
 				organization: "组织",
+				tag_list: "关键词",
 				begin_year: "开始年份",
 				end_year: "结束年份",
 				file_size: "文件大小",
@@ -251,6 +252,12 @@ export default {
 					name: "添加组织",
 					ButtonKey: "organization",
 					ButtonName: "组织",
+				},
+				{
+					id: 5,
+					name: "添加关键词",
+					ButtonKey: "tag_list",
+					ButtonName: "关键词",
 				},
 			],
 
@@ -423,6 +430,18 @@ export default {
 							});
 						}
 					}
+
+					// 还有一个 tag_list 列表
+					for (let item of res.data.tag_list) {
+						inner_this.TableData2.push({
+							// 种类，语言，简介
+							type: 'tag_list',
+							option: 'ZH',
+							intro: item,
+							TypeName: inner_this.TableDataMap['tag_list'],
+							OptionName: inner_this.TableDataMap['ZH'],
+						});
+					}
 					inner_this.config.total = inner_this.TableData2.length;
 				}
 			);
@@ -450,6 +469,7 @@ export default {
 					});
 				}
 			} else if (this.OperateType === "edit2") {
+				// 修改二层字典的数据
 				let TableCopy = this.TableData2;
 				this.TableData2 = [];
 				for (let item of TableCopy) {
@@ -467,29 +487,20 @@ export default {
 				}
 				this.config.total = this.TableData2.length;
 			} else if (this.OperateType === "edit3") {
-
-				let TableCopy = this.TableData2;
-                let NowType = this.ButtonCopy.ButtonKey;
-				this.TableData2 = [];
-				for (let item of TableCopy) {
-					if (item.type === NowType) {
-						this.TableData2.push({
-							// 种类，语言，简介
-							type: item.type,
-							option: this.AddTableData2.option,
-							intro: this.AddTableData2.intro,
-							TypeName: item.TypeName,
-							OptionName: this.TableDataMap[this.AddTableData2.option],
-						});
-						NowType = null;
-					}
-					this.TableData2.push(item);
-				}
+				// 新增二层字典的数据
+				let NowType = this.ButtonCopy.ButtonKey;
+				this.TableData2.push({
+					// 种类，语言，简介
+					type: NowType,
+					option: this.AddTableData2.option,
+					intro: this.AddTableData2.intro,
+					TypeName: this.TableDataMap[NowType],
+					OptionName: this.TableDataMap[this.AddTableData2.option],
+				});
 				this.config.total = this.TableData2.length;
 
-                console.log('edit3', this.AddTableData2);
+				// console.log("edit3", this.TableData2);
 			}
-            
 		},
 		UpdateDataUp() {
 			this.OperateType = "edit1";
@@ -549,9 +560,12 @@ export default {
 			DataForm["location"] = {};
 			DataForm["intro"] = {};
 			DataForm["organization"] = {};
+			DataForm["tag_list"] = [];
 
 			for (let item of this.TableData2) {
-				DataForm[item.type][item.option] = item.intro;
+				if (item.type === "tag_list") {
+					DataForm[item.type].push(item.intro);
+				} else DataForm[item.type][item.option] = item.intro;
 			}
 
 			console.log("DataForm", DataForm);

@@ -48,6 +48,7 @@
 			@click="submitForm('ruleForm')"
 			>提交档案</el-button
 		>
+        <div>新增档案的编号是：{{ArchiveID}}</div>
 	</div>
 </template>
 
@@ -63,6 +64,8 @@ export default {
 	data() {
 		return {
 			isShow: false,
+            // 新增的档案的主键
+            ArchiveID: '',
 			// 按钮列表
 			ButtonList: [
 				{
@@ -95,6 +98,12 @@ export default {
 					ButtonKey: "organization",
 					ButtonName: "组织",
 				},
+                {
+                    id: 5,
+                    name: "添加关键词",
+                    ButtonKey: "tag_list",
+                    ButtonName: "添加关键词"
+                },
 			],
 			// 记录当前按下按钮的编号
 			ButtonID: 0,
@@ -155,13 +164,14 @@ export default {
 				intro: "",
 			},
 
-			// 标题、语言、地点、简介、组织对应的 Data
+			// 标题、语言、地点、简介、组织、关键词对应的 Data
 			OptionData: {
 				title: {},
 				language: {},
 				location: {},
 				intro: {},
 				organization: {},
+                tag_list: {},
 			},
 
 			// 展示 Table 相关
@@ -173,6 +183,7 @@ export default {
 				location: "地点",
 				intro: "简介",
 				organization: "组织",
+                tag_list: "关键词",
 				AR: "阿拉伯文",
 				BE: "白俄罗斯文",
 				BG: "保加利亚文",
@@ -245,12 +256,12 @@ export default {
 				},
 			],
 			OtherInfo: {
-				begin_year: null,
-				end_year: null,
-				file_size: null,
-				pic_url: null,
-				from_url: null,
-				page_count: null,
+				begin_year: '',
+				end_year: '',
+				file_size: '',
+				pic_url: '',
+				from_url: '',
+				page_count: '',
 			},
 		};
 	},
@@ -300,17 +311,24 @@ export default {
 			DataForm["location"] = {};
 			DataForm["intro"] = {};
 			DataForm["organization"] = {};
+            DataForm['tag_list'] = [];
 
 			for (let item of this.tableData) {
-				DataForm[item.type][item.option] = item.intro;
+                if(item.type === 'tag_list'){
+                    DataForm['tag_list'].push(item.intro);
+                }
+				else DataForm[item.type][item.option] = item.intro;
 			}
 
 			for (let item in this.OtherInfo) {
 				DataForm[item.toString()] = this.OtherInfo[item];
 			}
 
-			console.log("DataForm", DataForm);
-			postForm("/archive/add", DataForm, function (res) {});
+            let inner_this = this;
+			// console.log("DataForm", DataForm);
+			postForm("/archive/add", DataForm, function (res) {
+                inner_this.ArchiveID = res.data.main_id;
+            });
 		},
 	},
 };

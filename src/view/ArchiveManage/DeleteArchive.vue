@@ -57,6 +57,7 @@ export default {
 				location: "地点",
 				intro: "简介",
 				organization: "组织",
+                tag_list: '关键词',
 				begin_year: "开始年份",
 				end_year: "结束年份",
 				file_size: "文件大小",
@@ -155,6 +156,18 @@ export default {
 								OptionName: inner_this.TableDataMap[item],
 							});
 						}
+					}
+
+                    // 还有一个 tag_list 列表
+                    for (let item of res.data.tag_list) {
+						inner_this.TableData2.push({
+							// 种类，语言，简介
+							type: 'tag_list',
+							option: 'ZH',
+							intro: item,
+							TypeName: inner_this.TableDataMap['tag_list'],
+							OptionName: inner_this.TableDataMap['ZH'],
+						});
 					}
 				}
 			);

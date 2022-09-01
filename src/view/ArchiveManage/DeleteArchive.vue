@@ -163,10 +163,10 @@ export default {
 						inner_this.TableData2.push({
 							// 种类，语言，简介
 							type: 'tag_list',
-							option: 'ZH',
-							intro: item,
+							option: item.slice(0, 2),
+							intro: item.slice(3),
 							TypeName: inner_this.TableDataMap['tag_list'],
-							OptionName: inner_this.TableDataMap['ZH'],
+							OptionName: inner_this.TableDataMap[item.slice(0, 2)],
 						});
 					}
 				}

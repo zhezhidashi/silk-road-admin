@@ -20,7 +20,7 @@
 		</el-form>
 
 		<el-dialog
-			:title="operateType === 'add' ? '创建活动' : '修改活动'"
+			:title="operateType === 'add' ? '创建' : '修改'"
 			:visible.sync="isShow"
 		>
 			<common-form
@@ -139,6 +139,7 @@ export default {
 					"/exhibition/add-pic-to-album",
 					this.operateForm,
 					function (res) {
+                        console.log('添加图片的response', res)
 						inner_this.isShow = false;
 						inner_this.getList();
 					}

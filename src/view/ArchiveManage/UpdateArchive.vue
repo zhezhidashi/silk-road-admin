@@ -435,11 +435,12 @@ export default {
 					for (let item of res.data.tag_list) {
 						inner_this.TableData2.push({
 							// 种类，语言，简介
-							type: 'tag_list',
-							option: 'ZH',
-							intro: item,
-							TypeName: inner_this.TableDataMap['tag_list'],
-							OptionName: inner_this.TableDataMap['ZH'],
+							type: "tag_list",
+							option: item.slice(0, 2),
+							intro: item.slice(3),
+							TypeName: inner_this.TableDataMap["tag_list"],
+							OptionName:
+								inner_this.TableDataMap[item.slice(0, 2)],
 						});
 					}
 					inner_this.config.total = inner_this.TableData2.length;
@@ -564,7 +565,7 @@ export default {
 
 			for (let item of this.TableData2) {
 				if (item.type === "tag_list") {
-					DataForm[item.type].push(item.intro);
+					DataForm[item.type].push(item.option + ":" + item.intro);
 				} else DataForm[item.type][item.option] = item.intro;
 			}
 

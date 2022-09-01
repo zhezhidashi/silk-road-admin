@@ -315,7 +315,7 @@ export default {
 
 			for (let item of this.tableData) {
                 if(item.type === 'tag_list'){
-                    DataForm['tag_list'].push(item.intro);
+                    DataForm['tag_list'].push(item.option + ":" + item.intro);
                 }
 				else DataForm[item.type][item.option] = item.intro;
 			}

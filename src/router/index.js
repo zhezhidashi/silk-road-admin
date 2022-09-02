@@ -9,6 +9,11 @@ VueRouter.prototype.push = function push(to) {
     return VueRouterPush.call(this, to).catch(err => err)
 }
 
+const VueRouterGo = VueRouter.prototype.go
+VueRouter.prototype.go = function go(to){
+    return VueRouterGo.call(this, to).catch(err => err)
+}
+
 //replace
 const VueRouterReplace = VueRouter.prototype.replace
 VueRouter.prototype.replace = function replace(to) {
@@ -136,6 +141,11 @@ const routes = [
                 path: '/DeleteArchive',
                 name: 'DeleteArchive',
                 component: () => import('../view/ArchiveManage/DeleteArchive.vue')
+            },
+            {
+                path: '/ArchiveList',
+                name: 'ArchiveList',
+                component: () => import('../view/ArchiveManage/ArchiveList.vue')
             },
         ]
 

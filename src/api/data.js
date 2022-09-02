@@ -129,6 +129,11 @@ export const getMenu = (params, callback) => {
                             icon: 'folder-opened',
                             children: [
                                 {
+                                    path: '/ArchiveList',
+                                    name: 'ArchiveList',
+                                    label: '档案列表',
+                                },
+                                {
                                     path: '/AddArchive',
                                     name: 'AddArchive',
                                     label: '添加档案',

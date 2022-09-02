@@ -377,6 +377,11 @@ export default {
 			ButtonCopy: null,
 		};
 	},
+    created(){
+        this.ArchiveID = this.$route.query.main_id;
+        // 判断是否是从 “档案列表” 页面跳转过来的
+        if(this.ArchiveID != undefined) this.GetList();
+    },
 	methods: {
 		//查询档案
 		GetList() {

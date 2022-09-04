@@ -54,6 +54,9 @@ Vue.prototype.$confirm = MessageBox.confirm
 Vue.prototype.$message = Message
 
 router.beforeEach((to, from, next) => {
+    if(to.meta.title){
+		document.title=to.meta.title;
+	}
     store.commit('getToken')
     const token = store.state.user.token
     if (!token && to.name !== 'login') {

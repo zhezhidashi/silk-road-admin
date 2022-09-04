@@ -43,6 +43,7 @@
 			:tableLabel="tableLabel"
 			:config="config"
 			@changePage="getList()"
+            @details="SeeDetails"
 			@edit="UpdatePic"
 			@del="DeletePic"
 		></common-table>
@@ -155,6 +156,23 @@ export default {
 				);
 			}
 		},
+        SeeDetails(row){
+            let item = {
+				path: "/UpdatePic",
+				name: "UpdatePic",
+				label: "更新相册-图片",
+			};
+
+			// this.$router.push({
+			// 	path: item.path,
+			// 	query: {
+			// 		exhibition_id: row.exhibition_id,
+            //         album_id: row.album_id,
+			// 	},
+			// });
+			console.log(item);
+			// this.$store.commit("selectMenu", item);
+        },
 		AddPic() {
 			this.isShow = true;
 			this.operateType = "add";
@@ -222,6 +240,12 @@ export default {
 			);
 		},
 	},
+    created(){
+        this.ExhibitionID = this.$route.query.exhibition_id;
+        this.AlbumID = this.$route.query.album_id;
+        // 判断是否是从 “相册详情” 页面跳转过来的
+        if(this.ExhibitionID != undefined) this.getList();
+    }
 };
 </script>
 

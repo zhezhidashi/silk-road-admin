@@ -239,18 +239,18 @@ export const getMenu = (params, callback) => {
                                 {
                                     path: '/PicDetails',
                                     name: 'PicDetails',
-                                    label: '图片详情',
+                                    label: '相册-图片详情',
                                 },
                                 // {
                                 //     path: '/AddPic',
                                 //     name: 'AddPic',
                                 //     label: '添加图片',
                                 // },
-                                // {
-                                //     path: '/UpdatePic',
-                                //     name: 'UpdatePic',
-                                //     label: '修改图片',
-                                // },
+                                {
+                                    path: '/UpdatePic',
+                                    name: 'UpdatePic',
+                                    label: '更新图片',
+                                },
                                 // {
                                 //     path: '/DeletePic',
                                 //     name: 'DeletePic',

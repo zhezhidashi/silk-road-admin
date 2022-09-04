@@ -456,7 +456,7 @@ export default {
 		confirm() {
 			this.isShow = false;
 			if (this.OperateType === "edit1") {
-				// 只有一层字典的有6个数据
+				// edit1 是修改只有一层字典的有6个数据
 				this.TableData1 = [];
 				let Temp = [
 					"begin_year",
@@ -475,7 +475,7 @@ export default {
 					});
 				}
 			} else if (this.OperateType === "edit2") {
-				// 修改二层字典的数据
+				// edit2 是修改二层字典的数据
 				let TableCopy = this.TableData2;
 				this.TableData2 = [];
 				for (let item of TableCopy) {
@@ -493,8 +493,16 @@ export default {
 				}
 				this.config.total = this.TableData2.length;
 			} else if (this.OperateType === "edit3") {
-				// 新增二层字典的数据
+				// edit3 是新增二层字典的数据
 				let NowType = this.ButtonCopy.ButtonKey;
+                let TableData2Copy = this.TableData2;
+                this.TableData2 = [];                
+
+                for(let item of TableData2Copy){
+                    if(NowType === item.type && this.AddTableData2.option === item.option) continue;
+                    this.TableData2.push(item);
+                }
+
 				this.TableData2.push({
 					// 种类，语言，简介
 					type: NowType,

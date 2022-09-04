@@ -38,6 +38,7 @@
 			:tableLabel="tableLabel"
 			:config="config"
 			@changePage="getList()"
+            @details="SeeDetails"
 			@edit="UpdateAlbum"
 			@del="DeleteAlbum"
 		></common-table>
@@ -130,6 +131,23 @@ export default {
 				);
 			}
 		},
+        SeeDetails(row){
+            let item = {
+				path: "/PicDetails",
+				name: "PicDetails",
+				label: "相册-图片详情",
+			};
+
+			this.$router.push({
+				path: item.path,
+				query: {
+					exhibition_id: row.exhibition_id,
+                    album_id: row.album_id,
+				},
+			});
+			console.log(item);
+			this.$store.commit("selectMenu", item);
+        },
 		AddAlbum() {
 			this.isShow = true;
 			this.operateType = "add";
@@ -170,7 +188,6 @@ export default {
 			});
 		},
 		getList() {
-			this.config.loading = true;
 
 			this.tableData = [];
 
@@ -193,11 +210,15 @@ export default {
 						inner_this.tableData.push(new_map);
 						inner_this.config.total++;
 					}
-					inner_this.config.loading = false;
 				}
 			);
 		},
 	},
+    created(){
+        this.ExhibitionID = this.$route.query.exhibition_id;
+        // 判断是否是从 “展览详情” 页面跳转过来的
+        if(this.ExhibitionID != undefined) this.getList();
+    },
 };
 </script>
 

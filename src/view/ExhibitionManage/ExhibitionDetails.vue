@@ -24,6 +24,7 @@
 			:tableLabel="tableLabel"
 			:config="config"
 			@changePage="getList()"
+            @details="SeeDetails"
 			@edit="UpdateExhibition"
 			@del="DeleteExhibition"
 		></common-table>
@@ -100,6 +101,22 @@ export default {
 				});
 			}
 		},
+        SeeDetails(row){
+            let item = {
+				path: "/AlbumDetails",
+				name: "AlnumDetails",
+				label: "相册详情",
+			};
+
+			this.$router.push({
+				path: item.path,
+				query: {
+					exhibition_id: row.exhibition_id,
+				},
+			});
+			console.log(item);
+			this.$store.commit("selectMenu", item);
+        },
 		AddExhibition() {
 			this.isShow = true;
 			this.operateType = "add";
@@ -135,10 +152,8 @@ export default {
 			});
 		},
 		getList() {
-			this.config.loading = true;
-
+            
 			this.tableData = [];
-
 			let inner_this = this;
 			getForm("/exhibition/list?page_size=99999999", function (res) {
 				// console.log(res, "res");
@@ -152,7 +167,6 @@ export default {
 					inner_this.tableData.push(new_map);
 				}
 				inner_this.config.total = res.data.total_items;
-				inner_this.config.loading = false;
 			});
 		},
 	},

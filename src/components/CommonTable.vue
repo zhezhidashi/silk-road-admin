@@ -16,7 +16,7 @@
 			</el-table-column>
 			<el-table-column label="操作" min-width="240">
 				<template slot-scope="scope">
-                    <el-button size="mini" type="info" @click="handleDetails(scope.row)">详情</el-button>
+                    <el-button v-if="ShowDetails" size="mini" type="info" @click="handleDetails(scope.row)">详情</el-button>
 					<el-button size="mini" @click="handleEdit(scope.row)"
 						>编辑</el-button
 					>
@@ -47,6 +47,7 @@ export default {
 		tableData: Array,
 		tableLabel: Array,
 		config: Object,
+        ShowDetails: Boolean,
 	},
 	data() {
 		return {};

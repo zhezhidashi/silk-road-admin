@@ -23,7 +23,9 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
+            :ShowDetails="true"
 			@changePage="getList()"
+            @details="SeeDetails"
 			@edit="UpdateActivity"
 			@del="DeleteActivity"
 		></common-table>
@@ -122,6 +124,13 @@ export default {
 				});
 			}
 		},
+        SeeDetails(row) {
+			let url =
+				"https://dev.pacificsilkroad.cn/AcademicActivityDetails?academic_activity_id=" +
+				row.activity_id;
+                // console.log('活动详情', url);
+			window.open(url, "_blank");
+		},
 		AddActivity() {
 			this.isShow = true;
 			this.operateType = "add";
@@ -166,8 +175,6 @@ export default {
 			});
 		},
 		getList() {
-			this.config.loading = true;
-
 			this.tableData = [];
 
 			let inner_this = this;
@@ -185,7 +192,6 @@ export default {
 					inner_this.tableData.push(new_map);
 				}
 				inner_this.config.total = res.data.total_items;
-				inner_this.config.loading = false;
 			});
 		},
 	},

@@ -240,15 +240,20 @@ export default {
 					type: "input",
 				},
 				{
-					model: "pic_url",
+					model: "from_url",
 					label: "图片来源",
 					type: "input",
 				},
 				{
-					model: "from_url",
+					model: "archive_url",
 					label: "档案来源",
 					type: "input",
 				},
+                {
+                    model: "mini_pic_url",
+                    label: "缩略图地址",
+                    type: "input"
+                },
 				{
 					model: "page_count",
 					label: "页数总计",
@@ -259,8 +264,9 @@ export default {
 				begin_year: '',
 				end_year: '',
 				file_size: '',
-				pic_url: '',
 				from_url: '',
+                archive_url: '',
+                mini_pic_url: '',
 				page_count: '',
 			},
 		};

@@ -15,13 +15,19 @@
 				</template>
 			</el-table-column>
 
-			<el-table-column label="操作" min-width="180">
+			<el-table-column label="操作" min-width="240">
 				<template slot-scope="scope">
-					<el-button size="mini" type="info" @click="SeeDetails(scope.row)"
+					<el-button
+						size="mini"
+						type="info"
+						@click="SeeDetails(scope.row)"
 						>详情</el-button
 					>
 					<el-button size="mini" @click="Edit(scope.row)"
 						>编辑</el-button
+					>
+					<el-button size="mini" type="danger" @click="Delete(scope.row)"
+						>删除</el-button
 					>
 				</template>
 			</el-table-column>
@@ -101,6 +107,24 @@ export default {
 			console.log(item);
 			this.$store.commit("selectMenu", item);
 		},
+        
+		Delete(row) {
+			let item = {
+				path: "/DeleteArchive",
+				name: "DeleteArchive",
+				label: "删除档案",
+			};
+
+			this.$router.push({
+				path: item.path,
+				query: {
+					main_id: row.main_id,
+				},
+			});
+			console.log(item);
+			this.$store.commit("selectMenu", item);
+		},
+
 		changePage(page) {
 			this.$emit("changePage", page);
 		},

@@ -15,35 +15,19 @@
 			</el-form-item>
 
 			<el-form-item class="manage-header">
-				<el-button type="primary" @click="getList()">提交</el-button>
+				<el-button type="primary" @click="GetList()">提交</el-button>
 			</el-form-item>
 		</el-form>
-
-		<el-dialog
-			:title="operateType === 'add' ? '创建' : '修改'"
-			:visible.sync="isShow"
-		>
-			<common-form
-				:formLabel="operateFormLabel"
-				:form="operateForm"
-				:inline="true"
-				ref="form"
-			></common-form>
-			<div slot="footer" class="dialog-footer">
-				<el-button @click="isShow = false">取消</el-button>
-				<el-button type="primary" @click="confirm">确定</el-button>
-			</div>
-		</el-dialog>
 
 		<div class="manage-header">
 			<el-button type="primary" @click="AddPic">+新增</el-button>
 		</div>
 		<common-table
-			:tableData="tableData"
-			:tableLabel="tableLabel"
+			:tableData="TableData"
+			:tableLabel="TableLabel"
 			:config="config"
-			@changePage="getList()"
-            @details="SeeDetails"
+			:ShowDetails="false"
+			@changePage="GetList()"
 			@edit="UpdatePic"
 			@del="DeletePic"
 		></common-table>
@@ -62,37 +46,11 @@ export default {
 	},
 	data() {
 		return {
-			operateType: "add",
-			isShow: false,
 			ExhibitionID: "",
 			AlbumID: "",
-			operateFormLabel: [
-				{
-					model: "title",
-					label: "图片名称",
-					type: "input",
-				},
-				{
-					model: "intro",
-					label: "图片简介",
-					type: "input",
-				},
-				{
-					model: "pic_url",
-					label: "图片地址",
-					type: "input",
-				},
-			],
-			operateForm: {
-				exhibition_id: "",
-				album_id: "",
-				pic_id: "",
-				title: "",
-				intro: "",
-				picture_url: "",
-			},
-			tableData: [],
-			tableLabel: [
+
+			TableData: [],
+			TableLabel: [
 				{
 					prop: "exhibition_id",
 					label: "展览编号",
@@ -101,27 +59,32 @@ export default {
 				{
 					prop: "album_id",
 					label: "相册编号",
-					width: 200,
+					width: 150,
 				},
 				{
 					prop: "pic_id",
 					label: "图片编号",
+					width: 150,
+				},
+				{
+					prop: "title_zh",
+					label: "图片中文名称",
 					width: 200,
 				},
 				{
-					prop: "title",
-					label: "图片名称",
+					prop: "title_en",
+					label: "图片外文名称",
 					width: 200,
 				},
 				{
-					prop: "intro",
-					label: "图片简介",
-					width: 300,
+					prop: "intro_zh",
+					label: "图片中文简介",
+					width: 200,
 				},
 				{
-					prop: "pic_url",
-					label: "图片地址",
-					width: 320,
+					prop: "intro_en",
+					label: "图片外文简介",
+					width: 200,
 				},
 			],
 			config: {
@@ -131,67 +94,41 @@ export default {
 		};
 	},
 	methods: {
-		confirm() {
-			let inner_this = this;
-			if (this.operateType === "add") {
-				this.operateForm["exhibition_id"] = this.ExhibitionID;
-				this.operateForm["album_id"] = this.AlbumID;
-				postForm(
-					"/exhibition/add-pic-to-album",
-					this.operateForm,
-					function (res) {
-                        console.log('添加图片的response', res)
-						inner_this.isShow = false;
-						inner_this.getList();
-					}
-				);
-			} else {
-				postForm(
-					"/exhibition/update-pic",
-					this.operateForm,
-					function (res) {
-						inner_this.isShow = false;
-						inner_this.getList();
-					}
-				);
-			}
-		},
-        SeeDetails(row){
+		AddPic() {
+            let item = {
+				path: "/AddPic",
+				name: "AddPic",
+				label: "添加相册-图片",
+			};
+
+			this.$router.push({
+				path: item.path,
+				query: {
+					exhibition_id: this.ExhibitionID,
+                    album_id: this.AlbumID
+				},
+			});
+			console.log(item);
+			this.$store.commit("selectMenu", item);
+        },
+		UpdatePic(row) {
             let item = {
 				path: "/UpdatePic",
 				name: "UpdatePic",
 				label: "更新相册-图片",
 			};
 
-			// this.$router.push({
-			// 	path: item.path,
-			// 	query: {
-			// 		exhibition_id: row.exhibition_id,
-            //         album_id: row.album_id,
-			// 	},
-			// });
+			this.$router.push({
+				path: item.path,
+				query: {
+					exhibition_id: this.ExhibitionID,
+                    album_id: this.AlbumID,
+                    pic_id: row.pic_id,
+				},
+			});
 			console.log(item);
-			// this.$store.commit("selectMenu", item);
+			this.$store.commit("selectMenu", item);
         },
-		AddPic() {
-			this.isShow = true;
-			this.operateType = "add";
-			this.operateForm = {
-				title: "",
-				intro: "",
-				pic_url: "",
-			};
-		},
-		UpdatePic(row) {
-			this.operateType = "edit";
-			this.isShow = true;
-			console.log("row", row);
-			this.operateForm = row;
-			// console.log('row', row);
-			// this.operateForm = JSON.parse(JSON.stringify(row));
-			console.log("UpdatePic", this.operateType);
-			this.getList();
-		},
 		DeletePic(row) {
 			let inner_this = this;
 			this.$confirm("此操作将永久删除该组件，是否继续？", "提示", {
@@ -205,47 +142,65 @@ export default {
 					pic_id: row.pic_id,
 				};
 				postForm("/exhibition/delete-pic", params, function (res) {
-					inner_this.getList();
+					inner_this.GetList();
 				});
 			});
 		},
-		getList() {
-			this.config.loading = true;
-
-			this.tableData = [];
+		GetList() {
+			this.TableData = [];
 
 			let inner_this = this;
-			getForm(
+			let url =
 				"exhibition/album-detail?exhibition_id=" +
-					this.ExhibitionID +
-					"&album_id=" +
-					this.AlbumID,
-				function (res) {
+				this.ExhibitionID +
+				"&album_id=" +
+				this.AlbumID;
 
-					inner_this.config.total = 0;
-					for (let item in res.data.picture_dict) {
-						let new_map = {
-							exhibition_id: inner_this.ExhibitionID,
-							album_id: inner_this.AlbumID,
-							pic_id: item,
-							title: res.data["picture_dict"][item]["title"],
-							intro: res.data["picture_dict"][item]["intro"],
-							pic_url: res.data["picture_dict"][item]["pic_url"],
-						};
-						inner_this.tableData.push(new_map);
-						inner_this.config.total++;
+            console.log(url);
+
+			getForm(url, function (res) {
+				inner_this.config.total = 0;
+
+				for (let item in res.data.picture_dict) {
+					let new_map = {
+						exhibition_id: inner_this.ExhibitionID,
+						album_id: inner_this.AlbumID,
+						pic_id: item,
+						title_zh: "N/A",
+						title_en: "N/A",
+						intro_zh: "N/A",
+						intro_en: "N/A",
+					};
+					for (let title_item in res.data.picture_dict[item].title) {
+						if (title_item === "ZH") {
+							new_map.title_zh =
+								res.data.picture_dict[item].title[title_item];
+						} else {
+							new_map.title_en =
+								res.data.picture_dict[item].title[title_item];
+						}
 					}
-					inner_this.config.loading = false;
+					for (let intro_item in res.data.picture_dict[item].intro) {
+						if (intro_item === "ZH") {
+							new_map.intro_zh =
+								res.data.picture_dict[item].intro[intro_item];
+						} else {
+							new_map.intro_en =
+								res.data.picture_dict[item].intro[intro_item];
+						}
+					}
+					inner_this.TableData.push(new_map);
+					inner_this.config.total++;
 				}
-			);
+			});
 		},
 	},
-    created(){
-        this.ExhibitionID = this.$route.query.exhibition_id;
-        this.AlbumID = this.$route.query.album_id;
-        // 判断是否是从 “相册详情” 页面跳转过来的
-        if(this.ExhibitionID != undefined) this.getList();
-    }
+	created() {
+		this.ExhibitionID = this.$route.query.exhibition_id;
+		this.AlbumID = this.$route.query.album_id;
+		// 判断是否是从 “相册详情” 页面跳转过来的
+		if (this.ExhibitionID != undefined) this.GetList();
+	},
 };
 </script>
 

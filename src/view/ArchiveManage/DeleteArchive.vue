@@ -57,12 +57,13 @@ export default {
 				location: "地点",
 				intro: "简介",
 				organization: "组织",
-                tag_list: '关键词',
+				tag_list: "关键词",
 				begin_year: "开始年份",
 				end_year: "结束年份",
 				file_size: "文件大小",
-				pic_url: "图片来源",
-				from_url: "档案来源",
+				from_url: "图片来源",
+                archive_url: "档案来源",
+                mini_pic_url: "缩略图地址",
 				page_count: "总页数",
 
 				AR: "阿拉伯文",
@@ -105,6 +106,11 @@ export default {
 
 		};
 	},
+    created(){
+        this.ArchiveID = this.$route.query.main_id;
+        // 判断是否是从 “档案列表” 页面跳转过来的
+        if(this.ArchiveID != undefined) this.GetList();
+    },
 	methods: {
         //查询档案
 		GetList() {
@@ -118,13 +124,14 @@ export default {
                         alert('数据不存在');
                         return;
                     }
-					// 只有一层字典的有6个数据
+					// 只有一层字典的有7个数据
 					let Temp = [
 						"begin_year",
 						"end_year",
 						"file_size",
-						"pic_url",
 						"from_url",
+                        "archive_url",
+                        "mini_pic_url",
 						"page_count",
 					];
 

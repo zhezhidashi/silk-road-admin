@@ -70,6 +70,7 @@
 			:tableData="TableData2"
 			:tableLabel="TableData2Label"
 			:config="config"
+            :ShowDetails="false"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
 		></common-table>
@@ -137,8 +138,9 @@ export default {
 				begin_year: "开始年份",
 				end_year: "结束年份",
 				file_size: "文件大小",
-				pic_url: "图片来源",
-				from_url: "档案来源",
+				from_url: "图片来源",
+                archive_url: "档案来源",
+                mini_pic_url: "缩略图地址",
 				page_count: "总页数",
 
 				AR: "阿拉伯文",
@@ -197,15 +199,20 @@ export default {
 					type: "input",
 				},
 				{
-					model: "pic_url",
+					model: "from_url",
 					label: "图片来源",
 					type: "input",
 				},
 				{
-					model: "from_url",
+					model: "archive_url",
 					label: "档案来源",
 					type: "input",
 				},
+                {
+                    model: "mini_pic_url",
+                    label: "缩略图地址",
+                    type: "input"
+                },
 				{
 					model: "page_count",
 					label: "页数总计",
@@ -213,12 +220,13 @@ export default {
 				},
 			],
 			OtherInfo: {
-				begin_year: "",
-				end_year: "",
-				file_size: "",
-				pic_url: "",
-				from_url: "",
-				page_count: "",
+				begin_year: '',
+				end_year: '',
+				file_size: '',
+				from_url: '',
+                archive_url: '',
+                mini_pic_url: '',
+				page_count: '',
 			},
 
 			// 按钮列表
@@ -395,13 +403,14 @@ export default {
 						alert("数据不存在");
 						return;
 					}
-					// 只有一层字典的有6个数据
+					// 只有一层字典的有7个数据
 					let Temp = [
 						"begin_year",
 						"end_year",
 						"file_size",
-						"pic_url",
 						"from_url",
+                        "archive_url",
+                        "mini_pic_url",
 						"page_count",
 					];
 
@@ -456,16 +465,17 @@ export default {
 		confirm() {
 			this.isShow = false;
 			if (this.OperateType === "edit1") {
-				// edit1 是修改只有一层字典的有6个数据
+				// edit1 是修改只有一层字典的有7个数据
 				this.TableData1 = [];
-				let Temp = [
-					"begin_year",
-					"end_year",
-					"file_size",
-					"pic_url",
-					"from_url",
-					"page_count",
-				];
+					let Temp = [
+						"begin_year",
+						"end_year",
+						"file_size",
+						"from_url",
+                        "archive_url",
+                        "mini_pic_url",
+						"page_count",
+					];
 
 				for (let Type of Temp) {
 					this.TableData1.push({
@@ -523,9 +533,10 @@ export default {
 				begin_year: this.TableData1[0].TypeData,
 				end_year: this.TableData1[1].TypeData,
 				file_size: this.TableData1[2].TypeData,
-				pic_url: this.TableData1[3].TypeData,
-				from_url: this.TableData1[4].TypeData,
-				page_count: this.TableData1[5].TypeData,
+				from_url: this.TableData1[3].TypeData,
+                archive_url: this.TableData1[4].TypeData,
+                mini_pic_url: this.TableData1[5].TypeData,
+				page_count: this.TableData1[6].TypeData,
 			};
 		},
 

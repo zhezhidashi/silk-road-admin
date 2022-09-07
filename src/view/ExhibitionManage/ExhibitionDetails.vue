@@ -23,7 +23,8 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
-			@changePage="getList()"
+            :ShowDetails="true"
+			@changePage="GetList()"
             @details="SeeDetails"
 			@edit="UpdateExhibition"
 			@del="DeleteExhibition"
@@ -92,12 +93,12 @@ export default {
 			if (this.operateType === "add") {
 				postForm("/exhibition/add-exhibition", this.operateForm, function (res) {
 					inner_this.isShow = false;
-					inner_this.getList();
+					inner_this.GetList();
 				});
 			} else {
 				postForm("/exhibition/update-exhibition", this.operateForm, function (res) {
 					inner_this.isShow = false;
-					inner_this.getList();
+					inner_this.GetList();
 				});
 			}
 		},
@@ -137,7 +138,7 @@ export default {
 			// console.log('row', row);
 			// this.operateForm = JSON.parse(JSON.stringify(row));
 			// console.log("UpdateExhibition", this.operateType);
-			this.getList();
+			this.GetList();
 		},
 		DeleteExhibition(row) {
 			let inner_this = this;
@@ -147,11 +148,11 @@ export default {
 				type: "warning",
 			}).then(() => {
 				postForm("/exhibition/delete-exhibition", {'exhibition_id': row.exhibition_id}, function (res) {
-                    inner_this.getList();
+                    inner_this.GetList();
 				});
 			});
 		},
-		getList() {
+		GetList() {
             
 			this.tableData = [];
 			let inner_this = this;
@@ -171,7 +172,7 @@ export default {
 		},
 	},
 	created() {
-		this.getList();
+		this.GetList();
 	},
 };
 </script>

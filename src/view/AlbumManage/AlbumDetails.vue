@@ -37,6 +37,7 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
+            :ShowDetails="true"
 			@changePage="getList()"
             @details="SeeDetails"
 			@edit="UpdateAlbum"

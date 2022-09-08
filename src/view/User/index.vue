@@ -23,7 +23,7 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
-			@changePage="getList()"
+			@changePage="GetList()"
 			@edit="editUser"
 			@del="delUser"
 		></common-table>
@@ -127,13 +127,13 @@ export default {
 				postUser("/user/updateUser", this.operateForm).then((res) => {
 					console.log(res);
 					this.isShow = false;
-					this.getList();
+					this.GetList();
 				});
 			} else {
 				postUser("/user/addUser", this.operateForm).then((res) => {
 					console.log(res);
 					this.isShow = false;
-					this.getList();
+					this.GetList();
 				});
 			}
 		},
@@ -152,7 +152,7 @@ export default {
 			this.operateType = "edit";
 			this.isShow = true;
 			this.operateForm = JSON.parse(JSON.stringify(row));
-			// this.getList();
+			// this.GetList();
 		},
 		delUser(row) {
 			this.$confirm("此操作将永久删除该组件，是否继续？", "提示", {
@@ -167,7 +167,7 @@ export default {
 							type: "success",
 							message: "删除成功",
 						});
-						this.getList();
+						this.GetList();
 					});
 				})
 				.catch(() => {
@@ -177,7 +177,7 @@ export default {
 					});
 				});
 		},
-		getList(name = "") {
+		GetList(name = "") {
 			this.tableData = [];
 
 			let inner_this = this;
@@ -203,13 +203,12 @@ export default {
 							item.DeletePermission === 1 ? "是" : "否",
 					});
 				}
-
 				this.config.total = res.count;
 			});
 		},
 	},
 	created() {
-		this.getList();
+		this.GetList();
 	},
 };
 </script>

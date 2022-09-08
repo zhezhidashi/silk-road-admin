@@ -101,6 +101,7 @@ export default {
 			config: {
 				page: 1,
 				total: 15,
+                page_size: 100,
 			},
 			OperateType: "",
 			// 档案主键

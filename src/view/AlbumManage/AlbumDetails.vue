@@ -105,6 +105,7 @@ export default {
 			config: {
 				page: 1,
 				total: 30,
+                page_size: 100,
 			},
 		};
 	},

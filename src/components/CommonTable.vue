@@ -34,7 +34,7 @@
 			class="pager"
 			:total="config.total"
 			:current-page.sync="config.page"
-			:page-size="15"
+			:page-size="config.page_size"
 			@current-change="changePage"
 			layout="prev,pager,next"
 		></el-pagination>

@@ -3,7 +3,7 @@
 import axios from "./axios";
 import store from '../store'
 
-export const baseUrl = '/api'
+export const baseUrl = 'https://api_doc.pacificsilkroad.cn'
 
 
 export const getData = () => {

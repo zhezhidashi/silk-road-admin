@@ -1,79 +1,57 @@
 <template>
-	<div class="common-table">
-		<el-table :data="tableData" height="725" stripe>
-			<el-table-column
-				show-overflow-tooltip
-				v-for="item in tableLabel"
-				:key="item.name"
-				:label="item.label"
-				:width="item.width ? item.width : 300"
-			>
-				<template slot-scope="scope">
-					<span style="margin-left: 10px">{{
-						scope.row[item.name]
-					}}</span>
-				</template>
-			</el-table-column>
-
-			<el-table-column label="操作" min-width="240">
-				<template slot-scope="scope">
-					<el-button
-						size="mini"
-						type="info"
-						@click="SeeDetails(scope.row)"
-						>详情</el-button
-					>
-					<el-button size="mini" @click="Edit(scope.row)"
-						>编辑</el-button
-					>
-					<el-button size="mini" type="danger" @click="Delete(scope.row)"
-						>删除</el-button
-					>
-				</template>
-			</el-table-column>
-		</el-table>
-
-		<el-pagination
-			class="pager"
-			:total="config.total"
-			:current-page.sync="config.page"
-			:page-size="15"
-			@current-change="changePage"
-			layout="prev,pager,next"
-		></el-pagination>
+	<div>
+		<div class="manage-header">
+			<el-button type="primary" @click="AddArchive">+新增</el-button>
+		</div>
+		<div class="common-table">
+			<common-table
+				:tableData="tableData"
+				:tableLabel="tableLabel"
+				:config="config"
+				:ShowDetails="true"
+				@changePage="GetList()"
+				@details="SeeDetails"
+				@edit="UpdateArchive"
+				@del="DeleteArchive"
+			></common-table>
+		</div>
 	</div>
 </template>
 
 <script>
 import { getForm } from "../../api/data";
+import CommonTable from "../../components/CommonTable.vue";
 export default {
 	name: "ArchiveList",
+	components: {
+		CommonTable,
+	},
 	data() {
 		return {
 			tableData: [],
 			tableLabel: [
 				{
-					name: "main_id",
+					prop: "main_id",
 					label: "档案编号",
 					width: 80,
 				},
 				{
-					name: "title_zh",
+					prop: "title_zh",
 					label: "中文题目",
 					width: 200,
 				},
 				{
-					name: "title_en",
+					prop: "title_en",
 					label: "外文题目",
 					width: 200,
 				},
 				{
-					name: "intro_zh",
+					prop: "intro_zh",
 					label: "中文简介",
 					width: 300,
 				},
 				{
-					name: "intro_en",
+					prop: "intro_en",
 					label: "外文简介",
 					width: 300,
 				},
@@ -81,17 +59,31 @@ export default {
 			config: {
 				page: 1,
 				total: 1,
+                page_size: 15,
 			},
 		};
 	},
 	methods: {
+		AddArchive() {
+            let item = {
+				path: "/AddArchive",
+				name: "AddArchive",
+				label: "添加档案",
+			};
+
+			this.$router.push({
+				path: item.path,
+			});
+			console.log(item);
+			this.$store.commit("selectMenu", item);
+        },
 		SeeDetails(row) {
 			let url =
 				"https://dev.pacificsilkroad.cn/ArchiveDetails?search_result_id=" +
 				row.main_id;
 			window.open(url, "_blank");
 		},
-		Edit(row) {
+		UpdateArchive(row) {
 			let item = {
 				path: "/UpdateArchive",
 				name: "UpdateArchive",
@@ -107,8 +99,8 @@ export default {
 			console.log(item);
 			this.$store.commit("selectMenu", item);
 		},
-        
-		Delete(row) {
+
+		DeleteArchive(row) {
 			let item = {
 				path: "/DeleteArchive",
 				name: "DeleteArchive",
@@ -128,11 +120,11 @@ export default {
 		changePage(page) {
 			this.$emit("changePage", page);
 		},
-		getList() {
+		GetList() {
 			this.tableData = [];
-			let inner_this = this;
-
-			getForm("/archive/list?&page_size=2000000", function (res) {
+			let _this = this;
+            let url = `/archive/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`
+			getForm(url, function (res) {
 				console.log("res.data.list", res.data.list);
 				for (let item of res.data.list) {
 					let new_map = {
@@ -142,30 +134,29 @@ export default {
 						intro_zh: "N/A",
 						intro_en: "N/A",
 					};
-					for (let item_ in item.title) {
-						if (item_ === "ZH") {
-							new_map.title_zh = item.title[item_];
+					for (let item_id in item.title) {
+						if (item_id === "ZH") {
+							new_map.title_zh = item.title[item_id];
 						} else {
-							new_map.title_en = item.title[item_];
+							new_map.title_en = item.title[item_id];
 						}
 					}
 
-					for (let item_ in item.intro) {
-						if (item_ === "ZH") {
-							new_map.intro_zh = item.intro[item_];
+					for (let item_id in item.intro) {
+						if (item_id === "ZH") {
+							new_map.intro_zh = item.intro[item_id];
 						} else {
-							new_map.intro_en = item.intro[item_];
+							new_map.intro_en = item.intro[item_id];
 						}
 					}
-
-					inner_this.tableData.push(new_map);
+					_this.tableData.push(new_map);
 				}
-				inner_this.config.total = inner_this.tableData.length;
+				_this.config.total = res.data.total_items;
 			});
 		},
 	},
 	created() {
-		this.getList();
+		this.GetList();
 	},
 };
 </script>

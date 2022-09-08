@@ -113,6 +113,7 @@ export default {
 			config: {
 				page: 1,
 				total: 15,
+                page_size: 100,
 			},
 			OperateType: "",
 			// 展览主键、相册主键、相册-图片主键

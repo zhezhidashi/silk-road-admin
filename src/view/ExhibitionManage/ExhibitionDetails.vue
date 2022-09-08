@@ -84,21 +84,22 @@ export default {
 			config: {
 				page: 1,
 				total: 30,
+                page_size: 15,
 			},
 		};
 	},
 	methods: {
 		confirm() {
-			let inner_this = this;
+			let _this = this;
 			if (this.operateType === "add") {
 				postForm("/exhibition/add-exhibition", this.operateForm, function (res) {
-					inner_this.isShow = false;
-					inner_this.GetList();
+					_this.isShow = false;
+					_this.GetList();
 				});
 			} else {
 				postForm("/exhibition/update-exhibition", this.operateForm, function (res) {
-					inner_this.isShow = false;
-					inner_this.GetList();
+					_this.isShow = false;
+					_this.GetList();
 				});
 			}
 		},
@@ -141,23 +142,24 @@ export default {
 			this.GetList();
 		},
 		DeleteExhibition(row) {
-			let inner_this = this;
+			let _this = this;
 			this.$confirm("此操作将永久删除该组件，是否继续？", "提示", {
 				confirmButtonText: "确认",
 				cancelButtonText: "取消",
 				type: "warning",
 			}).then(() => {
 				postForm("/exhibition/delete-exhibition", {'exhibition_id': row.exhibition_id}, function (res) {
-                    inner_this.GetList();
+                    _this.GetList();
 				});
 			});
 		},
 		GetList() {
             
 			this.tableData = [];
-			let inner_this = this;
-			getForm("/exhibition/list?page_size=99999999", function (res) {
-				// console.log(res, "res");
+			let _this = this;
+            let url = `/exhibition/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`
+
+			getForm(url, function (res) {
 
 				for (let item of res.data.list) {
 					let new_map = {
@@ -165,9 +167,9 @@ export default {
 						title: item.title,
 						intro: item.intro,
 					};
-					inner_this.tableData.push(new_map);
+					_this.tableData.push(new_map);
 				}
-				inner_this.config.total = res.data.total_items;
+				_this.config.total = res.data.total_items;
 			});
 		},
 	},

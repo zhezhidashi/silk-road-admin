@@ -13,14 +13,14 @@
 		</el-button>
 
 		<div slot="tip" class="el-upload__tip">
-			只能上传jpg文件，且不超过500kb
+			只能上传jpg文件
 		</div>
 	</el-upload>
 </template>
 
 
 <script>
-import { postForm, baseUrl } from "../../api/data.js";
+import { postForm } from "../../api/data.js";
 
 export default {
 	name: "Picture",

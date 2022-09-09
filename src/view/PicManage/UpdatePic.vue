@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-form ref="form" label-width="80px">
+		<!-- <el-form ref="form" label-width="80px">
 			<el-form-item label="展览编号">
 				<el-input
 					v-model="ExhibitionID"
@@ -20,12 +20,11 @@
 				></el-input>
 			</el-form-item>
 
-			<!-- 查询图片 -->
 			<el-form-item class="manage-header">
 				<el-button type="primary" @click="GetList()">查询</el-button>
 			</el-form-item>
 		</el-form>
-		<hr />
+		<hr /> -->
 
 		<!-- 更新相册-图片的一层字典的数据、编辑二层字典数据、增加二层字典数据 -->
 		<el-dialog :title="'更新数据'" :visible.sync="isShow">
@@ -565,8 +564,26 @@ export default {
 				DataForm[item.type][item.option] = item.intro;
 			}
 
-			console.log("DataForm", DataForm);
-			postForm("/exhibition/update-pic", DataForm, function (res) {});
+            let _this = this;
+			// console.log("DataForm", DataForm);
+			postForm("/exhibition/update-pic", DataForm, function (res) {
+
+                let item = {
+					path: "/PicDetails",
+					name: "PicDetails",
+					label: "相册-图片详情",
+				};
+
+				_this.$router.push({
+					path: item.path,
+					query: {
+						exhibition_id: _this.ExhibitionID,
+						album_id: _this.AlbumID,
+					},
+				});
+				console.log(item);
+				_this.$store.commit("selectMenu", item);
+            });
 		},
 	},
 };

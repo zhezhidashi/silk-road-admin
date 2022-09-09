@@ -152,7 +152,7 @@ export default {
 
 			let inner_this = this;
 			let url =
-				"exhibition/album-detail?exhibition_id=" +
+				"/exhibition/album-detail?exhibition_id=" +
 				this.ExhibitionID +
 				"&album_id=" +
 				this.AlbumID;

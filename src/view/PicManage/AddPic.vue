@@ -1,5 +1,24 @@
 <template>
 	<div class="AddPic">
+		<!-- <el-form ref="form" label-width="80px">
+			<el-form-item label="展览编号">
+				<el-input
+					v-model="ExhibitionID"
+					placeholder="请输入展览编号"
+				></el-input>
+			</el-form-item>
+			<el-form-item label="相册编号">
+				<el-input
+					v-model="AlbumID"
+					placeholder="请输入相册编号"
+				></el-input>
+			</el-form-item>
+			<el-form-item class="manage-header">
+				<el-button type="primary" @click="GetList()">查询</el-button>
+			</el-form-item>
+		</el-form>
+		<hr /> -->
+
 		<el-dialog :title="ButtonList[ButtonID].name" :visible.sync="isShow">
 			<common-form
 				:formLabel="ButtonFormLabel"
@@ -286,19 +305,31 @@ export default {
 				DataForm[item.toString()] = this.OtherInfo[item];
 			}
 
-			// let inner_this = this;
+			let _this = this;
 			// console.log("DataForm", DataForm);
-			postForm(
-				"/exhibition/add-pic-to-album",
-				DataForm,
-				function (res) {}
-			);
+			postForm("/exhibition/add-pic-to-album", DataForm, function (res) {
+				let item = {
+					path: "/PicDetails",
+					name: "PicDetails",
+					label: "相册-图片详情",
+				};
+
+				_this.$router.push({
+					path: item.path,
+					query: {
+						exhibition_id: _this.ExhibitionID,
+						album_id: _this.AlbumID,
+					},
+				});
+				console.log(item);
+				_this.$store.commit("selectMenu", item);
+			});
 		},
 	},
-    created() {
-        this.ExhibitionID = this.$route.query.exhibition_id;
-        this.AlbumID = this.$route.query.album_id;
-    }
+	created() {
+		this.ExhibitionID = this.$route.query.exhibition_id;
+		this.AlbumID = this.$route.query.album_id;
+	},
 };
 </script>
 

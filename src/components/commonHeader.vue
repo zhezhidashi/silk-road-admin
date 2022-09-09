@@ -3,11 +3,10 @@
         <div class="l-content">
             <el-button @click="handleMenu" plain icon="el-icon-menu" size="mini"></el-button>
 
-            <el-breadcrumb separator-class="el-icon-arrow-right">
+            <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
                 <el-breadcrumb-item v-for="item in tags" :key="item.path" :to="{ path: item.path }">{{ item.label }}
                 </el-breadcrumb-item>
-
-            </el-breadcrumb>
+            </el-breadcrumb> -->
         </div>
         <div class="r-content">
             <el-dropdown trigger="click" szie="mini">

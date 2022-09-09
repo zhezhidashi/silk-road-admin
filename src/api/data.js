@@ -3,7 +3,7 @@
 import axios from "./axios";
 import store from '../store'
 
-export const baseUrl = 'https://api_doc.pacificsilkroad.cn'
+export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
 
 
 export const getData = () => {
@@ -44,16 +44,19 @@ export const postForm = (requestUrl, params, callback) => {
         headers: {
             token: TokenValue
         }
-    }).then(({data: res}) => {
+    }).then(({ data: res }) => {
         console.log('postForm 的 response', res);
 
-        if (res.code === 0) {
-            alert("请求成功");
-        } else if (res.code === 400) {
-            alert("请求对象不存在");
-        } else {
-            alert("网络错误");
+        if (requestUrl !== '/file/upload/img') {
+            if (res.code === 0) {
+                alert("请求成功");
+            } else if (res.code === 400) {
+                alert("请求对象不存在");
+            } else {
+                alert("网络错误");
+            }
         }
+
 
         callback(res);
     })
@@ -64,8 +67,8 @@ export const getForm = (requestUrl, callback) => {
     axios.request({
         url: baseUrl + requestUrl,
         method: 'get'
-    }).then(({data: res}) => {
-        
+    }).then(({ data: res }) => {
+
         // if (res.code === 0) {
         //     alert("查询成功");
         // } else if (res.code === 400) {
@@ -88,13 +91,13 @@ export const getMenu = (params, callback) => {
     }).then(({ data: res }) => {
 
         // code 为 0 表示管理员登录
-        if(res.code === 400) {
+        if (res.code === 400) {
             alert("用户名或密码错误！")
         }
         else if (res.code === 0) {
             //登录成功
             console.log('admin成功登录')
-            callback( {
+            callback({
                 // 返回响应码、菜单、token、message
                 code: 0,
                 data: {
@@ -241,16 +244,16 @@ export const getMenu = (params, callback) => {
                                     name: 'PicDetails',
                                     label: '相册-图片详情',
                                 },
-                                {
-                                    path: '/AddPic',
-                                    name: 'AddPic',
-                                    label: '添加相册-图片',
-                                },
-                                {
-                                    path: '/UpdatePic',
-                                    name: 'UpdatePic',
-                                    label: '更新相册-图片',
-                                },
+                                // {
+                                //     path: '/AddPic',
+                                //     name: 'AddPic',
+                                //     label: '添加相册-图片',
+                                // },
+                                // {
+                                //     path: '/UpdatePic',
+                                //     name: 'UpdatePic',
+                                //     label: '更新相册-图片',
+                                // },
                                 // {
                                 //     path: '/DeletePic',
                                 //     name: 'DeletePic',

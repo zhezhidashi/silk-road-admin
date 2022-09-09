@@ -1,6 +1,6 @@
 <template>
   <div class="tabs">
-    <el-tag size="small"  v-for = '(tag,index) in tags'
+    <!-- <el-tag size="small"  v-for = '(tag,index) in tags'
     :key="tag.name"
     :closable= "tag.name !== 'home'"
     :effect="$route.name === tag.name ? 'dark' : 'plain'"
@@ -8,7 +8,7 @@
     @close = "handleClose(tag,index)"
     >
     {{tag.label}}
-    </el-tag>
+    </el-tag> -->
   </div>
 </template>
 

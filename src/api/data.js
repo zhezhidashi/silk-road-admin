@@ -69,14 +69,6 @@ export const getForm = (requestUrl, callback) => {
         method: 'get'
     }).then(({ data: res }) => {
 
-        // if (res.code === 0) {
-        //     alert("查询成功");
-        // } else if (res.code === 400) {
-        //     alert("查询对象不存在");
-        // } else {
-        //     alert("网络错误");
-        // }
-
         console.log('getForm 的 response', res);
         callback(res)
     })
@@ -120,12 +112,6 @@ export const getMenu = (params, callback) => {
                         //     label: '用户管理',
                         //     icon: 'user',
                         // },
-                        // {
-                        //     path: '/Content',
-                        //     name: 'Content',
-                        //     label: '内容浏览',
-                        //     icon: 's-order'
-                        // },
                         {
                             name: 'ArchiveManage',
                             label: '档案管理',
@@ -154,111 +140,30 @@ export const getMenu = (params, callback) => {
                             ],
                         },
                         {
-                            name: 'ActivityManage',
-                            label: '活动管理',
-                            icon: 's-claim',
+                            name: 'Content',
+                            label: '内容管理',
+                            icon: 's-order',
                             children: [
                                 {
                                     path: '/ActivityDetails',
                                     name: 'ActivityDetails',
-                                    label: '活动详情',
+                                    label: '学术活动详情',
                                 },
-                                // {
-                                //     path: '/AddActivity',
-                                //     name: 'AddActivity',
-                                //     label: '创建活动',
-                                // },
-                                // {
-                                //     path: '/UpdateActivity',
-                                //     name: 'UpdateActivity',
-                                //     label: '修改活动',
-                                // },
-                                // {
-                                //     path: '/DeleteActivity',
-                                //     name: 'DeleteActivity',
-                                //     label: '删除活动',
-                                // },
-                            ],
-                        },
-                        {
-                            name: 'ExhibitionManage',
-                            label: '展览管理',
-                            icon: 'data-board',
-                            children: [
                                 {
                                     path: '/ExhibitionDetails',
                                     name: 'ExhibitionDetails',
                                     label: '展览详情',
                                 },
-                                // {
-                                //     path: '/AddExhibition',
-                                //     name: 'AddExhibition',
-                                //     label: '创建展览',
-                                // },
-                                // {
-                                //     path: '/UpdateExhibition',
-                                //     name: 'UpdateExhibition',
-                                //     label: '修改展览',
-                                // },
-                                // {
-                                //     path: '/DeleteExhibition',
-                                //     name: 'DeleteExhibition',
-                                //     label: '删除展览',
-                                // },
-                            ],
-                        },
-                        {
-                            name: 'AlbumManage',
-                            label: '展览相册管理',
-                            icon: 'notebook-1',
-                            children: [
                                 {
                                     path: '/AlbumDetails',
                                     name: 'AlbumDetails',
-                                    label: '相册详情',
+                                    label: '展览-相册详情',
                                 },
-                                // {
-                                //     path: '/AddAlbum',
-                                //     name: 'AddAlbum',
-                                //     label: '创建相册',
-                                // },
-                                // {
-                                //     path: '/UpdateAlbum',
-                                //     name: 'UpdateAlbum',
-                                //     label: '修改相册',
-                                // },
-                                // {
-                                //     path: '/DeleteAlbum',
-                                //     name: 'DeleteAlbum',
-                                //     label: '删除相册',
-                                // },
-                            ],
-                        },
-                        {
-                            name: 'PicManage',
-                            label: '展览相册图片管理',
-                            icon: 'picture-outline-round',
-                            children: [
                                 {
                                     path: '/PicDetails',
                                     name: 'PicDetails',
-                                    label: '相册-图片详情',
+                                    label: '展览-相册-图片详情',
                                 },
-                                // {
-                                //     path: '/AddPic',
-                                //     name: 'AddPic',
-                                //     label: '添加相册-图片',
-                                // },
-                                // {
-                                //     path: '/UpdatePic',
-                                //     name: 'UpdatePic',
-                                //     label: '更新相册-图片',
-                                // },
-                                // {
-                                //     path: '/DeletePic',
-                                //     name: 'DeletePic',
-                                //     label: '删除图片',
-                                // },
                             ],
                         },
                     ],

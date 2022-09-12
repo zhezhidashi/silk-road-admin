@@ -219,6 +219,14 @@ const routes = [
                 },
                 component: () => import('../view/ArchiveManage/ArchiveList.vue')
             },
+            {
+                path: '/OperationIntroduction',
+                name: 'OperationIntroduction',
+                meta: {
+                    title: '操作说明',
+                },
+                component: () => import('../view/OperationIntroduction')
+            },
         ]
 
     },

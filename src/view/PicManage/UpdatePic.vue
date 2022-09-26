@@ -193,7 +193,7 @@ export default {
 				{
 					model: "date",
 					label: "日期",
-					type: "date",
+					type: "input",
 				},
 				{
 					model: "size",

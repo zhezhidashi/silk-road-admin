@@ -143,6 +143,7 @@ export default {
                 archive_url: "档案来源",
                 mini_pic_url: "缩略图地址",
 				page_count: "总页数",
+                show_time: "展示时间",
 
 				AR: "阿拉伯文",
 				BE: "白俄罗斯文",
@@ -219,6 +220,11 @@ export default {
 					label: "页数总计",
 					type: "input",
 				},
+                {
+                    model: "show_time",
+                    label: "展示时间",
+                    type: "input"
+                },
 			],
 			OtherInfo: {
 				begin_year: '',
@@ -228,6 +234,7 @@ export default {
                 archive_url: '',
                 mini_pic_url: '',
 				page_count: '',
+                show_time: '',
 			},
 
 			// 按钮列表
@@ -413,6 +420,7 @@ export default {
                         "archive_url",
                         "mini_pic_url",
 						"page_count",
+                        "show_time",
 					];
 
 					for (let Type of Temp) {
@@ -476,6 +484,7 @@ export default {
                         "archive_url",
                         "mini_pic_url",
 						"page_count",
+                        "show_time"
 					];
 
 				for (let Type of Temp) {
@@ -538,6 +547,7 @@ export default {
                 archive_url: this.TableData1[4].TypeData,
                 mini_pic_url: this.TableData1[5].TypeData,
 				page_count: this.TableData1[6].TypeData,
+                show_time: this.TableData1[7].TypeData,
 			};
 		},
 

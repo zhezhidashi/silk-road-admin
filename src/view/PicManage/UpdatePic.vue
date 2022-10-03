@@ -150,6 +150,7 @@ export default {
 				organization: "组织",
 				archive_id: "档案编号",
 				pic_url: "图片地址",
+                show_time: "展示时间",
 				AR: "阿拉伯文",
 				BE: "白俄罗斯文",
 				BG: "保加利亚文",
@@ -215,6 +216,11 @@ export default {
 					label: "图片地址",
 					type: "input",
 				},
+                {
+                    model: "show_time",
+                    label: "展示时间",
+                    type: "input",
+                }
 			],
 			OtherInfo: {
 				date: "",
@@ -222,6 +228,7 @@ export default {
 				organization: "",
 				archive_id: "",
 				pic_url: "",
+                show_time: "",
 			},
 
 			// 按钮列表
@@ -396,6 +403,7 @@ export default {
 							"organization",
 							"archive_id",
 							"pic_url",
+                            "show_time"
 						];
 						for (let Type of Temp) {
 							_this.TableData1.push({
@@ -446,6 +454,7 @@ export default {
 					"organization",
 					"archive_id",
 					"pic_url",
+                    "show_time",
 				];
 
 				for (let Type of Temp) {
@@ -510,6 +519,7 @@ export default {
 				organization: this.TableData1[2].TypeData,
 				archive_id: this.TableData1[3].TypeData,
 				pic_url: this.TableData1[4].TypeData,
+                show_time: this.TableData1[5].TypeData,
 			};
 		},
 

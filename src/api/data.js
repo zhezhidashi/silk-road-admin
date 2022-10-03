@@ -56,17 +56,20 @@ export const postForm = (requestUrl, params, callback) => {
                 alert("网络错误");
             }
         }
-
-
         callback(res);
     })
 }
 
 // 向指定的 url 获取数据表单
 export const getForm = (requestUrl, callback) => {
+    store.commit('getToken')
+    const TokenValue = store.state.user.token
     axios.request({
         url: baseUrl + requestUrl,
-        method: 'get'
+        method: 'get',
+        headers: {
+            token: TokenValue
+        }
     }).then(({ data: res }) => {
 
         console.log('getForm 的 response', res);
@@ -163,6 +166,23 @@ export const getMenu = (params, callback) => {
                                     path: '/PicDetails',
                                     name: 'PicDetails',
                                     label: '展览-相册-图片详情',
+                                },
+                            ],
+                        },
+                        {
+                            name: 'Feedback',
+                            label: '用户留言',
+                            icon: 's-comment',
+                            children: [
+                                {
+                                    path: '/FeedbackList',
+                                    name: 'FeedbackList',
+                                    label: '用户留言列表',
+                                },
+                                {
+                                    path: '/FeedbackContent',
+                                    name: 'FeedbackContent',
+                                    label: '用户留言内容',
                                 },
                             ],
                         },

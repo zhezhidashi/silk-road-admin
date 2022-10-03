@@ -72,12 +72,18 @@ export default {
 					label: "相册简介",
 					type: "input",
 				},
+                {
+                    model: "show_time",
+                    label: "展示时间",
+                    type: "input",
+                },
 			],
 			operateForm: {
 				exhibition_id: "",
 				album_id: "",
 				title: "",
 				intro: "",
+                show_time: "",
 			},
 			tableData: [],
 			tableLabel: [
@@ -101,6 +107,11 @@ export default {
 					label: "相册简介",
 					width: 300,
 				},
+                {
+                    prop: "show_time",
+                    label: "展示时间",
+                    width: 125,
+                },
 			],
 			config: {
 				page: 1,
@@ -157,6 +168,7 @@ export default {
 				album_id: "",
 				title: "",
 				intro: "",
+                show_time: "",
 			};
 		},
 		UpdateAlbum(row) {
@@ -168,6 +180,7 @@ export default {
 				album_id: row.album_id,
 				title: row.title,
 				intro: row.intro,
+                show_time: row.show_time,
 			};
 
 			console.log("UpdateAlbum", this.operateType);
@@ -207,6 +220,7 @@ export default {
 							album_id: item,
 							title: res.data[item]["title"],
 							intro: res.data[item]["intro"],
+                            show_time: res.data[item]["show_time"],
 						};
 						console.log("new_map", new_map);
 						inner_this.tableData.push(new_map);

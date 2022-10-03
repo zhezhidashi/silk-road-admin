@@ -57,6 +57,11 @@ export default {
 					label: "展览简介",
 					type: "input",
 				},
+                {
+                    model: "show_time",
+                    label: "展示时间",
+                    type: "input",
+                },
 			],
 			operateForm: {
 				exhibition_id: "",
@@ -80,6 +85,11 @@ export default {
 					label: "展览简介",
 					width: 350,
 				},
+                {
+                    prop: "show_time",
+                    label: "展示时间",
+                    width: 150,
+                }
 			],
 			config: {
 				page: 1,
@@ -125,6 +135,7 @@ export default {
 			this.operateForm = {
 				title: "",
 				intro: "",
+                show_time: "",
 			};
 		},
 		UpdateExhibition(row) {
@@ -135,6 +146,7 @@ export default {
 				exhibition_id: row.exhibition_id,
 				title: row.title,
 				intro: row.intro,
+                show_time: row.show_time,
 			};
 			// console.log('row', row);
 			// this.operateForm = JSON.parse(JSON.stringify(row));
@@ -166,6 +178,7 @@ export default {
 						exhibition_id: item.main_id,
 						title: item.title,
 						intro: item.intro,
+                        show_time: item.show_time,
 					};
 					_this.tableData.push(new_map);
 				}

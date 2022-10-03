@@ -67,6 +67,11 @@ export default {
 					label: "活动日期",
 					type: "date",
 				},
+                {
+                    model: "show_time",
+                    label: "展示时间",
+                    type: "input",
+                }
 			],
 			operateForm: {
 				activity_id: "",
@@ -74,6 +79,7 @@ export default {
 				intro: "",
 				cover_pic: "",
 				date: "",
+                show_time: "",
 			},
 			tableData: [],
 			tableLabel: [
@@ -102,6 +108,11 @@ export default {
 					label: "活动日期",
 					width: 120,
 				},
+                {
+                    prop: "show_time",
+                    label: "展示时间",
+                    width: 120,
+                }
 			],
 			config: {
 				page: 1,
@@ -141,6 +152,7 @@ export default {
 				intro: "",
 				cover_pic: "",
 				date: "",
+                show_time: "",
 			};
 		},
 		UpdateActivity(row) {
@@ -153,6 +165,7 @@ export default {
 				intro: row.intro,
 				cover_pic: row.cover_pic,
 				date: row.date,
+                show_time: row.show_time,
 			};
 			// console.log('row', row);
 			// this.operateForm = JSON.parse(JSON.stringify(row));
@@ -188,6 +201,7 @@ export default {
 						intro: item.intro,
 						cover_pic: item.cover_pic,
 						date: item.date,
+                        show_time: item.show_time
 					};
 					_this.tableData.push(new_map);
 				}

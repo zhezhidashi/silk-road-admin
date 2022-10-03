@@ -60,30 +60,6 @@ const routes = [
                 component: () => import('../view/ActivityManage/ActivityDetails')
             },
             {
-                path: '/AddActivity',
-                name: 'AddActivity',
-                meta: {
-                    title: '添加活动'
-                },
-                component: () => import('../view/ActivityManage/AddActivity')
-            },
-            {
-                path: '/UpdateActivity',
-                name: 'UpdateActivity',
-                meta: {
-                    title: '更新活动'
-                },
-                component: () => import('../view/ActivityManage/UpdateActivity')
-            },
-            {
-                path: '/DeleteActivity',
-                name: 'DeleteActivity',
-                meta: {
-                    title: '删除活动'
-                },
-                component: () => import('../view/ActivityManage/DeleteActivity')
-            },
-            {
                 path: '/ExhibitionDetails',
                 name: 'ExhibitionDetails',
                 meta: {
@@ -92,60 +68,12 @@ const routes = [
                 component: () => import('../view/ExhibitionManage/ExhibitionDetails')
             },
             {
-                path: '/AddExhibition',
-                name: 'AddExhibition',
-                meta: {
-                    title: '添加展览'
-                },
-                component: () => import('../view/ExhibitionManage/AddExhibition')
-            },
-            {
-                path: '/UpdateExhibition',
-                name: 'UpdateExhibition',
-                meta: {
-                    title: '更新展览'
-                },
-                component: () => import('../view/ExhibitionManage/UpdateExhibition')
-            },
-            {
-                path: '/DeleteExhibition',
-                name: 'DeleteExhibition',
-                meta: {
-                    title: '删除展览'
-                },
-                component: () => import('../view/ExhibitionManage/DeleteExhibition')
-            },
-            {
                 path: '/AlbumDetails',
                 name: 'AlbumDetails',
                 meta: {
                     title: '相册详情'
                 },
                 component: () => import('../view/AlbumManage/AlbumDetails')
-            },
-            {
-                path: '/AddAlbum',
-                name: 'AddAlbum',
-                meta: {
-                    title: '添加相册'
-                },
-                component: () => import('../view/AlbumManage/AddAlbum')
-            },
-            {
-                path: '/UpdateAlbum',
-                name: 'UpdateAlbum',
-                meta: {
-                    title: '更新相册'
-                },
-                component: () => import('../view/AlbumManage/UpdateAlbum')
-            },
-            {
-                path: '/DeleteAlbum',
-                name: 'DeleteAlbum',
-                meta: {
-                    title: '删除相册'
-                },
-                component: () => import('../view/AlbumManage/DeleteAlbum')
             },
             {
                 path: '/PicDetails',
@@ -227,6 +155,22 @@ const routes = [
                 },
                 component: () => import('../view/OperationIntroduction')
             },
+            {
+                path: "/FeedbackList",
+                name: 'FeedbackList',
+                meta: {
+                    title: '用户留言列表'
+                },
+                component: () => import('../view/Feedback/FeedbackList')
+            },
+            {
+                path: 'FeedbackContent',
+                name: 'FeedbackContent',
+                meta: {
+                    title: '用户留言内容'
+                },
+                component: () => import('../view/Feedback/FeedbackContent')
+            }
         ]
 
     },
@@ -238,8 +182,6 @@ const routes = [
         },
         component: () => import('../view/Login/index.vue')
     }
-
-
 ]
 
 

@@ -10,6 +10,8 @@ export const getData = () => {
     return axios.request(
         {
             url: '/home/getData',
+            method: 'get',
+            
         }
     )
 }

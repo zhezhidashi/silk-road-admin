@@ -21,7 +21,7 @@
         for(let item of data.list){
             len++;
             item.exhibition_id = "2"
-            item.album_id = "qFcD8Kp6Tr"
+            item.album_id = "zJvK5CcY7f"
         }
         
         function PostData(index){
@@ -31,7 +31,7 @@
                 method: 'post',
                 data: data.list[index],
                 headers: {
-                    token: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTY2NDcwMDE4OSwiZXhwIjoxNjY0NzQzMzg5fQ.eyJ1c2VybmFtZSI6InNhZG1pbiIsImNyZWF0ZV90aW1lIjoiMjAyMi0xMC0wMiAxNjo0MzowOS40NzYzOTkifQ.yHlkISXZtdcB37jYPX0DLDEkLzDGTB1Frdy6O6mwwaBU-bbsb7SzZXA3g1QeePI6YX6ZY0DU9Rob-YpHYHgJwQ'
+                    token: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTY2NTA1NTEwMywiZXhwIjoxNjY1MDk4MzAzfQ.eyJ1c2VybmFtZSI6InNhZG1pbiIsImNyZWF0ZV90aW1lIjoiMjAyMi0xMC0wNiAxOToxODoyMy4wMjg1MzgifQ.zm8Qhw6MCgs8TriHN0N5591OIjnJ2ieKzurDFBVZqpXvzaBVUW1nQcLSsR4tHwsmjDmWBNOlFiEaXZfoa1r0_A'
                 }
             }).then(res => {
                 console.log('传送成功', data.list[index].archive_id)

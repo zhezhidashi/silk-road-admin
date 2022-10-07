@@ -1,20 +1,23 @@
 <template>
 	<div>
-        <router-link to='/OperationIntroduction' style="
-            padding: 10px;
-            width: 100px;
-            height: 40px;
-            background: skyblue;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 17px;
-            font-weight: bold;
-            color: white;
-            border-radius: 7px;
-        ">
-        操作说明
-        </router-link>
+		<router-link
+			to="/OperationIntroduction"
+			style="
+				padding: 10px;
+				width: 100px;
+				height: 40px;
+				background: skyblue;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				font-size: 17px;
+				font-weight: bold;
+				color: white;
+				border-radius: 7px;
+			"
+		>
+			操作说明
+		</router-link>
 
 		<el-row class="home" :gutter="20">
 			<el-col :span="8" style="margin-top: 20px">
@@ -33,18 +36,17 @@
 				</el-card>
 			</el-col>
 
-			<!-- <el-col style="margin-top: 20px" :span="16">
+			<el-col style="margin-top: 20px" :span="16">
 				<el-card style="height: 287px">
-					<div style="height: 240px" ref="userEcharts"></div>
+					<div style="height: 240px" ref="RequestEcharts"></div>
 				</el-card>
-			</el-col> -->
+			</el-col>
 		</el-row>
-        
 	</div>
 </template>
 
 <script>
-import { getData } from "../../api/data.js";
+import { getForm } from "../../api/data.js";
 import * as echarts from "echarts";
 
 export default {
@@ -52,70 +54,108 @@ export default {
 	data() {
 		return {
 			userImg: require("../../assets/images/user.png"),
+			TargetUrl: [
+				"/activity/list",
+				"/activity/detail",
+				"/archive/list",
+				"/archive/detail",
+			],
+			CountUrl: {
+				"/activity/list": 0,
+				"/activity/detail": 0,
+				"/archive/list": 0,
+				"/archive/detail": 0,
+			},
 		};
 	},
+	methods: {
+		// 获取表单数据
+		GetData() {
+			let _this = this;
+			for (let target_url of this.TargetUrl) {
+				getForm(`/visit/count?&target_url=${target_url}`, (res) => {
+					_this.CountUrl[target_url] = res.data[target_url];
+					console.log(
+						"CountUrl",
+						target_url,
+						res.data[target_url],
+						_this.CountUrl
+					);
+				});
+			}
+		},
+	},
 	mounted() {
-		getData().then((res) => {
-			const { code, data } = res.data;
-			if (code === 20000) {
-				//用户图
-				const userOprion = {
-					legend: {
-						// 图例文字颜色
-						textStyle: {
-							color: "#333",
-						},
-					},
-					grid: {
-						left: "20%",
-					},
-					// 提示框
-					tooltip: {
-						trigger: "axis",
-					},
-					xAxis: {
-						type: "category", // 类目轴
-						data: data.userData.map((item) => item.date),
-						axisLine: {
-							lineStyle: {
-								color: "#17b3a3",
+		this.GetData();
+	},
+	watch: {
+		CountUrl: {
+			immediate: true,
+			deep: true,
+			handler() {
+				this.$nextTick(() => {
+					const CountUrl = {
+						legend: {
+							// 图例文字颜色
+							textStyle: {
+								color: "#333",
 							},
 						},
-						axisLabel: {
-							interval: 0,
-							color: "#333",
+						grid: {
+							left: "20%",
 						},
-					},
-					yAxis: [
-						{
-							type: "value",
+						// 提示框
+						tooltip: {
+							trigger: "axis",
+						},
+						xAxis: {
+							type: "category", // 类目轴
+							data: [
+								"活动列表",
+								"活动详情",
+								"档案列表",
+								"档案详情",
+							],
 							axisLine: {
 								lineStyle: {
 									color: "#17b3a3",
 								},
 							},
+							axisLabel: {
+								interval: 0,
+								color: "#333",
+							},
 						},
-					],
-					color: ["#2ec7c9", "#b6a2de"],
-					series: [
-						{
-							name: "新增用户",
-							data: data.userData.map((item) => item.new),
-							type: "bar",
-						},
-						{
-							name: "活跃用户",
-							data: data.userData.map((item) => item.active),
-							type: "bar",
-						},
-					],
-				};
+						yAxis: [
+							{
+								type: "value",
+								axisLine: {
+									lineStyle: {
+										color: "#17b3a3",
+									},
+								},
+							},
+						],
+						color: ["#2ec7c9", "#b6a2de"],
+						series: [
+							{
+								name: "访问量",
+								data: [
+									this.CountUrl["/activity/list"],
+									this.CountUrl["/activity/detail"],
+									this.CountUrl["/archive/list"],
+									this.CountUrl["/archive/detail"],
+								],
+								type: "bar",
+							},
+						],
+					};
 
-				const U = echarts.init(this.$refs.userEcharts);
-				U.setOption(userOprion);
-			}
-			console.log(res);
-		});
+					const U = echarts.init(this.$refs.RequestEcharts);
+					U.setOption(CountUrl);
+				});
+			},
+		},
 	},
 };
 </script>

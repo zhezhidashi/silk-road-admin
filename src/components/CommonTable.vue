@@ -1,6 +1,34 @@
 <template>
 	<div class="common-table">
 		<el-table :data="tableData" height="725" stripe>
+			<el-table-column label="操作" :min-width="HandleWidth">
+				<template slot-scope="scope">
+					<el-button
+						v-if="ShowDetails"
+						size="mini"
+						type="info"
+						@click="handleDetails(scope.row)"
+						>详情</el-button
+					>
+					<el-button v-if="ShowEdit" size="mini" @click="handleEdit(scope.row)"
+						>编辑</el-button
+					>
+					<el-button
+                        v-if="ShowDelete"
+						size="mini"
+						type="danger"
+						@click="handleDelete(scope.row)"
+						>删除</el-button
+					>
+					<el-button
+						v-if="ShowUp"
+						size="mini"
+						type="primary"
+						@click="handleUp(scope.row)"
+						>上移</el-button
+					>
+				</template>
+			</el-table-column>
 			<el-table-column
 				show-overflow-tooltip
 				v-for="item in tableLabel"
@@ -12,20 +40,6 @@
 					<span style="margin-left: 10px">{{
 						scope.row[item.prop]
 					}}</span>
-				</template>
-			</el-table-column>
-			<el-table-column label="操作" min-width="240">
-				<template slot-scope="scope">
-                    <el-button v-if="ShowDetails" size="mini" type="info" @click="handleDetails(scope.row)">详情</el-button>
-					<el-button size="mini" @click="handleEdit(scope.row)"
-						>编辑</el-button
-					>
-					<el-button
-						size="mini"
-						type="danger"
-						@click="handleDelete(scope.row)"
-						>删除</el-button
-					>
 				</template>
 			</el-table-column>
 		</el-table>
@@ -47,20 +61,27 @@ export default {
 		tableData: Array,
 		tableLabel: Array,
 		config: Object,
-        ShowDetails: Boolean,
+		ShowDetails: Boolean,
+        ShowEdit: Boolean,
+        ShowDelete: Boolean,
+		ShowUp: Boolean,
+        HandleWidth: String,
 	},
 	data() {
 		return {};
 	},
 	methods: {
-        handleDetails(row){
-            this.$emit("details", row)
-        },
+		handleDetails(row) {
+			this.$emit("details", row);
+		},
 		handleEdit(row) {
 			this.$emit("edit", row);
 		},
 		handleDelete(row) {
 			this.$emit("del", row);
+		},
+		handleUp(row) {
+			this.$emit("up", row);
 		},
 		changePage(page) {
 			this.$emit("changePage", page);

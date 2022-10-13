@@ -13,8 +13,8 @@
 				<el-button type="primary" @click="DeleteList()">删除</el-button>
 			</el-form-item>
 		</el-form>
-        
-        <hr/>
+
+		<hr />
 		<!-- 一层字典相关数据 -->
 		<el-table :data="TableData1" style="width: 100%">
 			<el-table-column prop="TypeName" label="数据类型">
@@ -62,8 +62,8 @@ export default {
 				end_year: "结束年份",
 				file_size: "文件大小",
 				from_url: "图片来源",
-                archive_url: "档案来源",
-                mini_pic_url: "缩略图地址",
+				archive_url: "档案来源",
+				mini_pic_url: "缩略图地址",
 				page_count: "总页数",
 
 				AR: "阿拉伯文",
@@ -103,46 +103,45 @@ export default {
 				UK: "乌克兰文",
 				ZH: "中文",
 			},
-
 		};
 	},
-    created(){
-        this.ArchiveID = this.$route.query.main_id;
-        // 判断是否是从 “档案列表” 页面跳转过来的
-        if(this.ArchiveID != undefined) this.GetList();
-    },
+	created() {
+		this.ArchiveID = this.$route.query.main_id;
+		// 判断是否是从 “档案列表” 页面跳转过来的
+		if (this.ArchiveID != undefined) this.GetList();
+	},
 	methods: {
-        //查询档案
+		//查询档案
 		GetList() {
-			let inner_this = this;
+			let _this = this;
 			getForm(
 				"/archive/detail?archive_id=" + this.ArchiveID,
 				function (res) {
-                    inner_this.TableData1 = [];
-                    inner_this.TableData2 = [];
-                    if(res.code === 400){
-                        alert('数据不存在');
-                        return;
-                    }
+					_this.TableData1 = [];
+					_this.TableData2 = [];
+					if (res.code === 400) {
+						alert("数据不存在");
+						return;
+					}
 					// 只有一层字典的有7个数据
 					let Temp = [
 						"begin_year",
 						"end_year",
 						"file_size",
 						"from_url",
-                        "archive_url",
-                        "mini_pic_url",
+						"archive_url",
+						"mini_pic_url",
 						"page_count",
 					];
 
 					for (let Type of Temp) {
-						inner_this.TableData1.push({
-							TypeName: inner_this.TableDataMap[Type],
+						_this.TableData1.push({
+							TypeName: _this.TableDataMap[Type],
 							TypeData: res.data[Type],
 						});
 					}
 
-					console.log("TableData1", inner_this.TableData1);
+					console.log("TableData1", _this.TableData1);
 
 					// 具有两层字典的有五个数据
 					Temp = [
@@ -154,36 +153,54 @@ export default {
 					];
 					for (let Type of Temp) {
 						for (let item in res.data[Type]) {
-							inner_this.TableData2.push({
+							_this.TableData2.push({
 								// 种类，语言，简介
 								type: Type,
 								option: item,
 								intro: res.data[Type][item],
-								TypeName: inner_this.TableDataMap[Type],
-								OptionName: inner_this.TableDataMap[item],
+								TypeName: _this.TableDataMap[Type],
+								OptionName: _this.TableDataMap[item],
 							});
 						}
 					}
 
-                    // 还有一个 tag_list 列表
-                    for (let item of res.data.tag_list) {
-						inner_this.TableData2.push({
+					// 还有一个 tag_list 列表
+					for (let item of res.data.tag_list) {
+						_this.TableData2.push({
 							// 种类，语言，简介
-							type: 'tag_list',
+							type: "tag_list",
 							option: item.slice(0, 2),
 							intro: item.slice(3),
-							TypeName: inner_this.TableDataMap['tag_list'],
-							OptionName: inner_this.TableDataMap[item.slice(0, 2)],
+							TypeName: _this.TableDataMap["tag_list"],
+							OptionName: _this.TableDataMap[item.slice(0, 2)],
 						});
 					}
 				}
 			);
 		},
-        // 删除档案
-        DeleteList(){
-            let DataForm = {"archive_id": parseInt(this.ArchiveID)};
-            postForm("/archive/delete", DataForm, function (res) {});
-        }
+		// 删除档案
+		DeleteList() {
+			let DataForm = { archive_id: parseInt(this.ArchiveID) };
+            let _this = this;
+			postForm("/archive/delete", DataForm, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
+				} else {
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
+				}
+			});
+		},
 	},
 };
 </script>

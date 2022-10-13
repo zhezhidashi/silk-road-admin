@@ -70,7 +70,11 @@
 			:tableData="TableData2"
 			:tableLabel="TableData2Label"
 			:config="config"
-            :ShowDetails="false"
+			:ShowDetails="false"
+            :ShowDelete="true"
+            :ShowEdit="true"
+            :ShowUp="false"
+            :HandleWidth="'140'"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
 		></common-table>
@@ -101,7 +105,7 @@ export default {
 			config: {
 				page: 1,
 				total: 15,
-                page_size: 100,
+				page_size: 100,
 			},
 			OperateType: "",
 			// 档案主键
@@ -124,7 +128,7 @@ export default {
 				{
 					prop: "intro",
 					label: "简介",
-					width: 400,
+					width: 600,
 				},
 			],
 
@@ -140,10 +144,10 @@ export default {
 				end_year: "结束年份",
 				file_size: "文件大小",
 				from_url: "图片来源",
-                archive_url: "档案来源",
-                mini_pic_url: "缩略图地址",
+				archive_url: "档案来源",
+				mini_pic_url: "缩略图地址",
 				page_count: "总页数",
-                show_time: "展示时间",
+				show_time: "展示时间",
 
 				AR: "阿拉伯文",
 				BE: "白俄罗斯文",
@@ -210,31 +214,31 @@ export default {
 					label: "档案来源",
 					type: "input",
 				},
-                {
-                    model: "mini_pic_url",
-                    label: "缩略图地址",
-                    type: "input"
-                },
+				{
+					model: "mini_pic_url",
+					label: "缩略图地址",
+					type: "input",
+				},
 				{
 					model: "page_count",
 					label: "页数总计",
 					type: "input",
 				},
-                {
-                    model: "show_time",
-                    label: "展示时间",
-                    type: "input"
-                },
+				{
+					model: "show_time",
+					label: "展示时间",
+					type: "input",
+				},
 			],
 			OtherInfo: {
-				begin_year: '',
-				end_year: '',
-				file_size: '',
-				from_url: '',
-                archive_url: '',
-                mini_pic_url: '',
-				page_count: '',
-                show_time: '',
+				begin_year: "",
+				end_year: "",
+				file_size: "",
+				from_url: "",
+				archive_url: "",
+				mini_pic_url: "",
+				page_count: "",
+				show_time: "",
 			},
 
 			// 按钮列表
@@ -393,82 +397,80 @@ export default {
 			ButtonCopy: null,
 		};
 	},
-    created(){
-        this.ArchiveID = this.$route.query.main_id;
-        // 判断是否是从 “档案列表” 页面跳转过来的
-        if(this.ArchiveID != undefined) this.GetList();
-    },
+	created() {
+		this.ArchiveID = this.$route.query.main_id;
+		// 判断是否是从 “档案列表” 页面跳转过来的
+		if (this.ArchiveID != undefined) this.GetList();
+	},
 	methods: {
 		//查询档案
 		GetList() {
-			let inner_this = this;
-			getForm(
-				"/archive/detail?archive_id=" + this.ArchiveID,
-				function (res) {
-					inner_this.TableData1 = [];
-					inner_this.TableData2 = [];
-					if (res.code === 400) {
-						alert("数据不存在");
-						return;
-					}
-					// 只有一层字典的有7个数据
-					let Temp = [
-						"begin_year",
-						"end_year",
-						"file_size",
-						"from_url",
-                        "archive_url",
-                        "mini_pic_url",
-						"page_count",
-                        "show_time",
-					];
-
-					for (let Type of Temp) {
-						inner_this.TableData1.push({
-							Type,
-							TypeName: inner_this.TableDataMap[Type],
-							TypeData: res.data[Type],
-						});
-					}
-
-					console.log("TableData1", inner_this.TableData1);
-
-					// 具有两层字典的有五个数据
-					Temp = [
-						"title",
-						"language",
-						"location",
-						"intro",
-						"organization",
-					];
-					for (let Type of Temp) {
-						for (let item in res.data[Type]) {
-							inner_this.TableData2.push({
-								// 种类，语言，简介
-								type: Type,
-								option: item,
-								intro: res.data[Type][item],
-								TypeName: inner_this.TableDataMap[Type],
-								OptionName: inner_this.TableDataMap[item],
-							});
-						}
-					}
-
-					// 还有一个 tag_list 列表
-					for (let item of res.data.tag_list) {
-						inner_this.TableData2.push({
-							// 种类，语言，简介
-							type: "tag_list",
-							option: item.slice(0, 2),
-							intro: item.slice(3),
-							TypeName: inner_this.TableDataMap["tag_list"],
-							OptionName:
-								inner_this.TableDataMap[item.slice(0, 2)],
-						});
-					}
-					inner_this.config.total = inner_this.TableData2.length;
+			let _this = this;
+			let url = "/archive/detail?archive_id=" + this.ArchiveID;
+            console.log('请求 url', url)
+			getForm(url, function (res) {
+				_this.TableData1 = [];
+				_this.TableData2 = [];
+				if (res.code === 400) {
+					alert("数据不存在");
+					return;
 				}
-			);
+				// 只有一层字典的有7个数据
+				let Temp = [
+					"begin_year",
+					"end_year",
+					"file_size",
+					"from_url",
+					"archive_url",
+					"mini_pic_url",
+					"page_count",
+					"show_time",
+				];
+
+				for (let Type of Temp) {
+					_this.TableData1.push({
+						Type,
+						TypeName: _this.TableDataMap[Type],
+						TypeData: res.data[Type],
+					});
+				}
+
+				console.log("TableData1", _this.TableData1);
+
+				// 具有两层字典的有五个数据
+				Temp = [
+					"title",
+					"language",
+					"location",
+					"intro",
+					"organization",
+				];
+				for (let Type of Temp) {
+					for (let item in res.data[Type]) {
+						_this.TableData2.push({
+							// 种类，语言，简介
+							type: Type,
+							option: item,
+							intro: res.data[Type][item],
+							TypeName: _this.TableDataMap[Type],
+							OptionName: _this.TableDataMap[item],
+						});
+					}
+				}
+
+				// 还有一个 tag_list 列表
+				for (let item of res.data.tag_list) {
+					_this.TableData2.push({
+						// 种类，语言，简介
+						type: "tag_list",
+						option: item.slice(0, 2),
+						intro: item.slice(3),
+						TypeName: _this.TableDataMap["tag_list"],
+						OptionName: _this.TableDataMap[item.slice(0, 2)],
+					});
+				}
+				_this.config.total = _this.TableData2.length;
+			});
 		},
 		// 更新一层字典的数据
 		confirm() {
@@ -476,16 +478,16 @@ export default {
 			if (this.OperateType === "edit1") {
 				// edit1 是修改只有一层字典的有7个数据
 				this.TableData1 = [];
-					let Temp = [
-						"begin_year",
-						"end_year",
-						"file_size",
-						"from_url",
-                        "archive_url",
-                        "mini_pic_url",
-						"page_count",
-                        "show_time"
-					];
+				let Temp = [
+					"begin_year",
+					"end_year",
+					"file_size",
+					"from_url",
+					"archive_url",
+					"mini_pic_url",
+					"page_count",
+					"show_time",
+				];
 
 				for (let Type of Temp) {
 					this.TableData1.push({
@@ -515,13 +517,17 @@ export default {
 			} else if (this.OperateType === "edit3") {
 				// edit3 是新增二层字典的数据
 				let NowType = this.ButtonCopy.ButtonKey;
-                let TableData2Copy = this.TableData2;
-                this.TableData2 = [];                
+				let TableData2Copy = this.TableData2;
+				this.TableData2 = [];
 
-                for(let item of TableData2Copy){
-                    if(NowType === item.type && this.AddTableData2.option === item.option) continue;
-                    this.TableData2.push(item);
-                }
+				for (let item of TableData2Copy) {
+					if (
+						NowType === item.type &&
+						this.AddTableData2.option === item.option
+					)
+						continue;
+					this.TableData2.push(item);
+				}
 
 				this.TableData2.push({
 					// 种类，语言，简介
@@ -544,10 +550,10 @@ export default {
 				end_year: this.TableData1[1].TypeData,
 				file_size: this.TableData1[2].TypeData,
 				from_url: this.TableData1[3].TypeData,
-                archive_url: this.TableData1[4].TypeData,
-                mini_pic_url: this.TableData1[5].TypeData,
+				archive_url: this.TableData1[4].TypeData,
+				mini_pic_url: this.TableData1[5].TypeData,
 				page_count: this.TableData1[6].TypeData,
-                show_time: this.TableData1[7].TypeData,
+				show_time: this.TableData1[7].TypeData,
 			};
 		},
 
@@ -605,7 +611,26 @@ export default {
 			}
 
 			console.log("DataForm", DataForm);
-			postForm("/archive/update", DataForm, function (res) {});
+
+            let _this = this;
+			postForm("/archive/update", DataForm, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
+				} else {
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
+				}
+			});
 		},
 	},
 };

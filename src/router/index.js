@@ -108,14 +108,6 @@ const routes = [
                 component: () => import('../view/PicManage/DeletePic')
             },
             {
-                path: '/Content',
-                name: 'Content',
-                meta: {
-                    title: '内容管理'
-                },
-                component: () => import('../view/Content')
-            },
-            {
                 path: '/AddArchive',
                 name: 'AddArchive',
                 meta: {
@@ -172,7 +164,6 @@ const routes = [
                 component: () => import('../view/Feedback/FeedbackContent')
             }
         ]
-
     },
     {
         path: '/login',

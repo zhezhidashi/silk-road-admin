@@ -23,11 +23,16 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
-            :ShowDetails="true"
+			:ShowDetails="true"
+			:ShowEdit="true"
+			:ShowDelete="true"
+			:ShowUp="true"
+			:HandleWidth="'300'"
 			@changePage="GetList()"
-            @details="SeeDetails"
+			@details="SeeDetails"
 			@edit="UpdateActivity"
 			@del="DeleteActivity"
+			@up="UpActivity"
 		></common-table>
 	</div>
 </template>
@@ -46,6 +51,7 @@ export default {
 		return {
 			operateType: "add",
 			isShow: false,
+			totalItem: 0,
 			operateFormLabel: [
 				{
 					model: "title",
@@ -67,11 +73,11 @@ export default {
 					label: "活动日期",
 					type: "date",
 				},
-                {
-                    model: "show_time",
-                    label: "展示时间",
-                    type: "input",
-                }
+				{
+					model: "show_time",
+					label: "展示时间",
+					type: "input",
+				},
 			],
 			operateForm: {
 				activity_id: "",
@@ -79,45 +85,35 @@ export default {
 				intro: "",
 				cover_pic: "",
 				date: "",
-                show_time: "",
 			},
 			tableData: [],
 			tableLabel: [
 				{
-					prop: "activity_id",
-					label: "活动编号",
-					width: 100,
-				},
-				{
 					prop: "title",
 					label: "活动名称",
-					width: 200,
+					width: 300,
 				},
 				{
 					prop: "intro",
 					label: "活动简介",
-					width: 300,
+					width: 400,
 				},
-				{
-					prop: "cover_pic",
-					label: "活动封面",
-					width: 320,
-				},
+
 				{
 					prop: "date",
 					label: "活动日期",
 					width: 120,
 				},
-                {
-                    prop: "show_time",
-                    label: "展示时间",
-                    width: 120,
-                }
+				{
+					prop: "show_time",
+					label: "展示时间",
+					width: 100,
+				},
 			],
 			config: {
 				page: 1,
 				total: 30,
-                page_size: 15,
+				page_size: 15,
 			},
 		};
 	},
@@ -127,20 +123,51 @@ export default {
 			if (this.operateType === "add") {
 				postForm("/activity/add", this.operateForm, function (res) {
 					_this.isShow = false;
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else if (res.code === 400) {
+						_this.$message({
+							message: "请求对象不存在",
+							type: "error",
+						});
+					} else {
+						_this.$message({
+							message: "网络错误",
+							type: "error",
+						});
+					}
 					_this.GetList();
 				});
 			} else {
 				postForm("/activity/update", this.operateForm, function (res) {
 					_this.isShow = false;
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else if (res.code === 400) {
+						_this.$message({
+							message: "请求对象不存在",
+							type: "error",
+						});
+					} else {
+						_this.$message({
+							message: "网络错误",
+							type: "error",
+						});
+					}
 					_this.GetList();
 				});
 			}
 		},
-        SeeDetails(row) {
+		SeeDetails(row) {
 			let url =
 				"https://dev.pacificsilkroad.cn/AcademicActivityDetails?academic_activity_id=" +
 				row.activity_id;
-                // console.log('活动详情', url);
 			window.open(url, "_blank");
 		},
 		AddActivity() {
@@ -152,7 +179,7 @@ export default {
 				intro: "",
 				cover_pic: "",
 				date: "",
-                show_time: "",
+				show_time: "",
 			};
 		},
 		UpdateActivity(row) {
@@ -165,7 +192,7 @@ export default {
 				intro: row.intro,
 				cover_pic: row.cover_pic,
 				date: row.date,
-                show_time: row.show_time,
+				show_time: row.show_time,
 			};
 			// console.log('row', row);
 			// this.operateForm = JSON.parse(JSON.stringify(row));
@@ -183,6 +210,70 @@ export default {
 					"/activity/delete",
 					{ activity_id: row.activity_id },
 					function (res) {
+						if (res.code === 0) {
+							_this.$message({
+								message: "提交成功",
+								type: "success",
+							});
+						} else if (res.code === 400) {
+							_this.$message({
+								message: "请求对象不存在",
+								type: "error",
+							});
+						} else {
+							_this.$message({
+								message: "网络错误",
+								type: "error",
+							});
+						}
+						_this.GetList();
+					}
+				);
+			});
+		},
+		Swap(a, b) {
+			let tmp = a;
+			a = b;
+			b = tmp;
+			return [a, b];
+		},
+		UpActivity(row) {
+			if (row.index === 0) {
+				alert("已经是第一个了");
+				return;
+			}
+			const res = this.Swap(
+				this.tableData[row.index].show_time,
+				this.tableData[row.index - 1].show_time
+			);
+			this.tableData[row.index].show_time = res[0];
+			this.tableData[row.index - 1].show_time = res[1];
+			console.log(
+				this.tableData[row.index].show_time,
+				this.tableData[row.index - 1].show_time
+			);
+			let _this = this;
+			postForm("/activity/update", _this.tableData[row.index], (res) => {
+				postForm(
+					"/activity/update",
+					_this.tableData[row.index - 1],
+					(res) => {
+						if (res.code === 0) {
+							_this.$message({
+								message: "提交成功",
+								type: "success",
+							});
+						} else if (res.code === 400) {
+							_this.$message({
+								message: "请求对象不存在",
+								type: "error",
+							});
+						} else {
+							_this.$message({
+								message: "网络错误",
+								type: "error",
+							});
+						}
 						_this.GetList();
 					}
 				);
@@ -190,9 +281,10 @@ export default {
 		},
 		GetList() {
 			this.tableData = [];
-            let _this = this;
-            let url = `/activity/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`
-			
+			this.totalItem = 0;
+			let _this = this;
+			let url = `/activity/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
+			console.log("发出请求", url);
 			getForm(url, function (res) {
 				for (let item of res.data.list) {
 					let new_map = {
@@ -201,9 +293,11 @@ export default {
 						intro: item.intro,
 						cover_pic: item.cover_pic,
 						date: item.date,
-                        show_time: item.show_time
+						show_time: item.show_time,
+						index: _this.totalItem,
 					};
 					_this.tableData.push(new_map);
+					_this.totalItem++;
 				}
 				_this.config.total = res.data.total_items;
 			});

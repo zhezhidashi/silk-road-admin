@@ -5,6 +5,10 @@
 			:tableLabel="tableLabel"
 			:config="config"
             :ShowDetails="true"
+            :ShowEdit="false"
+            :ShowDelete="false"
+            :ShowUp="false"
+            :HandleWidth="'80'"
             @changePage="GetList()"
             @details="SeeDetails"
 		></common-table>
@@ -31,17 +35,17 @@ export default {
 				{
 					prop: "contact",
 					label: "联系方式",
-					width: 200,
+					width: 300,
 				},
 				{
 					prop: "feedback_content",
 					label: "留言内容",
-					width: 300,
+					width: 500,
 				},
 				{
 					prop: "show_time",
 					label: "留言时间",
-					width: 150,
+					width: 250,
 				},
 			],
 			config: {
@@ -66,7 +70,7 @@ export default {
 			this.tableData = [];
             let _this = this;
             let url = `/feedback/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`
-			
+            console.log('请求的url', url);
 			getForm(url, function (res) {
 				for (let item of res.data.list) {
 					let new_map = {

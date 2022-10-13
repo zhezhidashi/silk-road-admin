@@ -59,12 +59,16 @@ export default {
 				"/activity/detail",
 				"/archive/list",
 				"/archive/detail",
+                "/exhibition/list",
+				"/exhibition/detail",
 			],
 			CountUrl: {
 				"/activity/list": 0,
 				"/activity/detail": 0,
 				"/archive/list": 0,
 				"/archive/detail": 0,
+                "/exhibition/list": 0,
+				"/exhibition/detail": 0,
 			},
 		};
 	},
@@ -115,6 +119,8 @@ export default {
 								"活动详情",
 								"档案列表",
 								"档案详情",
+                                "展览列表",
+                                "展览详情",
 							],
 							axisLine: {
 								lineStyle: {
@@ -145,6 +151,8 @@ export default {
 									this.CountUrl["/activity/detail"],
 									this.CountUrl["/archive/list"],
 									this.CountUrl["/archive/detail"],
+                                    this.CountUrl["/exhibition/list"],
+                                    this.CountUrl["/exhibition/detail"],
 								],
 								type: "bar",
 							},

@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script type="text/javascript" src="AddAlbum2.json"></script>
+    <script type="text/javascript" src="AddActivity.json"></script>
 </head>
 
 <body>
@@ -20,21 +20,21 @@
         let len = 0;
         for(let item of data.list){
             len++;
-            item.exhibition_id = "2"
-            item.album_id = "zJvK5CcY7f"
+            // item.exhibition_id = "2"
+            // item.album_id = "zJvK5CcY7f"
         }
         
         function PostData(index){
             if(index === len) return;
             axios.request({
-                url: 'https://dev_admin.pacificsilkroad.cn/api-service/exhibition/add-pic-to-album',
+                url: 'https://dev_admin.pacificsilkroad.cn/api-service/activity/add',
                 method: 'post',
                 data: data.list[index],
                 headers: {
-                    token: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTY2NTA1NTEwMywiZXhwIjoxNjY1MDk4MzAzfQ.eyJ1c2VybmFtZSI6InNhZG1pbiIsImNyZWF0ZV90aW1lIjoiMjAyMi0xMC0wNiAxOToxODoyMy4wMjg1MzgifQ.zm8Qhw6MCgs8TriHN0N5591OIjnJ2ieKzurDFBVZqpXvzaBVUW1nQcLSsR4tHwsmjDmWBNOlFiEaXZfoa1r0_A'
+                    token: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTY2NTM3ODMxMSwiZXhwIjoxNjY1NDIxNTExfQ.eyJ1c2VybmFtZSI6InNhZG1pbiIsImNyZWF0ZV90aW1lIjoiMjAyMi0xMC0xMCAxMzowNToxMS44MDY4NDgifQ.DgMvbILWVnFoqK3zvdbwUry_v4XCwLMmQrAoeS-Bn62jl38NfRVtIj-xwIlTbfwxg50U7Q3QO1czZlUOMhvY-g'
                 }
             }).then(res => {
-                console.log('传送成功', data.list[index].archive_id)
+                console.log('传送成功', index)
                 PostData(index + 1)
             });
         } 

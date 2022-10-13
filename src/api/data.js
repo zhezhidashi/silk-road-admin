@@ -3,7 +3,7 @@
 import axios from "./axios";
 import store from '../store'
 
-export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
+export const baseUrl = '/api'
 
 
 export const getData = () => {
@@ -11,7 +11,7 @@ export const getData = () => {
         {
             url: '/home/getData',
             method: 'get',
-            
+
         }
     )
 }
@@ -38,7 +38,7 @@ export const postForm = (requestUrl, params, callback) => {
     console.log('postForm 的表单', requestUrl, params)
 
     store.commit('getToken')
-    const TokenValue = store.state.user.token
+    const TokenValue = store.state.user.token;
     axios.request({
         url: baseUrl + requestUrl,
         method: 'post',
@@ -48,16 +48,6 @@ export const postForm = (requestUrl, params, callback) => {
         }
     }).then(({ data: res }) => {
         console.log('postForm 的 response', res);
-
-        if (requestUrl !== '/file/upload/img') {
-            if (res.code === 0) {
-                alert("请求成功");
-            } else if (res.code === 400) {
-                alert("请求对象不存在");
-            } else {
-                alert("网络错误");
-            }
-        }
         callback(res);
     })
 }
@@ -73,7 +63,6 @@ export const getForm = (requestUrl, callback) => {
             token: TokenValue
         }
     }).then(({ data: res }) => {
-
         console.log('getForm 的 response', res);
         callback(res)
     })

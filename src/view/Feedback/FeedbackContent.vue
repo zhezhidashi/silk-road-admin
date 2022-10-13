@@ -1,10 +1,21 @@
 <template>
 	<div>
-		<div style="font-size: 20px; line-height: 200%;">
-			姓名: {{ Name }}<br />
-			联系方式: {{ Contact }}<br />
-			留言内容: {{ Content }}
-		</div>
+		<el-descriptions
+			title="用户留言"
+			direction="vertical"
+			:column="1"
+			border
+		>
+			<el-descriptions-item label="姓名"
+				>{{Name}}</el-descriptions-item
+			>
+			<el-descriptions-item label="联系方式"
+				>{{Contact}}</el-descriptions-item
+			>
+			<el-descriptions-item label="留言内容"
+				>{{Content}}</el-descriptions-item
+			>
+		</el-descriptions>
 	</div>
 </template>
 

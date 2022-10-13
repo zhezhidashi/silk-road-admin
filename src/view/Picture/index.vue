@@ -1,9 +1,8 @@
-// 上传图片相关
 <template>
 	<el-upload
 		class="upload-demo"
 		:file-list="fileList"
-        action=""
+		action=""
 		list-type="picture"
 		:http-request="upload"
 		:multiple="true"
@@ -12,9 +11,7 @@
 			选取文件
 		</el-button>
 
-		<div slot="tip" class="el-upload__tip">
-			只能上传jpg文件
-		</div>
+		<div slot="tip" class="el-upload__tip">只能上传jpg文件</div>
 	</el-upload>
 </template>
 
@@ -37,20 +34,34 @@ export default {
 			formData.append("file_obj", f.file, f.file.name);
 
 			// post 请求上传图片
-			let inner_this = this;
+			let _this = this;
 
 			postForm("/file/upload/img", formData, function (res) {
 				if (res.code === 0) {
+					_this.$message({
+						message: `${f.file.name} 提交成功`,
+						type: "success",
+					});
+
 					//上传成功之后 显示图片
-					console.log("fileList", inner_this.fileList);
-					const ImgUrl = "https://dev.pacificsilkroad.cn/img-service" + res.data;
+					console.log("fileList", _this.fileList);
+					const ImgUrl =
+						"https://dev.pacificsilkroad.cn/img-service" + res.data;
 					console.log("ImgUrl", ImgUrl);
-					inner_this.fileList.push({
+					_this.fileList.push({
 						name: ImgUrl,
 						url: ImgUrl,
 					});
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
 				} else {
-					alert(res.msg);
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
 				}
 			});
 		},

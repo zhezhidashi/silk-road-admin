@@ -77,14 +77,10 @@ export default {
 		GetData() {
 			let _this = this;
 			for (let target_url of this.TargetUrl) {
-				getForm(`/visit/count?&target_url=${target_url}`, (res) => {
+                let url = `/visit/count?&target_url=${target_url}`;
+                console.log('请求的url', url)
+				getForm(url, (res) => {
 					_this.CountUrl[target_url] = res.data[target_url];
-					console.log(
-						"CountUrl",
-						target_url,
-						res.data[target_url],
-						_this.CountUrl
-					);
 				});
 			}
 		},

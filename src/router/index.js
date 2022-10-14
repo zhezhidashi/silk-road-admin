@@ -68,18 +68,34 @@ const routes = [
                 component: () => import('../view/ExhibitionManage/ExhibitionDetails')
             },
             {
-                path: '/AlbumDetails',
-                name: 'AlbumDetails',
+                path: '/AddExhibition',
+                name: 'AddExhibition',
                 meta: {
-                    title: '相册详情'
+                    title: '添加展览'
                 },
-                component: () => import('../view/AlbumManage/AlbumDetails')
+                component: () => import('../view/ExhibitionManage/AddExhibition')
+            },
+            {
+                path: '/UpdateExhibition',
+                name: 'UpdateExhibition',
+                meta: {
+                    title: '更新展览'
+                },
+                component: () => import('../view/ExhibitionManage/UpdateExhibition')
+            },
+            {
+                path: '/DeleteExhibition',
+                name: 'DeleteExhibition',
+                meta: {
+                    title: '删除展览'
+                },
+                component: () => import('../view/ExhibitionManage/DeleteExhibition')
             },
             {
                 path: '/PicDetails',
                 name: 'PicDetails',
                 meta: {
-                    title: '相册-图片详情'
+                    title: '展览-图片详情'
                 },
                 component: () => import('../view/PicManage/PicDetails')
             },
@@ -87,7 +103,7 @@ const routes = [
                 path: '/AddPic',
                 name: 'AddPic',
                 meta: {
-                    title: '添加相册-图片'
+                    title: '添加展览-图片'
                 },
                 component: () => import('../view/PicManage/AddPic')
             },
@@ -95,7 +111,7 @@ const routes = [
                 path: '/UpdatePic',
                 name: 'UpdatePic',
                 meta: {
-                    title: '更新相册-图片'
+                    title: '更新展览-图片'
                 },
                 component: () => import('../view/PicManage/UpdatePic')
             },
@@ -103,9 +119,17 @@ const routes = [
                 path: '/DeletePic',
                 name: 'DeletePic',
                 meta: {
-                    title: '删除相册-图片'
+                    title: '删除展览-图片'
                 },
                 component: () => import('../view/PicManage/DeletePic')
+            },
+            {
+                path: '/SortPic',
+                name: 'SortPic',
+                meta: {
+                    title: '展览-图片排序'
+                },
+                component: () => import('../view/PicManage/SortPic')
             },
             {
                 path: '/AddArchive',
@@ -156,7 +180,7 @@ const routes = [
                 component: () => import('../view/Feedback/FeedbackList')
             },
             {
-                path: 'FeedbackContent',
+                path: '/FeedbackContent',
                 name: 'FeedbackContent',
                 meta: {
                     title: '用户留言内容'

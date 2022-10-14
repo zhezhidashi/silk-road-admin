@@ -107,37 +107,15 @@ export const getMenu = (params, callback) => {
                         //     icon: 'user',
                         // },
                         {
-                            name: 'ArchiveManage',
-                            label: '档案管理',
-                            icon: 'folder-opened',
+                            name: 'Content',
+                            label: '内容管理',
+                            icon: 's-order',
                             children: [
                                 {
                                     path: '/ArchiveList',
                                     name: 'ArchiveList',
                                     label: '档案列表',
                                 },
-                                {
-                                    path: '/AddArchive',
-                                    name: 'AddArchive',
-                                    label: '添加档案',
-                                },
-                                {
-                                    path: '/UpdateArchive',
-                                    name: 'UpdateArchive',
-                                    label: '更新档案',
-                                },
-                                {
-                                    path: '/DeleteArchive',
-                                    name: 'DeleteArchive',
-                                    label: '删除档案',
-                                },
-                            ],
-                        },
-                        {
-                            name: 'Content',
-                            label: '内容管理',
-                            icon: 's-order',
-                            children: [
                                 {
                                     path: '/ActivityDetails',
                                     name: 'ActivityDetails',
@@ -149,15 +127,10 @@ export const getMenu = (params, callback) => {
                                     label: '展览详情',
                                 },
                                 {
-                                    path: '/AlbumDetails',
-                                    name: 'AlbumDetails',
-                                    label: '展览-相册详情',
-                                },
-                                {
                                     path: '/PicDetails',
                                     name: 'PicDetails',
-                                    label: '展览-相册-图片详情',
-                                },
+                                    label: '展览-图片详情',
+                                }
                             ],
                         },
                         {
@@ -170,11 +143,6 @@ export const getMenu = (params, callback) => {
                                     name: 'FeedbackList',
                                     label: '用户留言列表',
                                 },
-                                {
-                                    path: '/FeedbackContent',
-                                    name: 'FeedbackContent',
-                                    label: '用户留言内容',
-                                },
                             ],
                         },
                     ],
@@ -185,4 +153,82 @@ export const getMenu = (params, callback) => {
         }
 
     })
+}
+
+export const TableDataMap = {
+    title: '标题',
+    Introduction: '简介',
+    show_time: "展示时间",
+    exhibition_id: "展览ID",
+    pic_id: "图片ID",
+    pic_url: "图片url",
+    intro: '简介',
+    date: "日期",
+    size: "尺寸",
+    organization: "组织",
+    archive_id: "档案ID",
+
+
+    AR: "阿拉伯文",
+    BE: "白俄罗斯文",
+    BG: "保加利亚文",
+    CA: "加泰罗尼亚文",
+    CS: "捷克文",
+    DA: "丹麦文",
+    DE: "德文",
+    EL: "希腊文",
+    EN: "英文",
+    ES: "西班牙文",
+    ET: "爱沙尼亚文",
+    FI: "芬兰文",
+    FR: "法文",
+    HR: "克罗地亚文",
+    HU: "匈牙利文",
+    IT: "意大利文",
+    IW: "希伯来文",
+    JA: "日文",
+    KO: "朝鲜文",
+    LT: "立陶宛文",
+    MK: "马其顿文",
+    NL: "荷兰文",
+    NO: "挪威文",
+    PL: "波兰文",
+    PT: "葡萄牙文",
+    RO: "罗马尼亚文",
+    RU: "俄文",
+    SK: "斯洛伐克文",
+    SL: "斯洛文尼亚文",
+    SQ: "阿尔巴尼亚文",
+    SR: "塞尔维亚文",
+    SV: "瑞典文",
+    TH: "泰文",
+    TR: "土耳其文",
+    UK: "乌克兰文",
+    ZH: "中文",
+}
+
+export const LanguageOption = [
+    { label: "中文", value: "ZH" },
+    { label: "英文", value: "EN" },
+    { label: "西班牙文", value: "ES" },
+    { label: "荷兰文", value: "NL" },
+    { label: "法文", value: "FR" },
+    { label: "日文", value: "JA" },
+    { label: "葡萄牙文", value: "PT" },
+]
+
+export const ListContain = (list, key) => {
+    for (let i = 0; i < list.length; i++) {
+        if (list[i] === key) {
+            return true;
+        }
+    }
+    return false;
+}
+
+export const Swap = (a, b) => {
+    let tmp = a;
+    a = b;
+    b = tmp;
+    return [a, b];
 }

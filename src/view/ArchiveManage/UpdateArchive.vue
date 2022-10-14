@@ -71,10 +71,10 @@
 			:tableLabel="TableData2Label"
 			:config="config"
 			:ShowDetails="false"
-            :ShowDelete="true"
-            :ShowEdit="true"
-            :ShowUp="false"
-            :HandleWidth="'140'"
+			:ShowDelete="true"
+			:ShowEdit="true"
+			:ShowUp="false"
+			:HandleWidth="'140'"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
 		></common-table>
@@ -407,7 +407,7 @@ export default {
 		GetList() {
 			let _this = this;
 			let url = "/archive/detail?archive_id=" + this.ArchiveID;
-            console.log('请求 url', url)
+			console.log("请求 url", url);
 			getForm(url, function (res) {
 				_this.TableData1 = [];
 				_this.TableData2 = [];
@@ -612,13 +612,24 @@ export default {
 
 			console.log("DataForm", DataForm);
 
-            let _this = this;
+			let _this = this;
 			postForm("/archive/update", DataForm, function (res) {
 				if (res.code === 0) {
 					_this.$message({
 						message: "提交成功",
 						type: "success",
 					});
+
+					// 提交成功后退回列表界面
+					let item = {
+						path: "/ArchiveList",
+						name: "ArchiveList",
+						label: "档案列表",
+					};
+					_this.$router.push({
+						path: item.path,
+					});
+					_this.$store.commit("selectMenu", item);
 				} else if (res.code === 400) {
 					_this.$message({
 						message: "请求对象不存在",

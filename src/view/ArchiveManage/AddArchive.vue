@@ -337,6 +337,17 @@ export default {
 						message: "提交成功",
 						type: "success",
 					});
+
+					// 提交成功后退回列表界面
+					let item = {
+						path: "/ArchiveList",
+						name: "ArchiveList",
+						label: "档案列表",
+					};
+					_this.$router.push({
+						path: item.path,
+					});
+					_this.$store.commit("selectMenu", item);
 				} else if (res.code === 400) {
 					_this.$message({
 						message: "请求对象不存在",

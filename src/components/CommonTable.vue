@@ -27,6 +27,13 @@
 						@click="handleUp(scope.row)"
 						>上移</el-button
 					>
+                    <el-button
+						v-if="ShowDown"
+						size="mini"
+						type="primary"
+						@click="handleDown(scope.row)"
+						>上移</el-button
+					>
 				</template>
 			</el-table-column>
 			<el-table-column
@@ -65,6 +72,7 @@ export default {
         ShowEdit: Boolean,
         ShowDelete: Boolean,
 		ShowUp: Boolean,
+        ShowDown: Boolean,
         HandleWidth: String,
 	},
 	data() {
@@ -83,6 +91,9 @@ export default {
 		handleUp(row) {
 			this.$emit("up", row);
 		},
+        handleDown(row){
+            this.$emit("down", row);
+        },
 		changePage(page) {
 			this.$emit("changePage", page);
 		},

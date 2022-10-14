@@ -14,22 +14,22 @@
 		</el-form>
 
 		<div class="manage-header">
-			<el-button type="primary" @click="AddPic">+新增</el-button>
-			<el-button type="primary" @click="SortPic">图片排序</el-button>
+			<el-button type="primary" @click="SubmitSort"
+				>提交排序结果</el-button
+			>
 		</div>
 		<common-table
 			:tableData="TableData"
 			:tableLabel="TableLabel"
 			:config="config"
-			:ShowDetails="true"
-			:ShowEdit="true"
-			:ShowDelete="true"
-			:ShowUp="false"
-			:HandleWidth="'210'"
-			@changePage="GetList"
-			@details="SeeDetails"
-			@edit="UpdatePic"
-			@del="DeletePic"
+			:ShowDetails="false"
+			:ShowEdit="false"
+			:ShowDelete="false"
+			:ShowUp="true"
+			:ShowDown="true"
+			:HandleWidth="'150'"
+			@up="PicUp"
+			@down="PicDown"
 		></common-table>
 	</div>
 </template>
@@ -93,7 +93,7 @@ export default {
 			this.TableData = [];
 
 			let _this = this;
-			let url = `/exhibition/detail?exhibition_id=${this.ExhibitionID}`
+			let url = "/exhibition/detail?exhibition_id=" + this.ExhibitionID;
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
@@ -108,7 +108,12 @@ export default {
 						intro_zh: "N/A",
 						intro_en: "N/A",
 						intro_other: "N/A",
-                        index: _this.config.total,
+						index: _this.config.total,
+
+						// 以下为提交用的字段
+						title: item.title,
+						intro: item.intro,
+						pic_url: item.pic_url,
 					};
 					for (let title_item in item.title) {
 						if (title_item === "ZH") {
@@ -134,77 +139,72 @@ export default {
 			});
 		},
 
-		AddPic() {
-			let item = {
-				path: "/AddPic",
-				name: "AddPic",
-				label: "添加展览-图片",
-			};
-
-			this.$router.push({
-				path: item.path,
-				query: {
-					ExhibitionID: this.ExhibitionID,
-				},
-			});
-			this.$store.commit("selectMenu", item);
+		UpActivity(row) {
+			if (row.index === 0) {
+				_this.$message({
+					message: "已经是第一个了",
+					type: "error",
+				});
+				return;
+			}
+			const res = this.Swap(
+				this.tableData[row.index],
+				this.tableData[row.index - 1]
+			);
+			this.tableData[row.index] = res[0];
+			this.tableData[row.index - 1] = res[1];
 		},
 
-		UpdatePic(row) {
-			let item = {
-				path: "/UpdatePic",
-				name: "UpdatePic",
-				label: "更新展览-图片",
-			};
-
-			this.$router.push({
-				path: item.path,
-				query: {
-					ExhibitionID: this.ExhibitionID,
-					PicID: row.pic_id,
-				},
-			});
-			this.$store.commit("selectMenu", item);
+		DownActivity(row) {
+			if (row.index + 1 === _this.config.total) {
+				_this.$message({
+					message: "已经是最后一个了",
+					type: "error",
+				});
+				return;
+			}
+			const res = this.Swap(
+				this.tableData[row.index],
+				this.tableData[row.index + 1]
+			);
+			this.tableData[row.index] = res[0];
+			this.tableData[row.index + 1] = res[1];
 		},
-
-		DeletePic(row) {
-			let item = {
-				path: "/UpdatePic",
-				name: "UpdatePic",
-				label: "更新展览-图片",
+		SubmitSort() {
+			let _this = this;
+			let DataForm = {
+				exhibition_id: this.ExhibitionID,
+				pic_list: [],
 			};
+			for (let item of this.TableData) {
+				DataForm.pic_list.push({
+					pic_id: item.pic_id,
+					pic_url: item.pic_url,
+					title: item.title,
+					intro: item.intro,
+					date: "",
+					size: "",
+					organization: "",
+					archive_id: "",
+				});
+			}
 
-			this.$router.push({
-				path: item.path,
-				query: {
-					ExhibitionID: this.ExhibitionID,
-					PicID: row.pic_id,
-				},
+            postForm("/exhibition/sort-pic", DataForm, function (res) {
+				let item = {
+					path: "/PicDetails",
+					name: "PicDetails",
+					label: "展览-图片详情",
+				};
+
+				_this.$router.push({
+					path: item.path,
+					query: {
+						ExhibitionID: _this.ExhibitionID,
+					},
+				});
+				_this.$store.commit("selectMenu", item);
 			});
-			this.$store.commit("selectMenu", item);
 		},
-
-		SeeDetails(row) {
-            // 这里为了方便客户端的图片切换效果，因此 PictureID 用的是 index 而不是 pic_id
-            let url = `https://dev.pacificsilkroad.cn/Pictures?ExhibitionID=${this.ExhibitionID}&PictureID=${row.index}`
-            window.open(url, "_blank");
-        },
-
-		SortPic() {
-            let item = {
-				path: "/SortPic",
-				name: "SortPic",
-				label: "排序展览-图片",
-			};
-
-			this.$router.push({
-				path: item.path,
-				query: {
-					ExhibitionID: this.ExhibitionID,
-				},
-			});
-			this.$store.commit("selectMenu", item);
-        },
 	},
 	created() {
 		this.ExhibitionID = this.$route.query.ExhibitionID;

@@ -19,7 +19,7 @@
 			>
 		</div>
 		<common-table
-			:tableData="TableData"
+			:tableData="tableData"
 			:tableLabel="TableLabel"
 			:config="config"
 			:ShowDetails="false"
@@ -48,7 +48,7 @@ export default {
 		return {
 			ExhibitionID: "",
 
-			TableData: [],
+			tableData: [],
 			TableLabel: [
 				{
 					prop: "title_zh",
@@ -90,7 +90,7 @@ export default {
 	},
 	methods: {
 		GetList() {
-			this.TableData = [];
+			this.tableData = [];
 
 			let _this = this;
 			let url = "/exhibition/detail?exhibition_id=" + this.ExhibitionID;
@@ -133,42 +133,55 @@ export default {
 							new_map.intro_other = item.intro[intro_item];
 						}
 					}
-					_this.TableData.push(new_map);
+					_this.tableData.push(new_map);
 					_this.config.total++;
 				}
 			});
 		},
 
-		UpActivity(row) {
+		// 好像 DOM 渲染有问题，重新刷新一遍数组应该就没事了
+		RefreshArray() {
+			let temp = this.tableData;
+			this.tableData = [];
+			for (let i = 0; i < temp.length; i++) {
+				temp[i].index = i;
+				this.tableData.push(temp[i]);
+			}
+		},
+
+		PicUp(row) {
 			if (row.index === 0) {
-				_this.$message({
+				this.$message({
 					message: "已经是第一个了",
 					type: "error",
 				});
 				return;
 			}
-			const res = this.Swap(
+			const res = Swap(
 				this.tableData[row.index],
 				this.tableData[row.index - 1]
 			);
 			this.tableData[row.index] = res[0];
 			this.tableData[row.index - 1] = res[1];
+			this.RefreshArray();
 		},
 
-		DownActivity(row) {
-			if (row.index + 1 === _this.config.total) {
-				_this.$message({
+		PicDown(row) {
+			if (row.index + 1 === this.config.total) {
+				this.$message({
 					message: "已经是最后一个了",
 					type: "error",
 				});
 				return;
 			}
-			const res = this.Swap(
+
+			const res = Swap(
 				this.tableData[row.index],
 				this.tableData[row.index + 1]
 			);
 			this.tableData[row.index] = res[0];
 			this.tableData[row.index + 1] = res[1];
+			this.RefreshArray();
 		},
 		SubmitSort() {
 			let _this = this;
@@ -176,7 +189,7 @@ export default {
 				exhibition_id: this.ExhibitionID,
 				pic_list: [],
 			};
-			for (let item of this.TableData) {
+			for (let item of this.tableData) {
 				DataForm.pic_list.push({
 					pic_id: item.pic_id,
 					pic_url: item.pic_url,
@@ -189,26 +202,44 @@ export default {
 				});
 			}
 
-            postForm("/exhibition/sort-pic", DataForm, function (res) {
-				let item = {
-					path: "/PicDetails",
-					name: "PicDetails",
-					label: "展览-图片详情",
-				};
+			postForm("/exhibition/sort-pic", DataForm, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
 
-				_this.$router.push({
-					path: item.path,
-					query: {
-						ExhibitionID: _this.ExhibitionID,
-					},
-				});
-				_this.$store.commit("selectMenu", item);
+					let item = {
+						path: "/PicDetails",
+						name: "PicDetails",
+						label: "相册-图片列表",
+					};
+
+					_this.$router.push({
+						path: item.path,
+						query: {
+							ExhibitionID: _this.ExhibitionID,
+						},
+					});
+					console.log(item);
+					_this.$store.commit("selectMenu", item);
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
+				} else {
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
+				}
 			});
 		},
 	},
 	created() {
 		this.ExhibitionID = this.$route.query.ExhibitionID;
-		// 判断是否是从 “相册详情” 页面跳转过来的
+		// 判断是否是从 “展览列表” 页面跳转过来的
 		if (this.ExhibitionID != undefined) this.GetList();
 	},
 };

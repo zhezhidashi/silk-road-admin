@@ -70,6 +70,7 @@ export default {
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
+                let data = res.data
 				_this.TableData1 = [];
 				_this.TableData2 = [];
 				if (res.code === 400) {
@@ -80,8 +81,8 @@ export default {
 					return;
 				}
 				let FindPic = false;
-				for (let item of pic_list) {
-					if (item.pic_id !== this.PicID) continue;
+				for (let item of data.pic_list) {
+					if (item.pic_id !== _this.PicID) continue;
 					FindPic = true;
 
 					// 只有一层字典的有5个数据
@@ -123,8 +124,8 @@ export default {
 		// 删除档案
 		DeleteList() {
 			let DataForm = {
-				ExhibitionID: parseInt(this.ExhibitionID),
-				PicID: this.PicID,
+				exhibition_id: parseInt(this.ExhibitionID),
+				pic_id: this.PicID,
 			};
 			let _this = this;
 			postForm("/exhibition/delete-pic", DataForm, function (res) {
@@ -138,7 +139,7 @@ export default {
 					let item = {
 						path: "/PicDetails",
 						name: "PicDetails",
-						label: "展览-图片详情",
+						label: "展览-图片列表",
 					};
 
 					_this.$router.push({

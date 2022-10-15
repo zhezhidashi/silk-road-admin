@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script type="text/javascript" src="AddAlbum3.json"></script>
+</head>
+
+<body>
+    <button onclick="Handle()">点击上传数据</button>
+</body>
+
+<script>
+    // 记得修改 url、token
+    function Handle() {
+        let len = 0;
+        for(let item of data.list){
+            len++;
+        }
+        
+        function PostData(index){
+            if(index === len) return;
+            axios.request({
+                url: 'https://dev_admin.pacificsilkroad.cn/api-service/exhibition/add-pic-to-exhibition',
+                method: 'post',
+                data: data.list[index],
+                headers: {
+                    token: 'eyJhbGciOiJIUzUxMiIsImlhdCI6MTY2NTgwMzMyNywiZXhwIjoxNjY1ODQ2NTI3fQ.eyJ1c2VybmFtZSI6InNhZG1pbiIsImNyZWF0ZV90aW1lIjoiMjAyMi0xMC0xNSAxMTowODo0Ny40NTI3NTkifQ.dQxAOBltvh2FgNf1vb7GPGPEPozLztJVk43UD3pY8foCKr_UD6FJDo1xupi6DtRH_JYZFVoTjq-T5N5svV0fSQ'
+                }
+            }).then(res => {
+                console.log('传送成功', index)
+                PostData(index + 1)
+            });
+        } 
+
+        PostData(0);
+    }
+</script>
+
+</html>

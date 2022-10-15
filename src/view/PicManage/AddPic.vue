@@ -100,7 +100,7 @@ export default {
 			],
 			ButtonForm: {
 				option: "",
-			    content: "",
+				content: "",
 			},
 
 			// 标题、简介对应的 Data
@@ -147,8 +147,7 @@ export default {
 
 			// 刷新 Table 的数据
 			this.tableData = [];
-            // console.log('this.OptionData', this.OptionData)
-
+			// console.log('this.OptionData', this.OptionData)
 
 			for (let item in this.OptionData) {
 				for (let row in this.OptionData[item]) {
@@ -166,15 +165,15 @@ export default {
 		// 提交图片
 		submitForm() {
 			// 需要提交的数据表单
-            console.log('tableData', this.tableData)
+			console.log("tableData", this.tableData);
 
 			let DataForm = {};
 			DataForm["exhibition_id"] = this.ExhibitionID;
-            DataForm["date"] = "",
-            DataForm["size"] = "",
-            DataForm["organization"] = "",
-            DataForm["archive_id"] = "",
-			DataForm["title"] = {};
+			(DataForm["date"] = ""),
+				(DataForm["size"] = ""),
+				(DataForm["organization"] = ""),
+				(DataForm["archive_id"] = ""),
+				(DataForm["title"] = {});
 			DataForm["intro"] = {};
 
 			for (let item of this.tableData) {
@@ -187,22 +186,43 @@ export default {
 
 			let _this = this;
 			// console.log("DataForm", DataForm);
-			postForm("/exhibition/add-pic-to-exhibition", DataForm, function (res) {
-				let item = {
-					path: "/PicDetails",
-					name: "PicDetails",
-					label: "相册-图片详情",
-				};
+			postForm(
+				"/exhibition/add-pic-to-exhibition",
+				DataForm,
+				function (res) {
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
 
-				_this.$router.push({
-					path: item.path,
-					query: {
-						ExhibitionID: _this.ExhibitionID,
-					},
-				});
-				console.log(item);
-				_this.$store.commit("selectMenu", item);
-			});
+						let item = {
+							path: "/PicDetails",
+							name: "PicDetails",
+							label: "相册-图片列表",
+						};
+
+						_this.$router.push({
+							path: item.path,
+							query: {
+								ExhibitionID: _this.ExhibitionID,
+							},
+						});
+						console.log(item);
+						_this.$store.commit("selectMenu", item);
+					} else if (res.code === 400) {
+						_this.$message({
+							message: "请求对象不存在",
+							type: "error",
+						});
+					} else {
+						_this.$message({
+							message: "网络错误",
+							type: "error",
+						});
+					}
+				}
+			);
 		},
 	},
 	created() {

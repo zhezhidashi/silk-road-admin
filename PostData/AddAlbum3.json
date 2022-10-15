@@ -1,0 +1,310 @@
+data = {
+    "list": [
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-h47ROx438L.jpg",
+            "title": {
+                "ZH": "中文标题1",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "1564-1565年完成阿卡普尔科-马尼拉-阿卡普尔科首次航行的“圣佩德罗”号（剖面模型），其催生了1565-1815年间持续运行的马尼拉-阿卡普尔科跨太平洋贸易航线。推测比例1:12",
+                "EN": "",
+                "ES": "Medio casco  de la nao San Pedro que completó el primer viaje. Acapulco-Manila-Acapulco, 1564-1565, dando origen a la ruta transpacífica Manila-Acapulco-Manila que duró desde 1565 a 1815. Réplica hipotética a escala 1:12"
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "1"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-ROkyqUBXxf.jpg",
+            "title": {
+                "ZH": "中文标题2",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "关于从1527年到16世纪70年代初新西班牙建造的船只，我们所知很少，主要是缺乏图片、草图、设计图，因为造船业直到16世纪末还主要掌握在不识字的造船师傅手中，他们都是经验型，通过实践代代相传，直接决定船只的尺寸和比例。",
+                "EN": "",
+                "ES": "Pocas son las noticias que tenemos acerca de cómo fueron los barcos que se construyeron en Nueva España desde 1527 hasta el principio del último tercio del siglo XVI. Nos referimos a la falta dibujos, bocetos o planos que hubieran sido utilizados para la construcción de estos navíos, debida a que hasta casi finales de siglo XVI, la construcción naval estuvo en manos de los carpinteros de ribera analfabetas en su gran mayoría. Estos fueron constructores empíricos cuya larga y rica experiencia, transmitida de generación en generación mediante la práctica directa de construir navíos, era la herramienta primordial para tomar las decisiones acerca de las dimensiones y proporciones del futuro navío."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "2"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-oyJpMu8ENy.jpg",
+            "title": {
+                "ZH": "中文标题3",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "用于“南海”的船只是什么特点和比例，最好的资料无疑是船谱《关于墨西哥地区船只设计、管理和规范运行的说明》，由国王理事会成员、墨西哥检审庭听证员迭戈·加西亚·德帕拉西奥博士编写，1587年在墨城佩德罗·奥查尔特印刷所出版。这部专论，特别是第四册，对于我们了解“圣佩德罗”号的情况特别重要，这艘旗舰是为黎牙实比指挥舰队跨太平洋航行而在巴拉-德-纳维达专门建造的。",
+                "EN": "",
+                "ES": "Sin duda,  el tratado de construcción naval que mejor idea nos puede dar acerca de cuáles eran las características y las proporciones de las naos destinadas al servicio en la Mar del Sur, es la Instrucción Náutica para el buen uso y regimiento de las naos, su traza y gobierno, conforme a la altura de México. Compuesta por el doctor Diego García de Palacio, del Consejo de su Majestad y su Oidor en la Real Audiencia de la dicha ciudad, impresa por Pedro Ocharte, en la ciudad de México en 1587. Este tratado, especialmente el Libro IV, es particularmente importante para aproximarnos al conocimiento de cuáles eran las características y medidas de la nao San Pedro, nave capitana de la flota que se construyó en Barra de Navidad para el viaje transpacífico de la expedición comandada por Miguel López de Legazpi."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "3"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-SWV6LfK90B.jpg",
+            "title": {
+                "ZH": "中文标题4",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "根据书中信息，“圣佩德罗”号约为此形制，当时使用了“王肘”为单位，换算后约为：龙骨净长19.54 m. 最大宽度9.20 m. 弦高5.74 m. 船底2.87 m. 总长29.50 m. 最大宽度与总长比 1/3.2. 最大宽度与龙骨比 1/2. 载重约 400吨。",
+                "EN": "",
+                "ES": "as dimensiones de la nao San Pedro expresadas en codos de ribera y sus equivalents en el sistema métrico decimal, serían las siguientes: Quilla limpia: 34 codos de ribera* = 19.54 m. Manga: 16 codos de ribera = 9.20 m. Puntal: 10 codos de ribera =   5.74 m. Plan: 5 codos de ribera = 2.87 m. Eslora total (desde el beque al coronamiento): 51 1/3 codos de ribera = 29.50 m. Relación manga-eslora: 1/3.2. Relación manga-quilla: ½.1. Arqueo aproximado: 400 toneladas."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "4"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-Qkl1jWnunq.jpg",
+            "title": {
+                "ZH": "中文标题5",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "乌尔达内塔指挥的“圣佩德罗”号应有三层甲板。据加西亚·德帕拉西奥的说法，“第一层从龙骨往上”2.59米，第二层，所谓第一甲板，有1.72米，第三层“舰桥”也有1.72米。第一层被用作仓库，第二层为乘客或海军准备，第三层舰桥是操帆和掌舵的地方。",
+                "EN": "",
+                "ES": "El casco de una nao como la que utilizó Urdaneta tenía tres cubiertas. De acuerdo con García de Palacio,”…  la primera contando desde la quilla hasta lo alto…”tenía un altura de cuatro codos y medio (2.59 m); la segunda, denominada primera cubierta, medía tres codos de alto  (1.72 m); la altura de la tercera cubierta que recibía el nombre de puente, era también de tres codos (1.72 m). Los dos espacios ubicados entre la quilla y la segunda cubierta –llamada primera cubierta- se usaban como bodega; la primera cubierta se destinaba a “… los pasajeros, o gente de guerra,”mientras que la tercera cubierta o puente  “… es sobre la cual se marcarán las velas y gobiernan los mareantes.”"
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "5"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-F2dMe3XD0r.jpg",
+            "title": {
+                "ZH": "中文标题6",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "“我们的圣母雷梅迪奥斯”号，又称“被眷顾的”",
+                "EN": "",
+                "ES": "Fragata S. M. C. Nuestra Señora de los Remedios alias Favorita.”"
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "6"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-wyn4R29Jhl.jpg",
+            "title": {
+                "ZH": "中文标题7",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "原船1779年建于秘鲁卡亚俄、墨西哥圣布拉斯",
+                "EN": "",
+                "ES": "Lugar y fecha de construcción del barco original: El Callao, Perú - San Blas, Nayarit, México. 1779."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "7"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-Hej62F1xrF.jpg",
+            "title": {
+                "ZH": "中文标题8",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "水线和肋骨结构图，藏于墨西哥国家档案总馆",
+                "EN": "",
+                "ES": "Planos de líneas de agua y caja de cuadernas: Archivo General de la Nación, México. "
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "8"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-Urk30Wmo42.jpg",
+            "title": {
+                "ZH": "中文标题9",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "图纸复原：阿卡普尔科海军历史博物馆，马德里海军博物馆",
+                "EN": "",
+                "ES": "Planos constructivos: Museo Histórico Naval de Acapulco, A.C.® Museo Naval, Madrid."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "9"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-NZP14906b2.jpg",
+            "title": {
+                "ZH": "中文标题10",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "比例1:25，复原时间两年半",
+                "EN": "",
+                "ES": "Escala: 1:25，Tiempo de construcción: 2 1/2 años"
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "10"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-28g41J56nY.jpg",
+            "title": {
+                "ZH": "中文标题11",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "长度： 2.50 m. 宽度：0.40 m. 主横桁长：0.80 m. 主桅高：2.10 m. 重量：约35 kg （无载重）. 颜色：白色和原木色. 拼板：18000块.",
+                "EN": "",
+                "ES": "Eslora: 2.50 m. Manga: 0.40 m. Largo de la verga mayor: 0.80 m. Altura al tope del palo mayor: 2.10 m. Peso aproximado: 35 kg (sin lastre). Color: blanco y madera natural. Número de piezas: 18000"
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "11"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-COP733ybJS.jpg",
+            "title": {
+                "ZH": "中文标题12",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "类型:船厂动态模型:所有运动部件均可工作，可漂浮在喷泉、池塘、水池等水体上。它主要是用原始材料(木材、金属)建造的，遵循了原始船使用的建造技术。",
+                "EN": "",
+                "ES": "Tipo: Modelo dinámico de astillero: Todas las partes móviles funcionan y puede ponerse a flote en espejos de agua: fuentes, lagunas, albercas, etc. Fue construido en su mayoría con los materiales originales (maderas, metales) siguiendo las técnicas de construcción usadas en el barco original."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "12"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-P8mfuM4fa3.jpg",
+            "title": {
+                "ZH": "中文标题13",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "“我们的圣母雷梅迪奥斯”号在新西班牙的太平洋航行史上颇为活跃。",
+                "EN": "",
+                "ES": "La fragata de Su Majestad Católica Nuestra Señora de los Remedios tuvo una muy destacada participación en la historia marítima del Pacífico novohispano. "
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "13"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-2rv2UrPXpa.jpg",
+            "title": {
+                "ZH": "中文标题14",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "在18世纪最后三十年，该船参加了从圣布拉斯和阿卡普尔科到温哥华和阿拉斯加的两支探险队，执行军事、政治和科学考察任务。",
+                "EN": "",
+                "ES": "Participó en dos de las expediciones que zarparon de San Blas y Acapulco hacia Vancouver y Alaska en misiones de naturaleza militar, política y científica, durante el último tercio del siglo XVIII. "
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "14"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-T3HS1g4HR5.jpg",
+            "title": {
+                "ZH": "中文标题15",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "运送物资、传教士和其他人员到加州各传教村。",
+                "EN": "",
+                "ES": "Sirvió de transporte de abastecimientos, frailes y personal a las misiones y presidios de las Californias."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "15"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-OZbQ9u9lrh.jpg",
+            "title": {
+                "ZH": "中文标题16",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "行驶了两次马尼拉-阿卡普尔科-马尼拉航线。",
+                "EN": "",
+                "ES": "Hizo dos viajes en la ruta Manila-Acapulco-Manila."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "16"
+        },
+        {
+            "exhibition_id": 1,
+            "pic_url": "https://dev.pacificsilkroad.cn/img-service/1/1-7W72aGTlrD.jpg",
+            "title": {
+                "ZH": "中文标题17",
+                "EN": "",
+                "ES": ""
+            },
+            "intro": {
+                "ZH": "墨西哥独立战争初期，该船数次往返于圣布拉斯和阿卡普尔科之间，为保皇党军队运送物资和文件。",
+                "EN": "",
+                "ES": "Durante los primeros años de la guerra por la independencia de México, realizó varios viajes entre San Blas y Acapulco transportando pertrechos y documentos para el ejército realista."
+            },
+            "date": "",
+            "size": "",
+            "organization": "",
+            "archive_id": "17"
+        },
+    ]
+}

@@ -111,7 +111,10 @@ export default {
 			getForm(url, function (res) {
 				_this.TableData1 = [];
 				if (res.code === 400) {
-					alert("数据不存在");
+					_this.$message({
+						message: "数据不存在",
+						type: "error",
+					});
 					return;
 				}
 
@@ -143,7 +146,7 @@ export default {
 			this.isShow = false;
 			this.TableData1 = [];
 			let Temp = ["title", "show_time", "Introduction"];
-            console.log("更新的数据", this.OtherInfo);
+			console.log("更新的数据", this.OtherInfo);
 			for (let Type of Temp) {
 				this.TableData1.push({
 					Type,
@@ -155,7 +158,7 @@ export default {
 		UpdateExhibition() {
 			this.isShow = true;
 
-            // Other 有一个作用是填写弹窗中的数据，弹窗数据修改都是作用到了 OtherInfo 上面 
+			// Other 有一个作用是填写弹窗中的数据，弹窗数据修改都是作用到了 OtherInfo 上面
 			this.OtherInfo = {
 				title: this.TableData1[0].TypeData,
 				show_time: this.TableData1[1].TypeData,
@@ -196,7 +199,7 @@ export default {
 					let item = {
 						path: "/ExhibitionDetails",
 						name: "ExhibitionDetails",
-						label: "展览详情",
+						label: "展览列表",
 					};
 					_this.$router.push({
 						path: item.path,

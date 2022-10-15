@@ -55,7 +55,10 @@ export default {
 			getForm(url, function (res) {
 				_this.TableData1 = [];
 				if (res.code === 400) {
-					alert("数据不存在");
+					_this.$message({
+						message: "数据不存在",
+						type: "error",
+					});
 					return;
 				}
 
@@ -97,7 +100,7 @@ export default {
 					let item = {
 						path: "/ExhibitionDetails",
 						name: "ExhibitionDetails",
-						label: "展览详情",
+						label: "展览列表",
 					};
 					_this.$router.push({
 						path: item.path,

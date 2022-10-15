@@ -27,6 +27,7 @@
 			:ShowEdit="true"
 			:ShowDelete="true"
 			:ShowUp="true"
+            :ShowDown="false"
 			:HandleWidth="'300'"
 			@changePage="GetList()"
 			@details="SeeDetails"
@@ -40,7 +41,7 @@
 <script>
 import CommonForm from "../../components/CommonForm.vue";
 import CommonTable from "../../components/CommonTable.vue";
-import { postForm, getForm } from "../../api/data";
+import { postForm, getForm, Swap } from "../../api/data";
 export default {
 	name: "ActivityDetails",
 	components: {
@@ -231,18 +232,15 @@ export default {
 				);
 			});
 		},
-		Swap(a, b) {
-			let tmp = a;
-			a = b;
-			b = tmp;
-			return [a, b];
-		},
 		UpActivity(row) {
 			if (row.index === 0) {
-				alert("已经是第一个了");
+				this.$message({
+					message: "已经是第一个了",
+					type: "error",
+				});
 				return;
 			}
-			const res = this.Swap(
+			const res = Swap(
 				this.tableData[row.index].show_time,
 				this.tableData[row.index - 1].show_time
 			);

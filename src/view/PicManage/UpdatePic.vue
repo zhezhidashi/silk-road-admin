@@ -59,6 +59,7 @@
 			:ShowEdit="true"
 			:ShowDelete="true"
 			:ShowUp="false"
+			:ShowDown="false"
 			:HandleWidth="'150'"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
@@ -196,7 +197,7 @@ export default {
 	created() {
 		this.ExhibitionID = this.$route.query.ExhibitionID;
 		this.PicID = this.$route.query.PicID;
-		// 判断是否是从 “图片详情” 页面跳转过来的
+		// 判断是否是从 “图片列表” 页面跳转过来的
 		if (this.ExhibitionID != undefined) this.GetList();
 	},
 	methods: {
@@ -207,8 +208,8 @@ export default {
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
-				let data = res.data.pic_list;
-				console.log("data", data);
+				let data = res.data;
+				// console.log("data", data);
 				_this.TableData1 = [];
 				_this.TableData2 = [];
 				if (res.code === 400) {
@@ -220,14 +221,12 @@ export default {
 				}
 
 				let FindPic = false;
-				for (let item of pic_list) {
-					if (item.pic_id !== this.PicID) continue;
+				for (let item of data.pic_list) {
+					if (item.pic_id !== _this.PicID) continue;
 					FindPic = true;
 
 					// 只有一层字典的有5个数据
-					let Temp = [
-						"pic_url",
-					];
+					let Temp = ["pic_url"];
 					for (let Type of Temp) {
 						_this.TableData1.push({
 							Type,
@@ -271,9 +270,7 @@ export default {
 			if (this.OperateType === "edit1") {
 				// edit1 是修改只有一层字典的有6个数据
 				this.TableData1 = [];
-				let Temp = [
-					"pic_url",
-				];
+				let Temp = ["pic_url"];
 
 				for (let Type of Temp) {
 					this.TableData1.push({
@@ -373,10 +370,10 @@ export default {
 			let DataForm = {
 				exhibition_id: this.ExhibitionID,
 				pic_id: this.PicID,
-                date: "",
-                size: "",
-                organization: "",
-                archive_id: ""
+				date: "",
+				size: "",
+				organization: "",
+				archive_id: "",
 			};
 
 			for (let item of this.TableData1) {
@@ -392,19 +389,37 @@ export default {
 
 			let _this = this;
 			postForm("/exhibition/update-pic", DataForm, function (res) {
-				let item = {
-					path: "/PicDetails",
-					name: "PicDetails",
-					label: "展览-图片详情",
-				};
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
 
-				_this.$router.push({
-					path: item.path,
-					query: {
-						ExhibitionID: _this.ExhibitionID,
-					},
-				});
-				_this.$store.commit("selectMenu", item);
+					let item = {
+						path: "/PicDetails",
+						name: "PicDetails",
+						label: "相册-图片列表",
+					};
+
+					_this.$router.push({
+						path: item.path,
+						query: {
+							ExhibitionID: _this.ExhibitionID,
+						},
+					});
+					console.log(item);
+					_this.$store.commit("selectMenu", item);
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
+				} else {
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
+				}
 			});
 		},
 	},

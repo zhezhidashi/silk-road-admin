@@ -32,7 +32,7 @@
 						size="mini"
 						type="primary"
 						@click="handleDown(scope.row)"
-						>上移</el-button
+						>下移</el-button
 					>
 				</template>
 			</el-table-column>

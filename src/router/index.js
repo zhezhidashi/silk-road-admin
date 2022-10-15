@@ -55,7 +55,7 @@ const routes = [
                 path: '/ActivityDetails',
                 name: 'ActivityDetails',
                 meta: {
-                    title: '活动详情'
+                    title: '活动列表'
                 },
                 component: () => import('../view/ActivityManage/ActivityDetails')
             },
@@ -63,7 +63,7 @@ const routes = [
                 path: '/ExhibitionDetails',
                 name: 'ExhibitionDetails',
                 meta: {
-                    title: '展览详情'
+                    title: '展览列表'
                 },
                 component: () => import('../view/ExhibitionManage/ExhibitionDetails')
             },
@@ -95,7 +95,7 @@ const routes = [
                 path: '/PicDetails',
                 name: 'PicDetails',
                 meta: {
-                    title: '展览-图片详情'
+                    title: '展览-图片列表'
                 },
                 component: () => import('../view/PicManage/PicDetails')
             },

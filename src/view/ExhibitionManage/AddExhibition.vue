@@ -88,7 +88,7 @@ export default {
 					let item = {
 						path: "/ExhibitionDetails",
 						name: "ExhibitionDetails",
-						label: "展览详情",
+						label: "展览列表",
 					};
 					_this.$router.push({
 						path: item.path,

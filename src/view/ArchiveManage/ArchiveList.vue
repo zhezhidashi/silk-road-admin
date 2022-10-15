@@ -12,6 +12,7 @@
 				:ShowEdit="true"
 				:ShowDelete="true"
 				:ShowUp="true"
+				:ShowDown="false"
 				:HandleWidth="'300'"
 				@changePage="GetList()"
 				@details="SeeDetails"
@@ -120,7 +121,10 @@ export default {
 		},
 		UpArchive(row) {
 			if (row.index === 0) {
-				alert("已经是第一个了");
+				this.$message({
+					message: "已经是第一个了",
+					type: "error",
+				});
 				return;
 			}
 			const res = this.Swap(
@@ -189,7 +193,7 @@ export default {
 						language: item.language,
 						location: item.location,
 
-                        // 小心这个地方，get 接口返回的 main_id，但是 post 要写成 archive_id，这接口真是斯巴拉西
+						// 小心这个地方，get 接口返回的 main_id，但是 post 要写成 archive_id，这接口真是斯巴拉西
 						archive_id: item.main_id,
 						mini_pic_url: item.mini_pic_url,
 						organization: item.organization,

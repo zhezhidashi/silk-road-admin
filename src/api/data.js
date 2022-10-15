@@ -2,8 +2,11 @@
 
 import axios from "./axios";
 import store from '../store'
+import nprogress from 'nprogress';
+import "nprogress/nprogress.css";
 
-export const baseUrl = '/api'
+// export const baseUrl = '/api'
+export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
 
 
 export const getData = () => {
@@ -11,7 +14,6 @@ export const getData = () => {
         {
             url: '/home/getData',
             method: 'get',
-
         }
     )
 }
@@ -35,8 +37,8 @@ export const postUser = (url, params) => {
 
 // 向指定的 url 提交数据表单
 export const postForm = (requestUrl, params, callback) => {
+    nprogress.start();
     console.log('postForm 的表单', requestUrl, params)
-
     store.commit('getToken')
     const TokenValue = store.state.user.token;
     axios.request({
@@ -47,6 +49,7 @@ export const postForm = (requestUrl, params, callback) => {
             token: TokenValue
         }
     }).then(({ data: res }) => {
+        nprogress.done()
         console.log('postForm 的 response', res);
         callback(res);
     })
@@ -54,6 +57,7 @@ export const postForm = (requestUrl, params, callback) => {
 
 // 向指定的 url 获取数据表单
 export const getForm = (requestUrl, callback) => {
+    nprogress.start();
     store.commit('getToken')
     const TokenValue = store.state.user.token
     axios.request({
@@ -63,6 +67,7 @@ export const getForm = (requestUrl, callback) => {
             token: TokenValue
         }
     }).then(({ data: res }) => {
+        nprogress.done()
         console.log('getForm 的 response', res);
         callback(res)
     })
@@ -70,12 +75,13 @@ export const getForm = (requestUrl, callback) => {
 
 // 加载菜单
 export const getMenu = (params, callback) => {
+    nprogress.start();
     axios.request({
         url: baseUrl + '/account/admin/login',
         method: 'post',
         data: params
     }).then(({ data: res }) => {
-
+        nprogress.done()
         // code 为 0 表示管理员登录
         if (res.code === 400) {
             alert("用户名或密码错误！")
@@ -119,17 +125,17 @@ export const getMenu = (params, callback) => {
                                 {
                                     path: '/ActivityDetails',
                                     name: 'ActivityDetails',
-                                    label: '学术活动详情',
+                                    label: '学术活动列表',
                                 },
                                 {
                                     path: '/ExhibitionDetails',
                                     name: 'ExhibitionDetails',
-                                    label: '展览详情',
+                                    label: '展览列表',
                                 },
                                 {
                                     path: '/PicDetails',
                                     name: 'PicDetails',
-                                    label: '展览-图片详情',
+                                    label: '展览-图片列表',
                                 }
                             ],
                         },
@@ -159,14 +165,14 @@ export const TableDataMap = {
     title: '标题',
     Introduction: '简介',
     show_time: "展示时间",
-    exhibition_id: "展览ID",
-    pic_id: "图片ID",
-    pic_url: "图片url",
+    exhibition_id: "展览编号",
+    pic_id: "图片编号",
+    pic_url: "图片网址",
     intro: '简介',
     date: "日期",
     size: "尺寸",
     organization: "组织",
-    archive_id: "档案ID",
+    archive_id: "档案编号",
 
 
     AR: "阿拉伯文",

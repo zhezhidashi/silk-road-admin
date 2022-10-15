@@ -4,13 +4,14 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
-            :ShowDetails="true"
-            :ShowEdit="false"
-            :ShowDelete="false"
-            :ShowUp="false"
-            :HandleWidth="'80'"
-            @changePage="GetList()"
-            @details="SeeDetails"
+			:ShowDetails="true"
+			:ShowEdit="false"
+			:ShowDelete="false"
+			:ShowUp="false"
+			:ShowDown="false"
+			:HandleWidth="'80'"
+			@changePage="GetList()"
+			@details="SeeDetails"
 		></common-table>
 	</div>
 </template>
@@ -51,33 +52,33 @@ export default {
 			config: {
 				page: 1,
 				total: 30,
-                page_size: 15,
+				page_size: 15,
 			},
 		};
 	},
 	methods: {
-        SeeDetails(row) {
+		SeeDetails(row) {
 			this.$router.push({
-                path: '/FeedbackContent',
-                query: {
-                    Name: row.name,
-                    Contact: row.contact,
-                    Content: row.feedback_content,
-                }
-            })
+				path: "/FeedbackContent",
+				query: {
+					Name: row.name,
+					Contact: row.contact,
+					Content: row.feedback_content,
+				},
+			});
 		},
 		GetList() {
 			this.tableData = [];
-            let _this = this;
-            let url = `/feedback/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`
-            console.log('请求的url', url);
+			let _this = this;
+			let url = `/feedback/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
+			console.log("请求的url", url);
 			getForm(url, function (res) {
 				for (let item of res.data.list) {
 					let new_map = {
 						name: item.name,
 						contact: item.contact,
 						feedback_content: item.feedback_content,
-						show_time: item.show_time
+						show_time: item.show_time,
 					};
 					_this.tableData.push(new_map);
 				}

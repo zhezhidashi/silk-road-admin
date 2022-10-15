@@ -74,6 +74,7 @@
 			:ShowDelete="true"
 			:ShowEdit="true"
 			:ShowUp="false"
+            :ShowDown="false"
 			:HandleWidth="'140'"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
@@ -412,7 +413,10 @@ export default {
 				_this.TableData1 = [];
 				_this.TableData2 = [];
 				if (res.code === 400) {
-					alert("数据不存在");
+					_this.$message({
+						message: "数据不存在",
+						type: "error",
+					});
 					return;
 				}
 				// 只有一层字典的有7个数据

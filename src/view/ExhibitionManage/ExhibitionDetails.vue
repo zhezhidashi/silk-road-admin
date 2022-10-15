@@ -12,6 +12,7 @@
 				:ShowEdit="true"
 				:ShowDelete="true"
 				:ShowUp="true"
+				:ShowDown="false"
 				:HandleWidth="'300'"
 				@changePage="GetList()"
 				@details="SeeDetails"
@@ -78,7 +79,7 @@ export default {
 			let item = {
 				path: "/PicDetails",
 				name: "PicDetails",
-				label: "展览-图片详情",
+				label: "展览-图片列表",
 			};
 
 			this.$router.push({
@@ -131,7 +132,10 @@ export default {
 		},
 		UpExhibition(row) {
 			if (row.index === 0) {
-				alert("已经是第一个了");
+				this.$message({
+					message: "数据不存在",
+					type: "error",
+				});
 				return;
 			}
 			const res = Swap(
@@ -142,31 +146,35 @@ export default {
 			this.tableData[row.index - 1].show_time = res[1];
 
 			let _this = this;
-			postForm("/exhibition/update-exhibition", _this.tableData[row.index], (res) => {
-				postForm(
-					"/exhibition/update-exhibition",
-					_this.tableData[row.index - 1],
-					(res) => {
-						if (res.code === 0) {
-							_this.$message({
-								message: "提交成功",
-								type: "success",
-							});
-						} else if (res.code === 400) {
-							_this.$message({
-								message: "请求对象不存在",
-								type: "error",
-							});
-						} else {
-							_this.$message({
-								message: "网络错误",
-								type: "error",
-							});
+			postForm(
+				"/exhibition/update-exhibition",
+				_this.tableData[row.index],
+				(res) => {
+					postForm(
+						"/exhibition/update-exhibition",
+						_this.tableData[row.index - 1],
+						(res) => {
+							if (res.code === 0) {
+								_this.$message({
+									message: "提交成功",
+									type: "success",
+								});
+							} else if (res.code === 400) {
+								_this.$message({
+									message: "请求对象不存在",
+									type: "error",
+								});
+							} else {
+								_this.$message({
+									message: "网络错误",
+									type: "error",
+								});
+							}
+							_this.GetList();
 						}
-						_this.GetList();
-					}
-				);
-			});
+					);
+				}
+			);
 		},
 
 		changePage(page) {
@@ -185,11 +193,11 @@ export default {
 						title: item.title,
 						index: _this.totalItem,
 						show_time: item.show_time,
-                        Introduction: item.intro.Introduction,
+						Introduction: item.intro.Introduction,
 
 						//下面这些不展示出来，但是修改顺序的时候需要
 						exhibition_id: item.main_id,
-                        intro: item.intro,
+						intro: item.intro,
 					};
 					_this.tableData.push(new_map);
 					_this.totalItem++;

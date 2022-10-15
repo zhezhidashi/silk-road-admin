@@ -13,10 +13,11 @@
 			</el-form-item>
 		</el-form>
 
-		<div class="manage-header">
+		<div>
 			<el-button type="primary" @click="AddPic">+新增</el-button>
 			<el-button type="primary" @click="SortPic">图片排序</el-button>
 		</div>
+		<br />
 		<common-table
 			:tableData="TableData"
 			:tableLabel="TableLabel"
@@ -25,6 +26,7 @@
 			:ShowEdit="true"
 			:ShowDelete="true"
 			:ShowUp="false"
+			:ShowDown="false"
 			:HandleWidth="'210'"
 			@changePage="GetList"
 			@details="SeeDetails"
@@ -93,7 +95,7 @@ export default {
 			this.TableData = [];
 
 			let _this = this;
-			let url = `/exhibition/detail?exhibition_id=${this.ExhibitionID}`
+			let url = `/exhibition/detail?exhibition_id=${this.ExhibitionID}`;
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
@@ -108,7 +110,7 @@ export default {
 						intro_zh: "N/A",
 						intro_en: "N/A",
 						intro_other: "N/A",
-                        index: _this.config.total,
+						index: _this.config.total,
 					};
 					for (let title_item in item.title) {
 						if (title_item === "ZH") {
@@ -169,9 +171,9 @@ export default {
 
 		DeletePic(row) {
 			let item = {
-				path: "/UpdatePic",
-				name: "UpdatePic",
-				label: "更新展览-图片",
+				path: "/DeletePic",
+				name: "DeletePic",
+				label: "删除展览-图片",
 			};
 
 			this.$router.push({
@@ -185,13 +187,13 @@ export default {
 		},
 
 		SeeDetails(row) {
-            // 这里为了方便客户端的图片切换效果，因此 PictureID 用的是 index 而不是 pic_id
-            let url = `https://dev.pacificsilkroad.cn/Pictures?ExhibitionID=${this.ExhibitionID}&PictureID=${row.index}`
-            window.open(url, "_blank");
-        },
+			// 这里为了方便客户端的图片切换效果，因此 PictureID 用的是 index 而不是 pic_id
+			let url = `https://dev.pacificsilkroad.cn/Pictures?ExhibitionID=${this.ExhibitionID}&PictureID=${row.index}`;
+			window.open(url, "_blank");
+		},
 
 		SortPic() {
-            let item = {
+			let item = {
 				path: "/SortPic",
 				name: "SortPic",
 				label: "排序展览-图片",
@@ -204,11 +206,11 @@ export default {
 				},
 			});
 			this.$store.commit("selectMenu", item);
-        },
+		},
 	},
 	created() {
 		this.ExhibitionID = this.$route.query.ExhibitionID;
-		// 判断是否是从 “相册详情” 页面跳转过来的
+		// 判断是否是从 “展览列表” 页面跳转过来的
 		if (this.ExhibitionID != undefined) this.GetList();
 	},
 };

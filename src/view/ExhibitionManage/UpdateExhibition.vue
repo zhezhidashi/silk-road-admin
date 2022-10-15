@@ -91,7 +91,7 @@ export default {
                 },
 				{
 					model: "show_time",
-					label: "展示时间",
+					label: "排序时间",
 					type: "input",
 				},
 			],

@@ -164,7 +164,7 @@ export const getMenu = (params, callback) => {
 export const TableDataMap = {
     title: '标题',
     Introduction: '简介',
-    show_time: "展示时间",
+    show_time: "排序时间",
     exhibition_id: "展览编号",
     pic_id: "图片编号",
     pic_url: "图片网址",

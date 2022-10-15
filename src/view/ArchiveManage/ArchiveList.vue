@@ -49,7 +49,7 @@ export default {
 				},
 				{
 					prop: "show_time",
-					label: "展示时间",
+					label: "排序时间",
 					width: 220,
 				},
 			],

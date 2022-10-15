@@ -148,7 +148,7 @@ export default {
 				archive_url: "档案来源",
 				mini_pic_url: "缩略图地址",
 				page_count: "总页数",
-				show_time: "展示时间",
+				show_time: "排序时间",
 
 				AR: "阿拉伯文",
 				BE: "白俄罗斯文",
@@ -227,7 +227,7 @@ export default {
 				},
 				{
 					model: "show_time",
-					label: "展示时间",
+					label: "排序时间",
 					type: "input",
 				},
 			],

@@ -47,10 +47,16 @@ export default {
 					label: "展览简介",
 					type: "input",
 				},
+                {
+                    model: "PictureUrl",
+                    label: "封面图片",
+                    type: "input",
+                }
 			],
 			OtherInfo: {
 				title: "",
 				Introduction: "",
+                PictureUrl: "",
 			},
 		};
 	},
@@ -69,7 +75,7 @@ export default {
             }
             // 二级数据
             let Temp2 = [
-                "Introduction",
+                "Introduction", "PictureUrl"
             ]
             DataForm["intro"] = {};
             for(let item of Temp2){

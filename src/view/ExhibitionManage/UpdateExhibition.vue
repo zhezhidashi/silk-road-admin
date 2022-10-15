@@ -84,6 +84,11 @@ export default {
 					label: "展览简介",
 					type: "input",
 				},
+                {
+                    model: "PictureUrl",
+                    label: "封面图片",
+                    type: "input",
+                },
 				{
 					model: "show_time",
 					label: "展示时间",
@@ -93,6 +98,7 @@ export default {
 			OtherInfo: {
 				title: "",
 				Introduction: "",
+                PictureUrl: "",
 				show_time: "",
 			},
 		};
@@ -130,7 +136,7 @@ export default {
 				}
 
 				// 二级数据
-				let Temp2 = ["Introduction"];
+				let Temp2 = ["Introduction", "PictureUrl"];
 
 				for (let Type of Temp2) {
 					_this.TableData1.push({
@@ -145,7 +151,7 @@ export default {
 		confirm() {
 			this.isShow = false;
 			this.TableData1 = [];
-			let Temp = ["title", "show_time", "Introduction"];
+			let Temp = ["title", "show_time", "Introduction", "PictureUrl"];
 			console.log("更新的数据", this.OtherInfo);
 			for (let Type of Temp) {
 				this.TableData1.push({
@@ -163,6 +169,7 @@ export default {
 				title: this.TableData1[0].TypeData,
 				show_time: this.TableData1[1].TypeData,
 				Introduction: this.TableData1[2].TypeData,
+                PictureUrl: this.TableData1[3].TypeData,
 			};
 		},
 
@@ -178,7 +185,7 @@ export default {
 			let Temp1 = ["title", "show_time"];
 
 			// 二级数据
-			let Temp2 = ["Introduction"];
+			let Temp2 = ["Introduction", "PictureUrl"];
 
 			for (let item of this.TableData1) {
 				if (ListContain(Temp1, item.Type))

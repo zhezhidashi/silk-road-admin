@@ -74,7 +74,7 @@ export default {
 				}
 
 				// 二级数据
-				let Temp2 = ["Introduction"];
+				let Temp2 = ["Introduction", "PictureUrl"];
 
 				for (let Type of Temp2) {
 					_this.TableData1.push({

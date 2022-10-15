@@ -173,7 +173,7 @@ export const TableDataMap = {
     size: "尺寸",
     organization: "组织",
     archive_id: "档案编号",
-
+    PictureUrl: "封面图片",
 
     AR: "阿拉伯文",
     BE: "白俄罗斯文",

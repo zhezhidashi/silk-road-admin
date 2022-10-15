@@ -124,12 +124,6 @@ export default {
 			console.log(item);
 			this.$store.commit("selectMenu", item);
 		},
-		Swap(a, b) {
-			let tmp = a;
-			a = b;
-			b = tmp;
-			return [a, b];
-		},
 		UpExhibition(row) {
 			if (row.index === 0) {
 				this.$message({

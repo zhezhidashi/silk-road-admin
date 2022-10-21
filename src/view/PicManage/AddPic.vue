@@ -1,5 +1,32 @@
 <template>
 	<div class="AddPic">
+		<el-upload
+			class="upload-demo"
+			:file-list="fileList"
+			action=""
+			list-type="picture"
+			:http-request="upload"
+			:multiple="false"
+		>
+			<el-button slot="trigger" size="small" type="primary">
+				选取文件
+			</el-button>
+
+			<div slot="tip" class="el-upload__tip">只能上传jpg文件</div>
+		</el-upload>
+
+        <hr />
+
+        <!-- 填写图片的其他信息 -->
+		<common-form
+			:formLabel="OtherInfoLabel"
+			:form="OtherInfo"
+			:inline="true"
+			ref="form"
+		></common-form>
+
+        <hr />
+
 		<el-dialog :title="ButtonList[ButtonID].name" :visible.sync="isShow">
 			<common-form
 				:formLabel="ButtonFormLabel"
@@ -25,14 +52,6 @@
 				>
 			</div>
 		</div>
-
-		<!-- 填写图片的其他信息 -->
-		<common-form
-			:formLabel="OtherInfoLabel"
-			:form="OtherInfo"
-			:inline="true"
-			ref="form"
-		></common-form>
 
 		<!-- 展示 Button 对应的新增的数据 -->
 		<el-table :data="tableData" style="width: 100%">
@@ -66,6 +85,10 @@ export default {
 			// 展览、新增的图片主键
 			ExhibitionID: "",
 			PicID: "",
+
+            // 上传图片的信息
+            fileList: [],
+
 			// 按钮列表
 			ButtonList: [
 				{
@@ -126,6 +149,49 @@ export default {
 		};
 	},
 	methods: {
+
+        // 上传图片
+        upload(f) {
+			// 设置图片上传所需信息
+			let formData = new FormData();
+			formData.append("file_obj", f.file, f.file.name);
+
+			// post 请求上传图片
+			let _this = this;
+
+			postForm("/file/upload/img", formData, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: `${f.file.name} 提交成功`,
+						type: "success",
+					});
+
+					//上传成功之后 显示图片
+					console.log("fileList", _this.fileList);
+					const ImgUrl =
+						"https://dev.pacificsilkroad.cn/img-service" + res.data;
+					console.log("ImgUrl", ImgUrl);
+
+                    _this.OtherInfo.pic_url = ImgUrl;
+
+					_this.fileList.push({
+						name: ImgUrl,
+						url: ImgUrl,
+					});
+				} else if (res.code === 400) {
+					_this.$message({
+						message: "请求对象不存在",
+						type: "error",
+					});
+				} else {
+					_this.$message({
+						message: "网络错误",
+						type: "error",
+					});
+				}
+			});
+		},
+
 		// 按下新增按钮
 		ClickButton(item) {
 			this.ButtonID = item.id;

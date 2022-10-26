@@ -117,6 +117,19 @@ export default {
 			getForm(
 				"/archive/detail?archive_id=" + this.ArchiveID,
 				function (res) {
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else {
+						_this.$message({
+							message: `${res.msg}`,
+							type: "error",
+						});
+                        return;
+					}
+
 					_this.TableData1 = [];
 					_this.TableData2 = [];
 					if (res.code === 400) {
@@ -202,14 +215,9 @@ export default {
 						path: item.path,
 					});
 					_this.$store.commit("selectMenu", item);
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

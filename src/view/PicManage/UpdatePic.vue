@@ -120,8 +120,8 @@ export default {
 			ExhibitionID: "",
 			PicID: "",
 
-            // 上传图片的信息
-            fileList: [],
+			// 上传图片的信息
+			fileList: [],
 
 			// 展示数据相关 一层字典、二层字典
 			TableData1: [],
@@ -214,15 +214,15 @@ export default {
 			ButtonCopy: null,
 		};
 	},
-	created() {
+	mounted() {
 		this.ExhibitionID = this.$route.query.ExhibitionID;
 		this.PicID = this.$route.query.PicID;
 		// 判断是否是从 “图片列表” 页面跳转过来的
 		if (this.ExhibitionID != undefined) this.GetList();
 	},
 	methods: {
-        // 上传图片
-        upload(f) {
+		// 上传图片
+		upload(f) {
 			// 设置图片上传所需信息
 			let formData = new FormData();
 			formData.append("file_obj", f.file, f.file.name);
@@ -243,20 +243,26 @@ export default {
 						"https://dev.pacificsilkroad.cn/img-service" + res.data;
 					console.log("ImgUrl", ImgUrl);
 
-                    _this.OtherInfo.pic_url = ImgUrl;
+					// 修改 OtherInfo 和 tableData 中的数据
+					_this.OtherInfo.pic_url = ImgUrl;
+					_this.TableData1 = [];
+					let Temp = ["pic_url"];
+					for (let Type of Temp) {
+						_this.TableData1.push({
+							Type,
+							TypeName: TableDataMap[Type],
+							TypeData: _this.OtherInfo[Type],
+						});
+					}
 
+					// 把上传的照片放到 fileList 中
 					_this.fileList.push({
 						name: ImgUrl,
 						url: ImgUrl,
 					});
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}
@@ -270,8 +276,21 @@ export default {
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
+				} else {
+					_this.$message({
+						message: `${res.msg}`,
+						type: "error",
+					});
+                    return;
+				}
+
 				let data = res.data;
-				// console.log("data", data);
+
 				_this.TableData1 = [];
 				_this.TableData2 = [];
 				if (res.code === 400) {

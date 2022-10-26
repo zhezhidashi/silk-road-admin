@@ -4,49 +4,52 @@
 			:tableData="tableData"
 			:tableLabel="tableLabel"
 			:config="config"
-			:ShowDetails="true"
+			:ShowDetails="false"
 			:ShowEdit="false"
 			:ShowDelete="false"
 			:ShowUp="false"
 			:ShowDown="false"
+			:ShowRecovery="true"
 			:HandleWidth="'80'"
 			@changePage="GetList()"
-			@details="SeeDetails"
+			@recovery="RecoveryActivity"
 		></common-table>
 	</div>
 </template>
 
 <script>
 import CommonTable from "../../components/CommonTable.vue";
-import { getForm } from "../../api/data";
+import { postForm, getForm } from "../../api/data";
 export default {
-	name: "FeedbackList",
+	name: "RecoveryActivity",
 	components: {
 		CommonTable,
 	},
 	data() {
 		return {
+			totalItem: 0,
 			tableData: [],
 			tableLabel: [
 				{
-					prop: "name",
-					label: "姓名",
-					width: 100,
-				},
-				{
-					prop: "contact",
-					label: "联系方式",
+					prop: "title",
+					label: "活动名称",
 					width: 300,
 				},
 				{
-					prop: "feedback_content",
-					label: "留言内容",
-					width: 500,
+					prop: "intro",
+					label: "活动简介",
+					width: 400,
+				},
+
+				{
+					prop: "date",
+					label: "活动日期",
+					width: 120,
 				},
 				{
 					prop: "show_time",
-					label: "留言时间",
-					width: 250,
+					label: "排序时间",
+					width: 100,
 				},
 			],
 			config: {
@@ -57,21 +60,36 @@ export default {
 		};
 	},
 	methods: {
-		SeeDetails(row) {
-			this.$router.push({
-				path: "/FeedbackContent",
-				query: {
-					Name: row.name,
-					Contact: row.contact,
-					Content: row.feedback_content,
-				},
-			});
+		// 恢复学术活动
+		RecoveryActivity(row) {
+			let _this = this;
+			postForm(
+				"/activity/recovery",
+				{ activity_id: row.activity_id },
+				function (res) {
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else {
+						_this.$message({
+							message: `${res.msg}`,
+							type: "error",
+						});
+					}
+					_this.GetList();
+				}
+			);
 		},
+
+		// 获取学术活动列表
 		GetList() {
 			this.tableData = [];
+			this.totalItem = 0;
 			let _this = this;
-			let url = `/feedback/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
-			console.log("请求的url", url);
+			let url = `/activity/rubbish_bin?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
+			console.log("发出请求", url);
 			getForm(url, function (res) {
 				if (res.code === 0) {
 					_this.$message({
@@ -83,17 +101,21 @@ export default {
 						message: `${res.msg}`,
 						type: "error",
 					});
-                    return;
+                    return ;
 				}
 
 				for (let item of res.data.list) {
 					let new_map = {
-						name: item.name,
-						contact: item.contact,
-						feedback_content: item.feedback_content,
+						activity_id: item.main_id,
+						title: item.title,
+						intro: item.intro,
+						cover_pic: item.cover_pic,
+						date: item.date,
 						show_time: item.show_time,
+						index: _this.totalItem,
 					};
 					_this.tableData.push(new_map);
+					_this.totalItem++;
 				}
 				_this.config.total = res.data.total_items;
 			});

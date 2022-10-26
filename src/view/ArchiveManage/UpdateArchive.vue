@@ -74,7 +74,7 @@
 			:ShowDelete="true"
 			:ShowEdit="true"
 			:ShowUp="false"
-            :ShowDown="false"
+			:ShowDown="false"
 			:HandleWidth="'140'"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
@@ -410,15 +410,22 @@ export default {
 			let url = "/archive/detail?archive_id=" + this.ArchiveID;
 			console.log("请求 url", url);
 			getForm(url, function (res) {
-				_this.TableData1 = [];
-				_this.TableData2 = [];
-				if (res.code === 400) {
+				if (res.code === 0) {
 					_this.$message({
-						message: "数据不存在",
+						message: "提交成功",
+						type: "success",
+					});
+				} else {
+					_this.$message({
+						message: `${res.msg}`,
 						type: "error",
 					});
-					return;
+                    return;
 				}
+
+				_this.TableData1 = [];
+				_this.TableData2 = [];
+
 				// 只有一层字典的有7个数据
 				let Temp = [
 					"begin_year",
@@ -634,14 +641,9 @@ export default {
 						path: item.path,
 					});
 					_this.$store.commit("selectMenu", item);
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

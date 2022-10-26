@@ -1,7 +1,7 @@
 <template>
 	<div class="common-table">
 		<el-table :data="tableData" height="725" stripe>
-			<el-table-column label="操作" :min-width="HandleWidth">
+			<el-table-column label="操作" :width="HandleWidth">
 				<template slot-scope="scope">
 					<el-button
 						v-if="ShowDetails"
@@ -33,6 +33,13 @@
 						type="primary"
 						@click="handleDown(scope.row)"
 						>下移</el-button
+					>
+                    <el-button
+						v-if="ShowRecovery"
+						size="mini"
+						type="primary"
+						@click="handleRecovery(scope.row)"
+						>恢复</el-button
 					>
 				</template>
 			</el-table-column>
@@ -73,6 +80,7 @@ export default {
         ShowDelete: Boolean,
 		ShowUp: Boolean,
         ShowDown: Boolean,
+        ShowRecovery: Boolean,
         HandleWidth: String,
 	},
 	data() {
@@ -93,6 +101,9 @@ export default {
 		},
         handleDown(row){
             this.$emit("down", row);
+        },
+        handleRecovery(row){
+            this.$emit("recovery", row);
         },
 		changePage(page) {
 			this.$emit("changePage", page);

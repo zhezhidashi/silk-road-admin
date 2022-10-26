@@ -27,7 +27,7 @@
 			:ShowEdit="true"
 			:ShowDelete="true"
 			:ShowUp="true"
-            :ShowDown="false"
+			:ShowDown="false"
 			:HandleWidth="'300'"
 			@changePage="GetList()"
 			@details="SeeDetails"
@@ -129,14 +129,9 @@ export default {
 							message: "提交成功",
 							type: "success",
 						});
-					} else if (res.code === 400) {
-						_this.$message({
-							message: "请求对象不存在",
-							type: "error",
-						});
 					} else {
 						_this.$message({
-							message: "网络错误",
+							message: `${res.msg}`,
 							type: "error",
 						});
 					}
@@ -150,14 +145,9 @@ export default {
 							message: "提交成功",
 							type: "success",
 						});
-					} else if (res.code === 400) {
-						_this.$message({
-							message: "请求对象不存在",
-							type: "error",
-						});
 					} else {
 						_this.$message({
-							message: "网络错误",
+							message: `${res.msg}`,
 							type: "error",
 						});
 					}
@@ -216,14 +206,9 @@ export default {
 								message: "提交成功",
 								type: "success",
 							});
-						} else if (res.code === 400) {
-							_this.$message({
-								message: "请求对象不存在",
-								type: "error",
-							});
 						} else {
 							_this.$message({
-								message: "网络错误",
+								message: `${res.msg}`,
 								type: "error",
 							});
 						}
@@ -261,14 +246,9 @@ export default {
 								message: "提交成功",
 								type: "success",
 							});
-						} else if (res.code === 400) {
-							_this.$message({
-								message: "请求对象不存在",
-								type: "error",
-							});
 						} else {
 							_this.$message({
-								message: "网络错误",
+								message: `${res.msg}`,
 								type: "error",
 							});
 						}
@@ -284,6 +264,19 @@ export default {
 			let url = `/activity/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
 			console.log("发出请求", url);
 			getForm(url, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
+				} else {
+					_this.$message({
+						message: `${res.msg}`,
+						type: "error",
+					});
+                    return;
+				}
+
 				for (let item of res.data.list) {
 					let new_map = {
 						activity_id: item.main_id,

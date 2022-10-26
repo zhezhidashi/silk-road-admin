@@ -97,6 +97,19 @@ export default {
 			console.log("请求的url", url);
 
 			getForm(url, function (res) {
+				if (res.code === 0) {
+					_this.$message({
+						message: "提交成功",
+						type: "success",
+					});
+				} else {
+					_this.$message({
+						message: `${res.msg}`,
+						type: "error",
+					});
+                    return;
+				}
+
 				_this.config.total = 0;
 
 				for (let item of res.data.pic_list) {
@@ -223,14 +236,9 @@ export default {
 					});
 					console.log(item);
 					_this.$store.commit("selectMenu", item);
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

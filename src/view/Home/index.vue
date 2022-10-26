@@ -6,7 +6,7 @@
 				padding: 10px;
 				width: 100px;
 				height: 40px;
-				background: skyblue;
+				background: red;
 				display: flex;
 				justify-content: center;
 				align-items: center;
@@ -59,7 +59,7 @@ export default {
 				"/activity/detail",
 				"/archive/list",
 				"/archive/detail",
-                "/exhibition/list",
+				"/exhibition/list",
 				"/exhibition/detail",
 			],
 			CountUrl: {
@@ -67,7 +67,7 @@ export default {
 				"/activity/detail": 0,
 				"/archive/list": 0,
 				"/archive/detail": 0,
-                "/exhibition/list": 0,
+				"/exhibition/list": 0,
 				"/exhibition/detail": 0,
 			},
 		};
@@ -77,9 +77,22 @@ export default {
 		GetData() {
 			let _this = this;
 			for (let target_url of this.TargetUrl) {
-                let url = `/visit/count?&target_url=${target_url}`;
-                console.log('请求的url', url)
+				let url = `/visit/count?&target_url=${target_url}`;
+				console.log("请求的url", url);
 				getForm(url, (res) => {
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else {
+						_this.$message({
+							message: `${res.msg}`,
+							type: "error",
+						});
+                        return;
+					}
+
 					_this.CountUrl[target_url] = res.data[target_url];
 				});
 			}
@@ -115,8 +128,8 @@ export default {
 								"活动详情",
 								"档案列表",
 								"档案详情",
-                                "展览列表",
-                                "展览详情",
+								"展览列表",
+								"展览详情",
 							],
 							axisLine: {
 								lineStyle: {
@@ -147,8 +160,8 @@ export default {
 									this.CountUrl["/activity/detail"],
 									this.CountUrl["/archive/list"],
 									this.CountUrl["/archive/detail"],
-                                    this.CountUrl["/exhibition/list"],
-                                    this.CountUrl["/exhibition/detail"],
+									this.CountUrl["/exhibition/list"],
+									this.CountUrl["/exhibition/detail"],
 								],
 								type: "bar",
 							},

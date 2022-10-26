@@ -84,11 +84,11 @@ export default {
 					label: "展览简介",
 					type: "input",
 				},
-                {
-                    model: "PictureUrl",
-                    label: "封面图片",
-                    type: "input",
-                },
+				{
+					model: "PictureUrl",
+					label: "封面图片",
+					type: "input",
+				},
 				{
 					model: "show_time",
 					label: "排序时间",
@@ -98,7 +98,7 @@ export default {
 			OtherInfo: {
 				title: "",
 				Introduction: "",
-                PictureUrl: "",
+				PictureUrl: "",
 				show_time: "",
 			},
 		};
@@ -115,14 +115,20 @@ export default {
 			let url = "/exhibition/detail?exhibition_id=" + this.ExhibitionID;
 			console.log("请求的url", url);
 			getForm(url, function (res) {
-				_this.TableData1 = [];
-				if (res.code === 400) {
+				if (res.code === 0) {
 					_this.$message({
-						message: "数据不存在",
+						message: "提交成功",
+						type: "success",
+					});
+				} else {
+					_this.$message({
+						message: `${res.msg}`,
 						type: "error",
 					});
-					return;
+                    return;
 				}
+
+				_this.TableData1 = [];
 
 				// 一级数据
 				let Temp1 = ["title", "show_time"];
@@ -169,7 +175,7 @@ export default {
 				title: this.TableData1[0].TypeData,
 				show_time: this.TableData1[1].TypeData,
 				Introduction: this.TableData1[2].TypeData,
-                PictureUrl: this.TableData1[3].TypeData,
+				PictureUrl: this.TableData1[3].TypeData,
 			};
 		},
 
@@ -212,14 +218,9 @@ export default {
 						path: item.path,
 					});
 					_this.$store.commit("selectMenu", item);
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

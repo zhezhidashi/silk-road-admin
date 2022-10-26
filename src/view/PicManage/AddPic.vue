@@ -15,9 +15,9 @@
 			<div slot="tip" class="el-upload__tip">只能上传jpg文件</div>
 		</el-upload>
 
-        <hr />
+		<hr />
 
-        <!-- 填写图片的其他信息 -->
+		<!-- 填写图片的其他信息 -->
 		<common-form
 			:formLabel="OtherInfoLabel"
 			:form="OtherInfo"
@@ -25,7 +25,7 @@
 			ref="form"
 		></common-form>
 
-        <hr />
+		<hr />
 
 		<el-dialog :title="ButtonList[ButtonID].name" :visible.sync="isShow">
 			<common-form
@@ -86,8 +86,8 @@ export default {
 			ExhibitionID: "",
 			PicID: "",
 
-            // 上传图片的信息
-            fileList: [],
+			// 上传图片的信息
+			fileList: [],
 
 			// 按钮列表
 			ButtonList: [
@@ -149,9 +149,8 @@ export default {
 		};
 	},
 	methods: {
-
-        // 上传图片
-        upload(f) {
+		// 上传图片
+		upload(f) {
 			// 设置图片上传所需信息
 			let formData = new FormData();
 			formData.append("file_obj", f.file, f.file.name);
@@ -172,20 +171,15 @@ export default {
 						"https://dev.pacificsilkroad.cn/img-service" + res.data;
 					console.log("ImgUrl", ImgUrl);
 
-                    _this.OtherInfo.pic_url = ImgUrl;
+					_this.OtherInfo.pic_url = ImgUrl;
 
 					_this.fileList.push({
 						name: ImgUrl,
 						url: ImgUrl,
 					});
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

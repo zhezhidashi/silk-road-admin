@@ -186,7 +186,31 @@ const routes = [
                     title: '用户留言内容'
                 },
                 component: () => import('../view/Feedback/FeedbackContent')
-            }
+            },
+            {
+                path: '/RecoveryArchive',
+                name: 'RecoveryArchive',
+                meta: {
+                    title: '恢复档案'
+                },
+                component: () => import('../view/RubbishBin/RecoveryArchive')
+            },
+            {
+                path: '/RecoveryActivity',
+                name: 'RecoveryActivity',
+                meta: {
+                    title: '恢复学术活动'
+                },
+                component: () => import('../view/RubbishBin/RecoveryActivity')
+            },
+            {
+                path: '/RecoveryExhibition',
+                name: 'RecoveryExhibition',
+                meta: {
+                    title: '恢复展览'
+                },
+                component: () => import('../view/RubbishBin/RecoveryExhibition')
+            },
         ]
     },
     {

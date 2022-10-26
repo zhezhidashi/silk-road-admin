@@ -1,24 +1,19 @@
 <template>
 	<div>
-		<div class="manage-header">
-			<el-button type="primary" @click="AddArchive">+新增</el-button>
-		</div>
 		<div class="common-table">
 			<common-table
 				:tableData="tableData"
 				:tableLabel="tableLabel"
 				:config="config"
-				:ShowDetails="true"
-				:ShowEdit="true"
-				:ShowDelete="true"
-				:ShowUp="true"
+				:ShowDetails="false"
+				:ShowEdit="false"
+				:ShowDelete="false"
+				:ShowUp="false"
 				:ShowDown="false"
-				:HandleWidth="'300'"
+				:ShowRecovery="true"
+				:HandleWidth="'80'"
 				@changePage="GetList()"
-				@details="SeeDetails"
-				@edit="UpdateArchive"
-				@del="DeleteArchive"
-				@up="UpArchive"
+				@recovery="RecoveryArchive"
 			></common-table>
 		</div>
 	</div>
@@ -28,7 +23,7 @@
 import { getForm, postForm, Swap } from "../../api/data";
 import CommonTable from "../../components/CommonTable.vue";
 export default {
-	name: "ArchiveList",
+	name: "RecoveryArchive",
 	components: {
 		CommonTable,
 	},
@@ -61,107 +56,35 @@ export default {
 		};
 	},
 	methods: {
-		AddArchive() {
-			let item = {
-				path: "/AddArchive",
-				name: "AddArchive",
-				label: "添加档案",
-			};
-
-			this.$router.push({
-				path: item.path,
-			});
-			console.log(item);
-			this.$store.commit("selectMenu", item);
-		},
-		SeeDetails(row) {
-			let url =
-				"https://dev.pacificsilkroad.cn/ArchiveDetails?search_result_id=" +
-				row.archive_id;
-			window.open(url, "_blank");
-		},
-		UpdateArchive(row) {
-			let item = {
-				path: "/UpdateArchive",
-				name: "UpdateArchive",
-				label: "更新档案",
-			};
-
-			this.$router.push({
-				path: item.path,
-				query: {
-					main_id: row.archive_id,
-				},
-			});
-			console.log(item);
-			this.$store.commit("selectMenu", item);
-		},
-
-		DeleteArchive(row) {
-			let item = {
-				path: "/DeleteArchive",
-				name: "DeleteArchive",
-				label: "删除档案",
-			};
-
-			this.$router.push({
-				path: item.path,
-				query: {
-					main_id: row.archive_id,
-				},
-			});
-			console.log(item);
-			this.$store.commit("selectMenu", item);
-		},
-		UpArchive(row) {
-			if (row.index === 0) {
-				this.$message({
-					message: "已经是第一个了",
-					type: "error",
-				});
-				return;
-			}
-			const res = Swap(
-				this.tableData[row.index].show_time,
-				this.tableData[row.index - 1].show_time
-			);
-			this.tableData[row.index].show_time = res[0];
-			this.tableData[row.index - 1].show_time = res[1];
-			console.log(
-				this.tableData[row.index].show_time,
-				this.tableData[row.index - 1].show_time
-			);
+		// 恢复档案
+		RecoveryArchive(row) {
 			let _this = this;
-			postForm("/archive/update", _this.tableData[row.index], (res) => {
-				postForm(
-					"/archive/update",
-					_this.tableData[row.index - 1],
-					(res) => {
-						if (res.code === 0) {
-							_this.$message({
-								message: "提交成功",
-								type: "success",
-							});
-						} else {
-							_this.$message({
-								message: `${res.msg}`,
-								type: "error",
-							});
-						}
-						_this.GetList();
+			postForm(
+				"/archive/recovery",
+				{ archive_id: row.archive_id },
+				function (res) {
+					if (res.code === 0) {
+						_this.$message({
+							message: "提交成功",
+							type: "success",
+						});
+					} else {
+						_this.$message({
+							message: `${res.msg}`,
+							type: "error",
+						});
 					}
-				);
-			});
+					_this.GetList();
+				}
+			);
 		},
 
-		changePage(page) {
-			this.$emit("changePage", page);
-		},
+		// 获取档案列表
 		GetList() {
 			this.tableData = [];
 			this.totalItem = 0;
 			let _this = this;
-			let url = `/archive/list?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
+			let url = `/archive/rubbish_bin?&page_index=${this.config.page}&page_size=${this.config.page_size}`;
 			console.log("请求url", url);
 			getForm(url, function (res) {
 				if (res.code === 0) {
@@ -176,7 +99,6 @@ export default {
 					});
                     return;
 				}
-                
 				for (let item of res.data.list) {
 					let new_map = {
 						title_zh: "N/A",

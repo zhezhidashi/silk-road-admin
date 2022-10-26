@@ -140,6 +140,28 @@ export const getMenu = (params, callback) => {
                             ],
                         },
                         {
+                            name: 'RubbishBin',
+                            label: '误删恢复',
+                            icon: 'delete',
+                            children: [
+                                {
+                                    path: '/RecoveryArchive',
+                                    name: 'RecoveryArchive',
+                                    label: '档案恢复',
+                                },
+                                {
+                                    path: '/RecoveryActivity',
+                                    name: 'RecoveryActivity',
+                                    label: '学术活动恢复',
+                                },
+                                {
+                                    path: '/RecoveryExhibition',
+                                    name: 'RecoveryExhibition',
+                                    label: '展览恢复',
+                                },
+                            ],
+                        },
+                        {
                             name: 'Feedback',
                             label: '用户留言',
                             icon: 's-comment',

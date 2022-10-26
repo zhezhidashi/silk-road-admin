@@ -47,16 +47,16 @@ export default {
 					label: "展览简介",
 					type: "input",
 				},
-                {
-                    model: "PictureUrl",
-                    label: "封面图片",
-                    type: "input",
-                }
+				{
+					model: "PictureUrl",
+					label: "封面图片",
+					type: "input",
+				},
 			],
 			OtherInfo: {
 				title: "",
 				Introduction: "",
-                PictureUrl: "",
+				PictureUrl: "",
 			},
 		};
 	},
@@ -66,21 +66,17 @@ export default {
 			// 需要提交的数据表单
 			let DataForm = {};
 
-            // 一级数据
-            let Temp1 = [
-                'title',
-            ]
-            for(let item of Temp1){
-                DataForm[item] = this.OtherInfo[item]
-            }
-            // 二级数据
-            let Temp2 = [
-                "Introduction", "PictureUrl"
-            ]
-            DataForm["intro"] = {};
-            for(let item of Temp2){
-                DataForm["intro"][item] = this.OtherInfo[item]
-            }
+			// 一级数据
+			let Temp1 = ["title"];
+			for (let item of Temp1) {
+				DataForm[item] = this.OtherInfo[item];
+			}
+			// 二级数据
+			let Temp2 = ["Introduction", "PictureUrl"];
+			DataForm["intro"] = {};
+			for (let item of Temp2) {
+				DataForm["intro"][item] = this.OtherInfo[item];
+			}
 
 			let _this = this;
 			// console.log("DataForm", DataForm);
@@ -90,7 +86,7 @@ export default {
 						message: "提交成功",
 						type: "success",
 					});
-                    // 提交成功后退回列表界面
+					// 提交成功后退回列表界面
 					let item = {
 						path: "/ExhibitionDetails",
 						name: "ExhibitionDetails",
@@ -100,14 +96,9 @@ export default {
 						path: item.path,
 					});
 					_this.$store.commit("selectMenu", item);
-				} else if (res.code === 400) {
-					_this.$message({
-						message: "请求对象不存在",
-						type: "error",
-					});
 				} else {
 					_this.$message({
-						message: "网络错误",
+						message: `${res.msg}`,
 						type: "error",
 					});
 				}

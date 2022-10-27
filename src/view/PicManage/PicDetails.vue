@@ -100,10 +100,10 @@ export default {
 
 			getForm(url, function (res) {
 				if (res.code === 0) {
-					_this.$message({
-						message: "提交成功",
-						type: "success",
-					});
+					// _this.$message({
+					// 	message: "提交成功",
+					// 	type: "success",
+					// });
 				} else {
 					_this.$message({
 						message: `${res.msg}`,

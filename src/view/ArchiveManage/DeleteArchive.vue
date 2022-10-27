@@ -118,10 +118,10 @@ export default {
 				"/archive/detail?archive_id=" + this.ArchiveID,
 				function (res) {
 					if (res.code === 0) {
-						_this.$message({
-							message: "提交成功",
-							type: "success",
-						});
+						// _this.$message({
+						// 	message: "提交成功",
+						// 	type: "success",
+						// });
 					} else {
 						_this.$message({
 							message: `${res.msg}`,

@@ -29,6 +29,7 @@
 			:ShowUp="true"
 			:ShowDown="false"
 			:HandleWidth="'300'"
+            :ShowOverflowTooltip="false"
 			@changePage="GetList()"
 			@details="SeeDetails"
 			@edit="UpdateActivity"
@@ -97,7 +98,7 @@ export default {
 				{
 					prop: "intro",
 					label: "活动简介",
-					width: 400,
+					width: 600,
 				},
 
 				{

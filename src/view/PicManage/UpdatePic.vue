@@ -78,6 +78,7 @@
 			:ShowUp="false"
 			:ShowDown="false"
 			:HandleWidth="'150'"
+            :ShowOverflowTooltip="false"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
 		></common-table>
@@ -140,7 +141,7 @@ export default {
 				{
 					prop: "Content",
 					label: "内容",
-					width: 400,
+					width: 600,
 				},
 			],
 

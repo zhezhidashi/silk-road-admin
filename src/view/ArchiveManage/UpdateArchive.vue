@@ -76,6 +76,7 @@
 			:ShowUp="false"
 			:ShowDown="false"
 			:HandleWidth="'140'"
+            :ShowOverflowTooltip="false"
 			@edit="UpdateDataDown"
 			@del="DeleteDataDown"
 		></common-table>

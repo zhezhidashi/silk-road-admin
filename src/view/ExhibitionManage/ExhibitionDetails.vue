@@ -14,6 +14,7 @@
 				:ShowUp="true"
 				:ShowDown="false"
 				:HandleWidth="'300'"
+                :ShowOverflowTooltip="true"
 				@changePage="GetList()"
 				@details="SeeDetails"
 				@edit="UpdateExhibition"

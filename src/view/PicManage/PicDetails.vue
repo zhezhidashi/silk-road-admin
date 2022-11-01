@@ -28,6 +28,7 @@
 			:ShowUp="false"
 			:ShowDown="false"
 			:HandleWidth="'210'"
+            :ShowOverflowTooltip="true"
 			@changePage="GetList"
 			@details="SeeDetails"
 			@edit="UpdatePic"

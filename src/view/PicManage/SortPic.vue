@@ -28,6 +28,7 @@
 			:ShowUp="true"
 			:ShowDown="true"
 			:HandleWidth="'150'"
+            :ShowOverflowTooltip="true"
 			@up="PicUp"
 			@down="PicDown"
 		></common-table>

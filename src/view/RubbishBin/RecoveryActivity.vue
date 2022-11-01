@@ -11,6 +11,7 @@
 			:ShowDown="false"
 			:ShowRecovery="true"
 			:HandleWidth="'80'"
+            :ShowOverflowTooltip="true"
 			@changePage="GetList()"
 			@recovery="RecoveryActivity"
 		></common-table>

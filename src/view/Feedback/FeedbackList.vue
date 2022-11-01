@@ -10,6 +10,7 @@
 			:ShowUp="false"
 			:ShowDown="false"
 			:HandleWidth="'80'"
+            :ShowOverflowTooltip="false"
 			@changePage="GetList()"
 			@details="SeeDetails"
 		></common-table>

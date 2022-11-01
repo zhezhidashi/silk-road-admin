@@ -44,7 +44,7 @@
 				</template>
 			</el-table-column>
 			<el-table-column
-				show-overflow-tooltip
+				:show-overflow-tooltip="ShowOverflowTooltip"
 				v-for="item in tableLabel"
 				:key="item.prop"
 				:label="item.label"
@@ -82,6 +82,7 @@ export default {
         ShowDown: Boolean,
         ShowRecovery: Boolean,
         HandleWidth: String,
+        ShowOverflowTooltip: Boolean,
 	},
 	data() {
 		return {};

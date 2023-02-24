@@ -158,7 +158,7 @@ export default {
 		},
 		SeeDetails(row) {
 			let url =
-				"https://dev.pacificsilkroad.cn/AcademicActivityDetails?academic_activity_id=" +
+				"162.105.209.20/AcademicActivityDetails?academic_activity_id=" +
 				row.activity_id;
 			window.open(url, "_blank");
 		},

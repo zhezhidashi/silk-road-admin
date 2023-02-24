@@ -5,8 +5,9 @@ import store from '../store'
 import nprogress from 'nprogress';
 import "nprogress/nprogress.css";
 
-export const baseUrl = '/api'
+// export const baseUrl = '/api'
 // export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
+export const baseUrl = '162.105.209.20/api-service'
 
 
 export const getData = () => {

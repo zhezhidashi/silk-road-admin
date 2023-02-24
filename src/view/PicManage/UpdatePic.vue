@@ -241,7 +241,7 @@ export default {
 					//上传成功之后 显示图片
 					console.log("fileList", _this.fileList);
 					const ImgUrl =
-						"https://dev.pacificsilkroad.cn/img-service" + res.data;
+						"162.105.209.20/img-service" + res.data;
 					console.log("ImgUrl", ImgUrl);
 
 					// 修改 OtherInfo 和 tableData 中的数据

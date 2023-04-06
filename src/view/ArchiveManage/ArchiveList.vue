@@ -22,6 +22,21 @@
 				@up="UpArchive"
 			></common-table>
 		</div>
+
+        <hr />
+        <el-form ref="form" label-width="80px">
+			<el-form-item label="页数">
+				<el-input
+					v-model="InputPageIndex"
+					placeholder="请输入页数"
+				></el-input>
+			</el-form-item>
+
+			<!-- 查询展览 -->
+			<el-form-item class="manage-header">
+				<el-button type="primary" @click="SubmitInputPageIndex">提交</el-button>
+			</el-form-item>
+		</el-form>
 	</div>
 </template>
 
@@ -59,6 +74,7 @@ export default {
 				total: 1,
 				page_size: 15,
 			},
+            InputPageIndex: 1,
 		};
 	},
 	methods: {
@@ -220,6 +236,20 @@ export default {
 				_this.config.total = res.data.total_items;
 			});
 		},
+
+        SubmitInputPageIndex(){
+            let total_page = Math.ceil(this.config.total / this.config.page_size);
+            if(this.InputPageIndex > total_page || this.InputPageIndex < 1)
+            {
+                this.$message({
+                    message: "输入页码不合法",
+                    type: "error",
+                });
+                return;
+            }
+            this.config.page = this.InputPageIndex;
+            this.GetList();
+        },
 	},
 	created() {
 		this.GetList();

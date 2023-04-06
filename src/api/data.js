@@ -7,7 +7,7 @@ import "nprogress/nprogress.css";
 
 // export const baseUrl = '/api'
 // export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
-export const baseUrl = '162.105.209.20/api-service'
+export const baseUrl = 'http://162.105.209.20:443/api-service'
 
 
 export const getData = () => {
@@ -82,6 +82,7 @@ export const getMenu = (params, callback) => {
         method: 'post',
         data: params
     }).then(({ data: res }) => {
+        console.log('login 的 response', res);
         nprogress.done()
         // code 为 0 表示管理员登录
         if (res.code === 400) {

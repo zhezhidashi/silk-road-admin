@@ -158,7 +158,7 @@ export default {
 		},
 		SeeDetails(row) {
 			let url =
-				"162.105.209.20/AcademicActivityDetails?academic_activity_id=" +
+				"http://162.105.209.20/AcademicActivityDetails?academic_activity_id=" +
 				row.activity_id;
 			window.open(url, "_blank");
 		},

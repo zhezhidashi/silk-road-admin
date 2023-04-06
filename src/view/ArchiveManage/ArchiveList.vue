@@ -77,7 +77,7 @@ export default {
 		},
 		SeeDetails(row) {
 			let url =
-				"162.105.209.20/ArchiveDetails?search_result_id=" +
+				"http://162.105.209.20/ArchiveDetails?search_result_id=" +
 				row.archive_id;
 			window.open(url, "_blank");
 		},

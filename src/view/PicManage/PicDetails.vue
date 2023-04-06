@@ -202,7 +202,7 @@ export default {
 
 		SeeDetails(row) {
 			// 这里为了方便客户端的图片切换效果，因此 PictureID 用的是 index 而不是 pic_id
-			let url = `162.105.209.20/Pictures?ExhibitionID=${this.ExhibitionID}&PictureID=${row.index}`;
+			let url = `http://162.105.209.20/Pictures?ExhibitionID=${this.ExhibitionID}&PictureID=${row.index}`;
 			window.open(url, "_blank");
 		},
 

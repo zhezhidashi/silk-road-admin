@@ -158,7 +158,7 @@ export default {
 		},
 		SeeDetails(row) {
 			let url =
-				"http://162.105.209.20/AcademicActivityDetails?academic_activity_id=" +
+				"https://apsr.pku.edu.cn/AcademicActivityDetails?academic_activity_id=" +
 				row.activity_id;
 			window.open(url, "_blank");
 		},

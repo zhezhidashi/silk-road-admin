@@ -46,7 +46,7 @@ export default {
 					//上传成功之后 显示图片
 					console.log("fileList", _this.fileList);
 					const ImgUrl =
-						"http://162.105.209.20/img-service" + res.data;
+						"https://apsr.pku.edu.cn/img-service" + res.data;
 					console.log("ImgUrl", ImgUrl);
 					_this.fileList.push({
 						name: ImgUrl,

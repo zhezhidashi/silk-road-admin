@@ -93,7 +93,7 @@ export default {
 		},
 		SeeDetails(row) {
 			let url =
-				"http://162.105.209.20/ArchiveDetails?search_result_id=" +
+				"https://apsr.pku.edu.cn/ArchiveDetails?search_result_id=" +
 				row.archive_id;
 			window.open(url, "_blank");
 		},

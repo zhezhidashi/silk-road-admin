@@ -9,7 +9,7 @@
             </el-breadcrumb> -->
         </div>
         <div class="r-content">
-            <el-dropdown trigger="click" szie="mini">
+            <el-dropdown trigger="click" size="mini">
                 <span>
                     <img class="user" :src="userImg">
                 </span>

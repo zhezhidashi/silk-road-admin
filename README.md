@@ -17,6 +17,11 @@ yarn serve
 yarn build
 ```
 
+### 打包
+```
+tar cvf dist.tar dist
+```
+
 ### Customize configuration
 See [Configuration Reference](https://cli.vuejs.org/config/).
 

@@ -7,8 +7,8 @@ import "nprogress/nprogress.css";
 
 // export const baseUrl = '/api'
 // export const baseUrl = 'https://dev_admin.pacificsilkroad.cn/api-service'
-// export const baseUrl = 'http://162.105.209.20:443/api-service'
-export const baseUrl = "https://apsr.pku.edu.cn/api-service"
+export const baseUrl = 'http://162.105.209.20:443/api-service'
+// export const baseUrl = "https://apsr.pku.edu.cn/api-service"
 
 
 export const getData = () => {
